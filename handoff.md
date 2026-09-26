@@ -1,6 +1,6 @@
 # Handoff — BISWODIP-GOJ-UNIFIED-ENGINEERING
 
-_Last updated: 2026-09-23T15:05:00.000Z_
+_Last updated: 2026-09-26T12:30:00.000Z_
 
 Read this first. Verify section 2 against the repository (`git status`, run the build) before trusting it, then continue from section 6.
 
@@ -28,18 +28,18 @@ Maintain the Biswodip Goj Unified Engineering system: one evidence-driven operat
 
 > Facts below are refreshed by `biswodip handoff update`. Everything outside this block is written by hand — do not let the tool own your reasoning.
 
-- **Version:** 2.1.0 — not yet a git repository in this working copy; initialise and push per `docs/GITHUB.md`.
-- **Package self-verification:** VERIFIED (only PowerShell parsing is UNVERIFIED where `pwsh` is unavailable; CI covers it on Windows).
-- **Tests:** passing.
+- **Version:** 2.3.0 — git repository on branch `main`, remote `origin` = github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills.
+- **Package self-verification:** VERIFIED — 78/84, 0 FAILED. 6 UNVERIFIED = the five omitted upstream snapshots (this is the core-build copy; `upstream/.snapshots-omitted` present) plus PowerShell parsing.
+- **Tests:** 49/53 pass. The 4 failures are all environmental in this core-build copy (bundled-snapshot checks + offline/full install need the omitted `upstream/` snapshots or network) — not regressions.
 
 <!-- biswodip:auto:end -->
 
-- **Lifecycle phase:** 13 — release. v2.1.0 packaged and delivered as zip; GitHub push pending on the owner.
-- **Builds / tests:** `node bin/biswodip.mjs verify-package` → 0 FAILED. `node --test test/tooling.test.mjs` → all pass. `node bin/biswodip.mjs build-skill` → 7 skills, all in sync.
-- **Verified by running:** live install cloned all 5 repos at pinned commits and installed 36 upstream skills; re-run reinstalled nothing; tampering with a vendored `LICENSE` is caught by `verify`; Strix guard refuses a non-loopback target (exit 6) and reports BLOCKED without Docker (exit 5); gates catch a planted AWS key with the value masked; the no-Node fallback still clones all five.
-- **UNVERIFIED:** PowerShell script parsing (no `pwsh` in the build container — CI matrix covers Windows). The `.ps1` wrappers have not been executed on a real Windows host.
+- **Lifecycle phase:** 13 — release, plus in-flight distribution work (the portfolio site).
+- **Builds / tests:** `verify-package` → 0 FAILED. `npm test` → 49/53 (4 expected snapshot/install failures, see above). Site `tsc --noEmit` → clean; static export exists in `site/out/` (full `next build` is slow — three.js-heavy).
+- **Verified by running (this session):** re-ran `generate-site-capabilities.mjs` — no drift, catalog and `site/src/data/capabilities.ts` in sync (89 capabilities, 45 required); `tsc --noEmit` clean across `page.tsx` + all 3D components; `verify-package` 0 FAILED.
+- **UNVERIFIED:** PowerShell `.ps1` parsing (no `pwsh` here — CI covers Windows). A fresh full `next build` — exceeds the sandbox's ~3-min per-call cap; compiles under `tsc` and a prior static export exists.
 - **BLOCKED:** nothing.
-- **OPEN:** the repository has never been pushed; the CI badge in `README.md` will 404 until it is.
+- **OPEN:** the site is not yet deployed (Vercel config `site/vercel.json` present); README CI badge depends on Actions being green on `origin`.
 
 ## 3) Active files
 
@@ -70,6 +70,8 @@ Maintain the Biswodip Goj Unified Engineering system: one evidence-driven operat
 6. Fixed v1.2.0 defects: missing YAML frontmatter, `citeturn0view0` corruption, literal `\n` escapes, duplicate section numbers, a reference to a `run-local-pentest.ps1` that did not exist, automatic `npm install` into the user's project, no retries or verification in the installer, a stale `.tgz` inside the package.
 7. **v2.1.0 — context surgery.** Split the monolith into 7 GitHub-installable skills; the router's `SKILL.md` went from ~12,900 to ~1,365 tokens on trigger (−89%). Added `handoff.md` tooling, `docs/GITHUB.md`, `docs/CONTEXT-BUDGET.md`, and a per-skill budget check in `verify-package`.
 8. Evidence: `.biswodip/evidence/` in any project the tooling runs against; the build ran `verify-package`, `node --test`, a live pinned install, an offline install, and the Strix guard checks.
+9. **v2.2.0 / v2.3.0 — distribution + orchestration.** Added the `/dip` entry layer and installers (v2.2.0), then auto-planning, specialist subagents and the `/dip-setapi` LLM gateway (v2.3.0). See `CHANGELOG.md`.
+10. **Portfolio site + catalog expansion (2026-09-26, commit `3169fe7`).** Expanded `integrations/catalog.json` with 44 top-starred repos (89 capabilities, 45 required) via `scripts/add-top-starred.mjs`; the catalog is the single source of truth. `scripts/generate-site-capabilities.mjs` → `site/src/data/capabilities.ts` → `scripts/wire-site-capabilities.mjs` wires it into `site/src/app/page.tsx`. Added the Next.js site under `site/` (React 18, framer-motion, three.js, Tailwind; 3D visuals; static export). Catalog + scripts propagated to all 7 `skills/biswodip-*` mirrors. `.kilo/` (Kilo Code worktree metadata) is now gitignored.
 
 ## 5) Failed attempts
 
@@ -87,12 +89,12 @@ Maintain the Biswodip Goj Unified Engineering system: one evidence-driven operat
 
 <!-- biswodip:next -->
 
-1. **Push to GitHub** — follow `docs/GITHUB.md` exactly (`git init`, add, commit, `gh repo create Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING --public --source=. --push`). Confirm the Actions run is green; the README badge resolves only after that.
-2. **Verify the install path from GitHub** in a scratch project: `npx skills add Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING` then confirm 7 skill folders appear in `.claude/skills` and the router triggers by description.
-3. **Run the Windows leg** once: `scripts\install-integrations.ps1 -Root .` and `integrations\strix\run-local-pentest.ps1 -DryRun` on a real Windows host, then move PowerShell parsing from UNVERIFIED to VERIFIED in the evidence matrix.
-4. **Exercise Strix end to end** on a disposable local app with Docker running and `STRIX_LLM` / `LLM_API_KEY` set — quick, then standard — and confirm the runner classifies `run.json` correctly for a findings run (exit 2) and a clean one.
-5. **Refresh upstream** before any release: `node bin/biswodip.mjs refresh-snapshots` then `verify-package`. Taste, Strix and Headroom all moved during the 2.0.0 build, so the pinned commits are already behind HEAD. Never refresh immediately before shipping.
-6. **Open questions for the owner:** keep Apache-2.0 or revert to MIT? Publish to npm under `biswodip-goj-unified-engineering`, or GitHub-only? Should the repository be public (the upstream licences allow redistribution) or private?
+1. **Deploy the portfolio site.** `site/` has `vercel.json` and produces a static export; wire it to Vercel (or GitHub Pages) and confirm the live build matches `tsc`/local export. When editing capabilities, edit `integrations/catalog.json` then re-run `generate-site-capabilities.mjs` + `wire-site-capabilities.mjs` — never hand-edit `capabilities.ts`.
+2. **Push and confirm CI green** on `origin/main`; the README badge resolves only after Actions passes.
+3. **Verify the install path from GitHub** in a scratch project: `npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills`, then confirm the skill folders appear in `.claude/skills` and the router triggers by description.
+4. **Run the Windows leg** once: `scripts\install-integrations.ps1 -Root .` and `integrations\strix\run-local-pentest.ps1 -DryRun` on a real Windows host, then move PowerShell parsing from UNVERIFIED to VERIFIED.
+5. **Exercise Strix end to end** on a disposable local app with Docker running and `STRIX_LLM` / `LLM_API_KEY` set — confirm `run.json` classification for a findings run (exit 2) and a clean one.
+6. **Refresh upstream** before any release: `node bin/biswodip.mjs refresh-snapshots` then `verify-package`. Never refresh immediately before shipping.
 
 ---
 
