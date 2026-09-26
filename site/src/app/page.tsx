@@ -1,373 +1,714 @@
 'use client';
 
+// SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 Biswodip Goj
+// Site for BISWODIP-ENGINEERING-skills. Every visual represents a real artifact
+// in the repository — no invented scenery, per the design skill's anti-slop rule
+// (references/06 §14.1: "no fake 3D, no decoration without purpose").
+//
+// Palette is the repository's own: assets/banner.svg uses navy #0B1220→#15243C
+// with cyan #22D3EE and indigo #6366F1.
+
 import { useRef, useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import {
+  CAPABILITIES,
+  CAPABILITY_LABEL,
+  CAPABILITY_SECTIONS,
+  CAPABILITY_TOTAL,
+  CAPABILITY_REQUIRED,
+} from '@/data/capabilities';
+import { ScrollProgress, CustomCursor } from '@/components/Cinematic';
+import { ZoomSection, ScrollReveal } from '@/components/ScrollEffects';
+import { GateTally, SecurityBoard, CommandLog, ReleaseGateMeter } from '@/components/RepoVisuals';
 
-const SKILLS = [
-  { name: 'TypeScript', level: 95 }, { name: 'React / Next.js', level: 92 },
-  { name: 'Node.js', level: 88 }, { name: 'Python', level: 82 },
-  { name: 'Security Engineering', level: 90 }, { name: 'Animation / Framer Motion', level: 87 },
-  { name: 'Kubernetes / Infra', level: 78 }, { name: 'Database / Prisma', level: 85 },
-  { name: 'Testing / Keploy', level: 80 }, { name: 'UI/UX Design', level: 88 },
-];
+const PipelineScene3D = dynamic(() => import('@/components/PipelineScene3D'), { ssr: false });
+const CapabilityGraph3D = dynamic(() => import('@/components/CapabilityGraph3D'), { ssr: false });
+const LifecycleTunnel = dynamic(() => import('@/components/LifecycleTunnel'), { ssr: false });
+const IntegrationCube = dynamic(() => import('@/components/IntegrationCube'), { ssr: false });
 
-const REPOS = [
-  { id: 'jev-ultrafast', name: 'Browser Automation', color: '#00d4ff', desc: 'Primary browser driver for goal-driven tasks. Replaces Playwright.', icon: '🔮' },
-  { id: 'motion', name: 'Motion', color: '#8b5cf6', desc: 'Layout animations, gestures, springs, scroll-linked motion.', icon: '⚡' },
-  { id: 'anime', name: 'Anime.js', color: '#a78bfa', desc: 'Framework-free timelines for DOM, SVG and CSS.', icon: '🎬' },
-  { id: 'animate-css', name: 'Animate.css', color: '#c084fc', desc: 'Drop-in CSS keyframe classes. Honour prefers-reduced-motion.', icon: '🎨' },
-  { id: 'bootstrap', name: 'Bootstrap', color: '#60a5fa', desc: 'Responsive grid, components, accessible baseline.', icon: '🧱' },
-  { id: 'font-awesome', name: 'Font Awesome', color: '#38bdf8', desc: 'Icon set — free tier as SVG, web font or JS.', icon: '📦' },
-  { id: 'css-gg', name: 'css.gg', color: '#34d399', desc: 'Pure-CSS/SVG icons. No font or JS. Tiny bundles.', icon: '🔷' },
-  { id: 'impeccable', name: 'Impeccable', color: '#f472b6', desc: 'Agent design-quality skill: design vocabulary, audits, anti-patterns.', icon: '✨' },
-  { id: 'front-end-checklist', name: 'Front-End Checklist', color: '#fb923c', desc: 'Pre-launch checklist: head/meta/SEO, accessibility, performance.', icon: '✅' },
-  { id: 'app-ideas', name: 'App Ideas', color: '#a3e635', desc: 'Tiered app ideas with user stories. Ideation knowledge source.', icon: '💡' },
-  { id: 'react-native', name: 'React Native', color: '#67e8f9', desc: 'Native Android/iOS apps in React.', icon: '📱' },
-  { id: 'expo', name: 'Expo', color: '#22d3ee', desc: 'React Native framework: Expo Router, EAS Build.', icon: '🚀' },
-  { id: 'appwrite', name: 'Appwrite', color: '#10b981', desc: 'Self-hostable backend: auth, databases, storage, functions.', icon: '🔐' },
-  { id: 'ruflo', name: 'Ruflo', color: '#a78bfa', desc: 'Multi-agent swarm orchestration for Claude Code.', icon: '🐝' },
-  { id: 'crawlee', name: 'Crawlee', color: '#818cf8', desc: 'Crawling framework. HTTP and headless crawlers, retries, rate limits.', icon: '🕷️' },
-  { id: 'scrapling', name: 'Scrapling', color: '#6366f1', desc: 'Python scraping with adaptive selectors. Same scraping rules.', icon: '🔍' },
-  { id: 'codex-security', name: 'Codex Security', color: '#ef4444', desc: 'AI-powered vulnerability detection and security scanning.', icon: '🛡️' },
-  { id: 'sqlmap', name: 'SQLMap', color: '#f87171', desc: 'Authorized SQL injection detection. Destructive, authorized-only.', icon: '⚠️' },
-  { id: 'awesome-hacking', name: 'Awesome Hacking', color: '#facc15', desc: 'CTFs, security tools, offensive security knowledge.', icon: '💣' },
-  { id: 'cloudflare-security-audit', name: 'Cloudflare Audit', color: '#22d3ee', desc: 'WAF, DDoS, zero-trust, CDN security auditing workflows.', icon: '☁️' },
-  { id: 'keploy', name: 'Keploy', color: '#f59e0b', desc: 'API test recording and replay. Linux/eBPF.', icon: '🎯' },
-  { id: 'open-code-review', name: 'Open Code Review', color: '#f97316', desc: 'AI code review CLI. Reads OCR_LLM_URL / OCR_LLM_TOKEN.', icon: '📝' },
-  { id: 'archify', name: 'Archify', color: '#34d399', desc: 'Turn architecture into self-contained interactive HTML diagrams.', icon: '🏗️' },
-  { id: 'superpowers', name: 'Superpowers', color: '#c084fc', desc: 'Brainstorming, TDD, systematic debugging, subagent-driven dev.', icon: '🦸' },
-  { id: 'mattpocock-skills', name: 'Matt Pocock Skills', color: '#818cf8', desc: 'Engineering skills for coding agents (TypeScript-heavy).', icon: '🛠️' },
-  { id: 'claude-plugins-official', name: 'Claude Plugins', color: '#8b5cf6', desc: 'Official plugin marketplace: code-review, feature-dev, LSPs.', icon: '🔌' },
-  { id: 'awesome-claude-code', name: 'Awesome Claude Code', color: '#a78bfa', desc: 'Curated Claude Code skills, hooks, commands, workflows.', icon: '📋' },
-  { id: 'kubernetes-the-hard-way', name: 'K8s The Hard Way', color: '#60a5fa', desc: 'Kubernetes bootstrap reference. Every component, certs, etcd.', icon: '☸️' },
-  { id: 'awesome-scalability', name: 'Awesome Scalability', color: '#38bdf8', desc: 'Scalable system patterns with real-world case studies.', icon: '📈' },
-  { id: 'n8n', name: 'n8n', color: '#e879f9', desc: 'Self-hostable workflow automation. 400+ integrations.', icon: '🔄' },
-  { id: 'paperclip', name: 'Paperclip', color: '#fb7185', desc: 'App for running and managing teams of AI agents.', icon: '📎' },
-  { id: 'netdata', name: 'Netdata', color: '#34d399', desc: 'Per-second infrastructure monitoring with alerts.', icon: '📊' },
-  { id: 'redis', name: 'Redis', color: '#f59e0b', desc: 'Cache, queues, ephemeral state, rate limiting, pub/sub.', icon: '🔶' },
-  { id: 'meilisearch', name: 'Meilisearch', color: '#818cf8', desc: 'Typo-tolerant full-text, faceted and hybrid search.', icon: '🔎' },
-  { id: 'clickhouse', name: 'ClickHouse', color: '#6366f1', desc: 'Columnar OLAP. Analytics, events, logs, time series.', icon: '📉' },
-  { id: 'prisma', name: 'Prisma ORM', color: '#06b6d4', desc: 'Type-safe ORM and migrations. Postgres, MySQL, SQLite.', icon: '🗄️' },
-  { id: 'tidb', name: 'TiDB', color: '#22d3ee', desc: 'Distributed SQL database. Horizontal scale, HTAP.', icon: '💿' },
-  { id: 'emil-design-eng', name: 'Emil Design Eng', color: '#ec4899', desc: 'UI polish, micro-interactions, premium design engineering.', icon: '🎭' },
-  { id: 'make-interfaces-better', name: 'Make Interfaces Better', color: '#f472b6', desc: 'Small UX improvements: timing, spacing, focus, feedback.', icon: '🔬' },
-  { id: 'react-doctor', name: 'React Doctor', color: '#fbbf24', desc: 'Auto-finds React perf issues, re-renders, bundle bloat.', icon: '🏥' },
-  { id: 'fixing-accessibility', name: 'Fixing Accessibility', color: '#34d399', desc: 'A11y fixes: ARIA, keyboard nav, contrast, WCAG compliance.', icon: '♿' },
-  { id: '12-principles-animation', name: '12 Principles', color: '#a78bfa', desc: 'Disney 12 principles applied to UI motion design.', icon: '🎞️' },
-  { id: 'shadcn-ui', name: 'shadcn/ui', color: '#818cf8', desc: 'Beautiful accessible components built with Radix + Tailwind.', icon: '🧩' },
-  { id: 'playwright-test', name: 'Playwright', color: '#94a3b8', desc: 'E2E test runner. jev-ultrafast primary; Playwright secondary.', icon: '🧪' },
-  { id: 'agent-reach', name: 'Agent Reach', color: '#22c55e', desc: 'Web research and context-gathering capability for better planning.', icon: '📡' },
-  { id: 'browser-use', name: 'Browser Use', color: '#0ea5e9', desc: 'Fallback browser agent when jev-ultrafast is unavailable.', icon: '🧭' },
+/* ── Content straight from the repository ───────────────────────────────── */
+
+const LAWS = [
+  ['Evidence or it did not happen', 'A claim needs a recorded command, result and artifact — otherwise UNVERIFIED.', 'references/02'],
+  ['Load the least context', 'A router skill plus one phase file: under 4k tokens to start, not 12,900.', 'skills/biswodip-unified-engineering'],
+  ['One owner per file area', 'Parallel subagents never write the same file; the planner assigns disjoint scopes.', 'lifecycle/01-plan.md'],
+  ['Security is continuous', 'Threat model before code, review after, authorized attack before release.', 'security/'],
+  ['Statuses, not adjectives', 'PASS · FAIL · UNVERIFIED · BLOCKED · NOT-RUN. "Should be fine" is not a status.', 'reports/EVIDENCE-MATRIX-TEMPLATE.md'],
+  ['Never rewrite working code', 'Understand it, preserve the behaviour, improve it, integrate it.', 'MASTER-PROMPT.md §12'],
+  ['Nothing ships on a guess', 'The release gate is 100 weighted points with hard caps for unresolved criticals.', 'lifecycle/12-score.md'],
+  ['The diff is the truth', 'Review the actual change, not the summary of it.', 'lifecycle/13-release.md'],
 ];
 
 const PHASES = [
-  { num: '01', title: 'Discover', desc: 'Inspect repo, detect stack, understand architecture. Load biswodip-unified-engineering.', color: '#00d4ff' },
-  { num: '02', title: 'Plan', desc: 'Requirement analysis, capability selection, task graph, agent waves.', color: '#8b5cf6' },
-  { num: '03', title: 'Threat Model', desc: 'Server authority, authorization, attack vectors, financial controls.', color: '#ef4444' },
-  { num: '04', title: 'Implement', desc: 'Execute with selected agents, write evidence, preserve working code.', color: '#10b981' },
-  { num: '05', title: 'Verify', desc: 'Tests, type checks, lint, browser QA, accessibility review.', color: '#f59e0b' },
-  { num: '06', title: 'Attack', desc: 'Authorized pentest with Strix + manual adversarial pass, fix loop.', color: '#ec4899' },
-  { num: '07', title: 'Fix', desc: 'Root cause analysis, regression tests, evidence-driven fixes.', color: '#6366f1' },
-  { num: '08', title: 'Release Gate', desc: 'Evidence matrix, 100-pt score, blockers, final release status.', color: '#00d4ff' },
+  ['00', 'Bootstrap', 'Detect stack, clone and verify the five upstream integrations, write the lock file.'],
+  ['01', 'Plan', 'Acceptance criteria, task split, one owner per file area.'],
+  ['02', 'Inspect', 'Read the real repository: architecture, conventions, existing behaviour.'],
+  ['03', 'Threat model', 'Server authority, authorization, financial controls, webhooks, data protection.'],
+  ['04', 'Implement', 'Execute the plan, preserve working code, write evidence as you go.'],
+  ['05', 'Verify', 'Tests, type checks, lint, browser QA against acceptance criteria.'],
+  ['06', 'Design', 'States, accessibility, motion, copy — against the design skill.'],
+  ['07', 'Performance', 'Bundle, runtime and context efficiency; Headroom compression.'],
+  ['08', 'Security review', 'Every control in the catalogue, each with an explicit status.'],
+  ['09', 'Pentest', 'Authorized attack with Strix behind a hard target guard.'],
+  ['10', 'Fix', 'Root-cause each finding, add a regression test, re-run.'],
+  ['11', 'Adversarial', 'Break your own work before someone else does.'],
+  ['12', 'Score', 'Evidence matrix, weighted score, blockers, caps.'],
+  ['13', 'Release', 'One honest status: RELEASE READY or NOT, with the report.'],
 ];
 
+const GATE_DOMAINS = ['Authentication', 'Authorization', 'Payments', 'Webhooks', 'Data protection', 'File uploads', 'Rate limiting', 'Sessions', 'Secrets', 'Input validation', 'Logging', 'Dependencies'];
+
+const INTEGRATIONS = [
+  { name: 'Taste Skill', license: 'MIT', phase: 'Design', commit: '5217fb45' },
+  { name: 'Emil Kowalski', license: 'MIT', phase: 'Design + motion', commit: '85e8e236' },
+  { name: 'No AI Slop', license: 'MIT', phase: 'Copy · docs', commit: 'pinned' },
+  { name: 'Headroom', license: 'Apache-2.0', phase: 'Context compression', commit: 'pinned' },
+  { name: 'Strix', license: 'Apache-2.0', phase: 'Authorized pentest', commit: 'pinned' },
+];
+
+const LAYERS = [
+  ['01', 'Entry', 'templates/claude/', 'Slash commands and the @dip agent — pointers only.'],
+  ['02', 'Router skill', 'skills/biswodip-unified-engineering/', 'Laws, phase order, scoring model, routing table. ~1,365 tokens.'],
+  ['03', 'Phase skills', 'skills/', 'Eight independently installable skills, one per phase group.'],
+  ['04', 'Procedures', 'lifecycle/00–13', 'Entry criteria, steps, exact commands, evidence, exit gate.'],
+  ['05', 'Deep dives', 'security/', 'Six topics: authority, authz, financial, webhooks, data, attacks.'],
+  ['06', 'References', 'references/01–07', 'v1.2.0 verbatim plus the 2,215-gate shipping catalogue.'],
+  ['07', 'Tooling', 'bin/ · scripts/lib/', 'detect · install · verify · gates · strix · handoff · skills.'],
+  ['08', 'Integrations', 'integrations/ · upstream/', 'Five upstream projects, pinned commits, licences intact.'],
+  ['09', 'Evidence', '.biswodip/', 'Command log, gate reports, lock file — every claim traceable.'],
+];
+
+const PROJECTS = [
+  { name: 'BISWODIP-ENGINEERING-skills', desc: 'Router skill, 14 lifecycle procedures, six security deep-dives, 2,215 verification gates, nine layers.', tags: ['Skills', 'Security', 'Release gate'] },
+  { name: 'Guarded pentest runner', desc: 'Strix behind a target guard: verdict in run.json, the API key never printed, a hard stop before someone else\u2019s machine.', tags: ['Pentest', 'Guardrails'] },
+  { name: 'Capability registry', desc: `${CAPABILITY_TOTAL} registered capabilities across six sections, each with planner triggers and security notes; ${CAPABILITY_REQUIRED} required.`, tags: ['Registry', 'Planner'] },
+];
+
+const SECTION_COLORS: Record<string, string> = {
+  browser: '#22d3ee', animation: '#6366f1', design: '#f472b6',
+  backend: '#2dd4bf', security: '#22c55e', quality: '#f59e0b',
+};
+
+/* ── Page ───────────────────────────────────────────────────────────────── */
+
 export default function Home() {
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
-  const [showCursor, setShowCursor] = useState(true);
   return (
-    <div className="relative min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
-      <style>{`
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-        @keyframes scan { 0%{top:-10%} 100%{top:110%} }
-        @keyframes glitch { 0%,100%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 40%{transform:translate(-2px,-2px)} 60%{transform:translate(2px,2px)} 80%{transform:translate(2px,-2px)} }
-        @keyframes rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-        .float-anim { animation: float 4s ease-in-out infinite; }
-        .pulse-anim { animation: pulse 2s ease-in-out infinite; }
-        .glitch-anim { animation: glitch 4s infinite; }
-      `}</style>
-
-      <motion.div className="fixed inset-0 pointer-events-none" animate={{ opacity: [0.03, 0.06, 0.03] }} transition={{ duration: 8, repeat: Infinity }} style={{ background: 'radial-gradient(circle at 20% 50%, rgba(0,212,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(139,92,246,0.08) 0%, transparent 50%)' }} />
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, rgba(0,212,255,0.3) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-
-      <motion.div className="fixed top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'float 8s ease-in-out infinite' }} />
-      <motion.div className="fixed bottom-1/4 right-1/4 w-80 h-80 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)', filter: 'blur(60px)', animation: 'float 10s ease-in-out infinite reverse' }} />
-
-      <Navbar />
-      <Hero />
-      <About />
-      <SkillsSection />
-      <WorkflowSection />
-      <ReposSection />
-      <ProjectsSection />
-      <Contact />
-      <Footer />
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <ScrollProgress />
+      <CustomCursor />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <Navbar />
+        <Hero />
+        <ManifestStrip />
+        <Laws />
+        <Lifecycle />
+        <Gates />
+        <SecuritySection />
+        <GraphSection />
+        <Registry />
+        <Architecture />
+        <Integrations />
+        <Evidence />
+        <Projects />
+        <Colophon />
+      </div>
     </div>
   );
 }
 
+/* ── Nav ────────────────────────────────────────────────────────────────── */
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  useEffect(() => { const h = () => setScrolled(window.scrollY > 50); window.addEventListener('scroll', h); return () => window.removeEventListener('scroll', h); }, []);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const links = [
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Workflow', href: '#workflow' },
-    { label: 'Capabilities', href: '#repos' },
-    { label: 'Projects', href: '#projects' },
+    ['Laws', '#laws'], ['Lifecycle', '#lifecycle'], ['Gates', '#gates'],
+    ['Security', '#security'], ['Registry', '#registry'], ['Architecture', '#architecture'],
   ];
+
   return (
-    <motion.nav initial={{ y: -80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '0.75rem 2rem', background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent', backdropFilter: scrolled ? 'blur(20px)' : 'none', borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none', transition: 'all 0.3s' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <motion.div whileHover={{ scale: 1.05 }} style={{ fontFamily: 'JetBrains Mono', fontWeight: 700, fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}><span style={{ color: '#00d4ff' }}>&lt;</span><span>BG</span><span style={{ color: '#00d4ff' }}>/&gt;</span></motion.div>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="hidden md:flex">
-          {links.map((l, i) => <motion.a key={l.label} href={l.href} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.05 }} whileHover={{ color: '#00d4ff' }} style={{ fontSize: '0.8rem', fontWeight: 500, color: '#a0a0c0', transition: 'color 0.2s' }}>{l.label}</motion.a>)}
-          <motion.a href="#contact" whileHover={{ scale: 1.05 }} className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '0.5rem 1.25rem' }}>Hire Me</motion.a>
+    <motion.nav
+      initial={{ y: -64, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '0.85rem 2rem',
+        background: scrolled ? 'rgba(11, 18, 32, 0.82)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: `1px solid ${scrolled ? 'var(--border)' : 'transparent'}`,
+        transition: 'background 0.35s, border-color 0.35s',
+      }}
+    >
+      <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <a href="#top" className="mono" style={{ fontSize: '0.78rem', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
+          <span style={{ width: 8, height: 8, borderRadius: 2, background: 'linear-gradient(135deg, var(--cyan), var(--indigo))' }} />
+          <span style={{ color: 'var(--text-soft)' }}>BISWODIP<span style={{ color: 'var(--dim)' }}> / </span>UNIFIED ENGINEERING</span>
+        </a>
+
+        <div className="hidden md:flex items-center" style={{ gap: '1.8rem' }}>
+          {links.map(([label, href], i) => (
+            <motion.a
+              key={label}
+              href={href}
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + i * 0.04 }}
+              whileHover={{ color: 'var(--cyan)' }}
+              style={{ fontSize: '0.75rem', color: 'var(--muted)', transition: 'color 0.25s' }}
+            >
+              {label}
+            </motion.a>
+          ))}
+          <motion.a href="#registry" whileHover={{ y: -2 }} className="btn btn-primary" style={{ fontSize: '0.72rem', padding: '0.5rem 1.05rem' }}>
+            {CAPABILITY_TOTAL} capabilities
+          </motion.a>
         </div>
+
+        <button
+          className="md:hidden"
+          aria-label="Toggle navigation menu"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+          style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 8, padding: '0.4rem 0.65rem', color: 'var(--cyan)', cursor: 'pointer' }}
+        >
+          {open ? '✕' : '☰'}
+        </button>
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden"
+            style={{ overflow: 'hidden', marginTop: '0.75rem', borderTop: '1px solid var(--border)' }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '0.6rem' }}>
+              {links.map(([label, href]) => (
+                <a key={label} href={href} onClick={() => setOpen(false)} style={{ padding: '0.6rem 0', fontSize: '0.85rem', color: 'var(--muted)' }}>{label}</a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }
 
+/* ── Hero: the 3D pipeline, framed like a schematic ─────────────────────── */
+
 function Hero() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  return (
-    <section ref={ref} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', paddingTop: '80px' }}>
-      <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%)', animation: 'float 6s ease-in-out infinite' }} />
-      <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }} style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', border: '1px solid rgba(0,212,255,0.05)' }} />
-      <motion.div animate={{ rotate: -360 }} transition={{ duration: 45, repeat: Infinity, ease: 'linear' }} style={{ position: 'absolute', width: 350, height: 350, borderRadius: '50%', border: '1px solid rgba(139,92,246,0.05)' }} />
-      <motion.div className="text-center max-w-5xl px-6 relative z-10" initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1 }}>
-        <motion.div className="flex items-center justify-center gap-2 mb-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-          <span className="tag cyan"><span className="inline-block w-2 h-2 rounded-full bg-[#00d4ff] pulse-anim" /> Available for Work</span>
-        </motion.div>
-        <motion.h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 glitch-anim" style={{ animationDuration: '5s' }} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
-          <span className="gradient-text">Biswodip Goj</span>
-        </motion.h1>
-        <motion.h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#f0f0ff' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-          Autonomous Engineering Platform
-        </motion.h2>
-        <motion.p className="text-lg md:text-xl max-w-2xl mx-auto mb-8" style={{ color: '#a0a0c0' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
-          Evidence-driven production engineering system. Discover → Plan → Threat Model → Implement → Verify → Attack → Fix → Release Gate.
-          <br /><span style={{ color: '#00d4ff' }}>Nothing is called done without evidence.</span>
-        </motion.p>
-        <motion.div className="flex flex-wrap items-center justify-center gap-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}>
-          <motion.a href="#workflow" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-primary flex items-center gap-2">⚡ Explore the Platform →</motion.a>
-          <motion.a href="#repos" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-outline flex items-center gap-2">📦 Capabilities →</motion.a>
-        </motion.div>
-        <motion.div className="flex items-center justify-center gap-12 mt-16" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}>
-          {[['46', 'Repositories'], ['14', 'Phases'], ['8', 'Subagents'], ['100', 'Weighted Points']].map(([num, label], i) => (
-            <motion.div key={label} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4 + i * 0.1 }} whileHover={{ scale: 1.1 }}>
-              <div className="text-3xl md:text-4xl font-black" style={{ color: '#00d4ff' }}>{num}</div>
-              <div className="text-xs mt-1 uppercase tracking-wider" style={{ color: '#606080' }}>{label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
-      <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2" animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity }}><span className="text-[#00d4ff] text-2xl">↓</span></motion.div>
-    </section>
-  );
-}
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '26%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-const ABOUT_CARDS: { icon: string; title: string; desc: string }[] = [
-  { icon: '🛡️', title: 'Evidence-Driven', desc: 'Every claim requires a recorded command, result, and artifact. UNVERIFIED or BLOCKED otherwise.' },
-  { icon: '🔒', title: 'Security First', desc: 'Server-authoritative review, authorization controls, financial security, attack catalog, authorized pentesting.' },
-  { icon: '📊', title: 'Release Gate', desc: '100 weighted points, hard caps for unresolved criticals. One honest status: RELEASE READY or NOT.' },
-  { icon: '🔬', title: 'Agent System', desc: '8 specialist skills, 14 lifecycle phases, specialized subagents in waves, deterministic planning.' },
-  { icon: '🎨', title: 'Design Quality', desc: 'Impeccable, Emil Design, Make Interfaces Better, 12 Principles of Animation for premium UI.' },
-  { icon: '⚡', title: 'Autonomous', desc: '/dip command plans, selects capabilities, delegates to subagents, verifies, replans, fixes.' },
-];
-
-function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
   return (
-    <section id="about" ref={ref} style={{ padding: '8rem 2rem', maxWidth: 1200, margin: '0 auto' }}>
-      <motion.div initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-        <div className="section-label">01 — About</div>
-        <h2 className="text-4xl md:text-5xl font-black mb-6">Engineered with <span className="gradient-text">Evidence</span>, Shipped with <span className="gradient-text">Discipline</span></h2>
-        <p className="text-lg mb-12 max-w-3xl" style={{ color: '#a0a0c0' }}>The BISWODIP-ENGINEERING system is a single operating document plus procedures, security deep-dives, verification catalogue, tooling and templates. It takes a repository from discovery to release — nothing is called done without evidence.</p>
-        <div className="grid md:grid-cols-3 gap-6">
-          {ABOUT_CARDS.map((c, i) => (
-            <motion.div key={c.title} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 + i * 0.1 }} whileHover={{ y: -4 }} className="card">
-              <div className="text-3xl mb-3">{c.icon}</div>
-              <h3 className="font-bold mb-2" style={{ color: '#00d4ff' }}>{c.title}</h3>
-              <p className="text-sm" style={{ color: '#a0a0c0' }}>{c.desc}</p>
+    <section id="top" ref={ref} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '7rem 2rem 3rem', position: 'relative' }}>
+      <div className="grid-veil" style={{ position: 'absolute', inset: 0, opacity: 0.5, pointerEvents: 'none' }} />
+
+      <div style={{ maxWidth: 1240, margin: '0 auto', width: '100%', position: 'relative' }}>
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <motion.div style={{ y, opacity }}>
+            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+              <span className="tag" style={{ borderColor: 'var(--border-strong)', color: 'var(--cyan)' }}>
+                v2.3.0 · Apache-2.0 · MASTER-PROMPT.md §0–§43
+              </span>
             </motion.div>
-          ))}
+
+            <motion.h1
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl md:text-5xl lg:text-6xl"
+              style={{ margin: '1.4rem 0 1rem' }}
+            >
+              Every claim carries
+              <br />
+              <span className="gradient-text">a receipt.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.42 }}
+              style={{ color: 'var(--text-soft)', fontSize: '1rem', maxWidth: 520, marginBottom: '2rem' }}
+            >
+              An autonomous engineering system: a router skill, fourteen lifecycle procedures,
+              six security deep-dives, {CAPABILITY_TOTAL} registered capabilities and a
+              2,215-item verification catalogue. Nothing is called done without evidence.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.56 }}
+              className="flex flex-wrap gap-3"
+            >
+              <motion.a href="#lifecycle" whileHover={{ y: -2 }} className="btn btn-primary">Walk the lifecycle</motion.a>
+              <motion.a href="#architecture" whileHover={{ y: -2 }} className="btn btn-outline">Read the architecture</motion.a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              style={{ display: 'flex', gap: '2.4rem', marginTop: '3rem', flexWrap: 'wrap' }}
+            >
+              {[['14', 'phases'], ['2,215', 'gates'], [String(CAPABILITY_TOTAL), 'capabilities'], ['9', 'layers']].map(([n, l], i) => (
+                <motion.div key={l} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 + i * 0.07 }}>
+                  <div className="mono" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--cyan)' }}>{n}</div>
+                  <div style={{ fontSize: '0.62rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--dim)', marginTop: 2 }}>{l}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* The 3D scene is the repo's own architecture diagram, live */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.35, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="panel"
+            style={{ height: 460, position: 'relative' }}
+          >
+            <div style={{ position: 'absolute', top: 14, left: 18, zIndex: 3 }}>
+              <span className="mono" style={{ fontSize: '0.58rem', color: 'var(--dim)', letterSpacing: '0.14em' }}>
+                ARCHITECTURE.md · 9 LAYERS
+              </span>
+            </div>
+            <PipelineScene3D />
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
 
-function SkillsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+/* ── Manifest strip: real paths, not decoration ─────────────────────────── */
+
+function ManifestStrip() {
+  const items = [
+    'MASTER-PROMPT.md', 'lifecycle/00-bootstrap.md', 'lifecycle/13-release.md',
+    'security/ATTACK-CATALOG.md', 'references/02-master-shipping-gate.md',
+    'bin/biswodip.mjs', 'integrations/manifest.json', 'repositories/INDEX.md',
+    'skills/biswodip-unified-engineering/', 'templates/claude/commands/dip.md',
+    '.biswodip/evidence/', 'reports/RELEASE-REPORT-TEMPLATE.md',
+  ];
+  const loop = [...items, ...items];
   return (
-    <section id="skills" ref={ref} style={{ padding: '8rem 2rem', maxWidth: 1200, margin: '0 auto' }}>
-      <motion.div initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-        <div className="section-label">02 — Skills</div>
-        <h2 className="text-4xl md:text-5xl font-black mb-4">Technical <span className="gradient-text">Proficiency</span></h2>
-        <p className="mb-12" style={{ color: '#a0a0c0' }}>Years of deep expertise across the full engineering stack.</p>
-        <div className="grid md:grid-cols-2 gap-8">
-          {SKILLS.map((s, i) => (
-            <motion.div key={s.name} initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ delay: i * 0.08, duration: 0.6 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}><span className="text-sm font-medium">{s.name}</span><span className="text-sm font-mono" style={{ color: '#00d4ff' }}>{s.level}%</span></div>
-              <div style={{ height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '3px', overflow: 'hidden' }}><motion.div initial={{ width: 0 }} animate={inView ? { width: `${s.level}%` } : {}} transition={{ delay: i * 0.08 + 0.3, duration: 1.5, ease: [0.16, 1, 0.3, 1] }} style={{ height: '100%', background: 'linear-gradient(90deg, #00d4ff, #8b5cf6)', borderRadius: '3px' }} /></div>
-            </motion.div>
-          ))}
-        </div>
+    <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '0.85rem 0', overflow: 'hidden', background: 'rgba(16, 27, 46, 0.5)' }}>
+      <motion.div
+        style={{ display: 'flex', gap: '2.8rem', width: 'max-content', whiteSpace: 'nowrap' }}
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ duration: 64, repeat: Infinity, ease: 'linear' }}
+      >
+        {loop.map((item, i) => (
+          <span key={i} className="mono" style={{ fontSize: '0.64rem', color: i % 4 === 0 ? 'var(--cyan)' : 'var(--dim)', letterSpacing: '0.06em' }}>
+            {item}
+          </span>
+        ))}
       </motion.div>
-    </section>
+    </div>
   );
 }
 
-function WorkflowSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+/* ── Laws ───────────────────────────────────────────────────────────────── */
+
+function Laws() {
   return (
-    <section id="workflow" ref={ref} style={{ padding: '8rem 2rem', maxWidth: 1200, margin: '0 auto' }}>
-      <motion.div initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-        <div className="section-label">03 — Workflow</div>
-        <h2 className="text-4xl md:text-5xl font-black mb-4">Autonomous <span className="gradient-text">Lifecycle</span></h2>
-        <p className="mb-16" style={{ color: '#a0a0c0' }}>The DIP system orchestrates engineering through 14 disciplined phases, each with defined entry criteria, steps, evidence requirements, and exit gates.</p>
-        <div className="relative">
-          {PHASES.map((p, i) => (
-            <motion.div key={p.num} initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ delay: i * 0.1, duration: 0.5 }} style={{ display: 'flex', gap: '1.5rem', marginBottom: i < PHASES.length - 1 ? '0' : '0' }}>
-              <div style={{ flexShrink: 0, textAlign: 'right', minWidth: '60px' }}><span className="font-mono text-xs font-bold" style={{ color: p.color }}>{p.num}</span></div>
-              <div style={{ flex: 1, paddingBottom: '2rem', borderLeft: `2px solid ${p.color}22`, paddingLeft: '1.5rem' }}>
-                <div style={{ position: 'absolute', left: '-5px', top: '4px', width: '10px', height: '10px', borderRadius: '50%', background: p.color, boxShadow: `0 0 15px ${p.color}`, animation: 'pulse 2s ease-in-out infinite' }} />
-                <h3 className="font-bold text-lg mb-1" style={{ color: p.color }}>{p.title}</h3>
-                <p className="text-sm" style={{ color: '#a0a0c0' }}>{p.desc}</p>
+    <ZoomSection id="laws" eyebrow="01 — The laws" title={<>Eight rules, <span className="gradient-text">enforced everywhere</span></>} lead="Carried in the router skill. Every phase, every subagent and every report obeys them.">
+      <div className="grid md:grid-cols-2 gap-4">
+        {LAWS.map(([title, desc, src], i) => (
+          <ScrollReveal key={title} delay={i * 0.045}>
+            <motion.div whileHover={{ x: 4 }} className="card" style={{ padding: '1.5rem', height: '100%' }}>
+              <div style={{ display: 'flex', gap: '0.9rem' }}>
+                <span className="mono" style={{ color: 'var(--cyan)', fontSize: '0.68rem', paddingTop: 3, opacity: 0.75 }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 style={{ fontSize: '0.92rem', fontWeight: 700, marginBottom: '0.35rem' }}>{title}</h3>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.6, marginBottom: '0.6rem' }}>{desc}</p>
+                  <span className="artifact">{src}</span>
+                </div>
               </div>
             </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </section>
+          </ScrollReveal>
+        ))}
+      </div>
+    </ZoomSection>
   );
 }
 
-const REPO_CATEGORY: Record<string, string> = {
-  'jev-ultrafast': 'browser', 'browser-use': 'browser', 'crawlee': 'browser', 'scrapling': 'browser', 'playwright-test': 'browser',
-  'motion': 'animation', 'anime': 'animation', 'animate-css': 'animation', '12-principles-animation': 'animation',
-  'codex-security': 'security', 'sqlmap': 'security', 'awesome-hacking': 'security', 'cloudflare-security-audit': 'security',
-  'appwrite': 'backend', 'prisma': 'backend', 'redis': 'backend', 'meilisearch': 'backend', 'clickhouse': 'backend',
-  'tidb': 'backend', 'netdata': 'backend', 'react-native': 'backend', 'expo': 'backend',
-  'keploy': 'quality', 'open-code-review': 'quality', 'archify': 'quality', 'superpowers': 'quality',
-  'mattpocock-skills': 'quality', 'claude-plugins-official': 'quality', 'awesome-claude-code': 'quality',
-  'kubernetes-the-hard-way': 'quality', 'awesome-scalability': 'quality', 'n8n': 'quality', 'ruflo': 'quality',
-  'paperclip': 'quality', 'agent-reach': 'quality',
-  'impeccable': 'design', 'front-end-checklist': 'design', 'bootstrap': 'design', 'font-awesome': 'design',
-  'css-gg': 'design', 'emil-design-eng': 'design', 'make-interfaces-better': 'design', 'react-doctor': 'design',
-  'fixing-accessibility': 'design', 'shadcn-ui': 'design', 'app-ideas': 'design',
-};
+/* ── Lifecycle: the tunnel is the phase path ────────────────────────────── */
 
-const REPO_CATEGORIES = [
-  { label: 'All', key: 'all' },
-  { label: 'Browser', key: 'browser' },
-  { label: 'Animation', key: 'animation' },
-  { label: 'Design', key: 'design' },
-  { label: 'Backend', key: 'backend' },
-  { label: 'Security', key: 'security' },
-  { label: 'Quality', key: 'quality' },
-];
+function Lifecycle() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 80%', 'end 45%'] });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
-function ReposSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+  return (
+    <ZoomSection id="lifecycle" eyebrow="02 — Lifecycle" title={<>Fourteen phases, <span className="gradient-text">entry gate to release</span></>} lead="lifecycle/00-bootstrap.md through 13-release.md. Each has entry criteria, numbered steps, exact commands, evidence to record and an exit gate you can tick.">
+      <ScrollReveal>
+        <div style={{ marginBottom: '3rem' }}>
+          <LifecycleTunnel height={400} />
+        </div>
+      </ScrollReveal>
+
+      <div ref={ref} style={{ position: 'relative', paddingLeft: '2.2rem' }}>
+        <div style={{ position: 'absolute', left: 6, top: 6, bottom: 6, width: 1, background: 'var(--border)' }} />
+        <motion.div style={{ position: 'absolute', left: 6, top: 6, width: 1, background: 'linear-gradient(var(--cyan), var(--indigo))', height: lineHeight }} />
+
+        {PHASES.map(([num, title, desc], i) => (
+          <ScrollReveal key={num} delay={0.015}>
+            <div style={{ position: 'relative', paddingBottom: i === PHASES.length - 1 ? 0 : '1.7rem' }}>
+              <motion.span
+                whileInView={{ scale: [0.5, 1] }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                style={{ position: 'absolute', left: '-2.2rem', top: 6, width: 13, height: 13, borderRadius: '50%', background: 'var(--bg)', border: '1px solid var(--cyan)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--cyan)' }} />
+              </motion.span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.7rem', flexWrap: 'wrap' }}>
+                <span className="mono" style={{ fontSize: '0.66rem', color: 'var(--cyan)', opacity: 0.8 }}>{num}</span>
+                <h3 style={{ fontSize: '0.96rem', fontWeight: 700 }}>{title}</h3>
+                <span className="artifact" style={{ fontSize: '0.56rem' }}>lifecycle/{num}-*.md</span>
+              </div>
+              <p style={{ fontSize: '0.81rem', color: 'var(--muted)', marginTop: '0.25rem', maxWidth: 600, lineHeight: 1.6 }}>{desc}</p>
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </ZoomSection>
+  );
+}
+
+/* ── Gates ──────────────────────────────────────────────────────────────── */
+
+function Gates() {
+  return (
+    <ZoomSection id="gates" eyebrow="03 — Verification" title={<>The catalogue that <span className="gradient-text">refuses adjectives</span></>} lead="references/02-master-shipping-gate.md is roughly 120,000 tokens of gates and attack variants. It exists to be grepped by section, never loaded whole.">
+      <div className="grid lg:grid-cols-3 gap-5">
+        <ScrollReveal>
+          <GateTally total={2215} domains={GATE_DOMAINS} label="verification gates" source="references/02-master-shipping-gate.md" />
+        </ScrollReveal>
+        <div className="lg:col-span-2 grid sm:grid-cols-3 gap-4">
+          {[
+            ['101', 'gate domains', 'grep "^### " references/02'],
+            ['17', 'secret-scan rules', 'scripts/lib/gates.mjs'],
+            ['12', 'risk heuristics', 'scripts/lib/gates.mjs'],
+          ].map(([value, label, note], i) => (
+            <ScrollReveal key={label} delay={0.1 + i * 0.08}>
+              <div className="card" style={{ padding: '1.6rem', height: '100%' }}>
+                <div className="mono" style={{ fontSize: '1.7rem', fontWeight: 600, color: 'var(--cyan)', marginBottom: '0.35rem' }}>{value}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.6rem' }}>{label}</div>
+                <span className="artifact">{note}</span>
+              </div>
+            </ScrollReveal>
+          ))}
+          <ScrollReveal delay={0.34}>
+            <div className="card" style={{ padding: '1.6rem', gridColumn: 'span 3' }}>
+              <div className="artifact" style={{ marginBottom: '0.8rem' }}>the five statuses this system uses</div>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span className="status pass">PASS</span>
+                <span className="status fail">FAIL</span>
+                <span className="status unverified">UNVERIFIED</span>
+                <span className="status blocked">BLOCKED</span>
+                <span className="status open">NOT-RUN</span>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </ZoomSection>
+  );
+}
+
+/* ── Security ───────────────────────────────────────────────────────────── */
+
+function SecuritySection() {
+  return (
+    <ZoomSection id="security" eyebrow="04 — Security deep-dives" title={<>Six surfaces, <span className="gradient-text">each with a status</span></>} lead="security/ holds the concrete patterns, the anti-patterns that appear in real repositories, and the test that proves each defence.">
+      <ScrollReveal>
+        <SecurityBoard />
+      </ScrollReveal>
+    </ZoomSection>
+  );
+}
+
+/* ── Capability graph ───────────────────────────────────────────────────── */
+
+function GraphSection() {
+  const nodes = CAPABILITIES.map((c) => ({ id: c.id, name: c.name, section: c.section, required: c.required, stars: c.stars }));
+  return (
+    <ZoomSection id="graph" eyebrow="05 — Capability graph" title={<>The registry, <span className="gradient-text">as a graph</span></>} lead={`${CAPABILITY_TOTAL} capabilities across six sections. Drag to orbit, scroll to zoom, hover a node. Brighter nodes are the ${CAPABILITY_REQUIRED} required references.`}>
+      <ScrollReveal>
+        <div className="panel" style={{ height: 540 }}>
+          <CapabilityGraph3D nodes={nodes} height={540} />
+        </div>
+      </ScrollReveal>
+    </ZoomSection>
+  );
+}
+
+/* ── Registry ───────────────────────────────────────────────────────────── */
+
+function Registry() {
   const [filter, setFilter] = useState('all');
-  const filtered = filter === 'all' ? REPOS : REPOS.filter(r => REPO_CATEGORY[r.id] === filter);
+  const filtered = filter === 'all' ? CAPABILITIES : CAPABILITIES.filter((c) => c.section === filter);
+
   return (
-    <section id="repos" ref={ref} style={{ padding: '8rem 2rem', maxWidth: 1200, margin: '0 auto' }}>
-      <motion.div initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-        <div className="section-label">04 — Repository</div>
-        <h2 className="text-4xl md:text-5xl font-black mb-4">{REPOS.length} <span className="gradient-text">Capabilities</span></h2>
-        <p className="mb-8" style={{ color: '#a0a0c0' }}>Every repository is a registered reference capability — 37 from the specification plus design-engineering, research and test skills. The planner selects only those relevant to your goal.</p>
-        <div className="flex flex-wrap gap-2 mb-8">
-          {REPO_CATEGORIES.map(c => (
-            <motion.button key={c.label} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setFilter(c.key)} className={`tag ${filter === c.key ? 'cyan' : ''}`} style={{ cursor: 'pointer', opacity: filter === c.key ? 1 : 0.5 }}>{c.label}</motion.button>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filtered.map((r, i) => (
-            <motion.div key={r.id} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: i * 0.03, duration: 0.5 }} whileHover={{ y: -4, boxShadow: `0 0 30px ${r.color}33` }} style={{ background: '#1a1a25', border: `1px solid ${r.color}22`, borderRadius: '16px', padding: '1.5rem', cursor: 'pointer' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                <span className="font-mono text-xs" style={{ color: '#606080' }}>#{REPOS.indexOf(r) + 1}</span>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: r.color, display: 'inline-block', boxShadow: `0 0 8px ${r.color}` }} />
+    <ZoomSection id="registry" eyebrow="06 — Capability registry" title={<>{CAPABILITY_TOTAL} capabilities, <span className="gradient-text">{CAPABILITY_REQUIRED} required</span></>} lead="Registered is not installed. The planner evaluates every entry and activates only what the goal needs. Security entries are permission-aware.">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.6rem' }}>
+        <Filter active={filter === 'all'} onClick={() => setFilter('all')} label="All" color="var(--cyan)" />
+        {CAPABILITY_SECTIONS.map((s) => (
+          <Filter key={s} active={filter === s} onClick={() => setFilter(s)} label={CAPABILITY_LABEL[s]} color={SECTION_COLORS[s]} />
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        {filtered.map((c, i) => {
+          const color = SECTION_COLORS[c.section];
+          return (
+            <ScrollReveal key={c.id} delay={Math.min(i * 0.01, 0.35)}>
+              <motion.a
+                href={c.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor-hover
+                whileHover={{ y: -4, borderColor: `${color}66` }}
+                style={{ display: 'block', height: '100%', background: 'rgba(15, 27, 46, 0.6)', border: `1px solid ${color}22`, borderRadius: 13, padding: '1.1rem' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.55rem' }}>
+                  <span className="mono" style={{ fontSize: '0.58rem', color: 'var(--dim)' }}>{c.section}</span>
+                  {c.stars && <span className="mono" style={{ fontSize: '0.58rem', color: 'var(--dim)' }}>★ {c.stars >= 1000 ? `${Math.round(c.stars / 1000)}k` : c.stars}</span>}
+                </div>
+                <h3 style={{ fontSize: '0.84rem', fontWeight: 700, color, marginBottom: '0.3rem' }}>{c.name}</h3>
+                <p style={{ fontSize: '0.72rem', color: 'var(--muted)', lineHeight: 1.55 }}>{c.desc}</p>
+                {c.required && <span className="status pass" style={{ marginTop: '0.65rem', display: 'inline-block' }}>REQUIRED</span>}
+              </motion.a>
+            </ScrollReveal>
+          );
+        })}
+      </div>
+    </ZoomSection>
+  );
+}
+
+function Filter({ active, onClick, label, color }: { active: boolean; onClick: () => void; label: string; color: string }) {
+  return (
+    <motion.button
+      whileHover={{ scale: 1.04 }}
+      whileTap={{ scale: 0.97 }}
+      onClick={onClick}
+      className="mono"
+      style={{
+        fontSize: '0.63rem', letterSpacing: '0.07em', textTransform: 'uppercase', cursor: 'pointer',
+        padding: '0.34rem 0.8rem', borderRadius: 999,
+        border: `1px solid ${active ? color : 'var(--border)'}`,
+        background: active ? `${color}14` : 'transparent',
+        color: active ? color : 'var(--muted)',
+        transition: 'all 0.28s',
+      }}
+    >
+      {label}
+    </motion.button>
+  );
+}
+
+/* ── Architecture ───────────────────────────────────────────────────────── */
+
+function Architecture() {
+  return (
+    <ZoomSection id="architecture" eyebrow="07 — Architecture" title={<>Nine layers, <span className="gradient-text">under 4k tokens to start</span></>} lead="Detail lives on disk, not in the context window. The router answers what is allowed, in what order, and where the detail is — nothing else.">
+      <div className="grid md:grid-cols-2 gap-3">
+        {LAYERS.map(([num, name, path, desc], i) => (
+          <ScrollReveal key={num} delay={i * 0.035}>
+            <motion.div whileHover={{ borderColor: 'var(--border-strong)' }} className="card" style={{ padding: '1.25rem 1.4rem', height: '100%' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.65rem', marginBottom: '0.4rem' }}>
+                <span className="mono" style={{ fontSize: '0.64rem', color: 'var(--cyan)', opacity: 0.75 }}>{num}</span>
+                <h3 style={{ fontSize: '0.9rem', fontWeight: 700 }}>{name}</h3>
               </div>
-              <h4 className="font-bold text-sm mb-1" style={{ color: r.color }}>{r.name}</h4>
-              <p className="text-xs leading-relaxed" style={{ color: '#a0a0c0' }}>{r.desc}</p>
+              <div className="mono" style={{ fontSize: '0.62rem', color: 'var(--indigo)', marginBottom: '0.5rem' }}>{path}</div>
+              <p style={{ fontSize: '0.78rem', color: 'var(--muted)', lineHeight: 1.6 }}>{desc}</p>
             </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </section>
+          </ScrollReveal>
+        ))}
+      </div>
+    </ZoomSection>
   );
 }
 
-const PROJECTS: { name: string; desc: string; tags: string[]; color: string }[] = [
-  { name: 'DIP Platform', desc: 'Full autonomous engineering platform. 46 registered repo capabilities, 14 phases, 8 subagents.', tags: ['AI Agents', 'Security', 'Planning'], color: '#00d4ff' },
-  { name: 'Security Pipeline', desc: 'Evidence-driven security automation: pentest, vulnerability scan, code review, threat model.', tags: ['Security', 'CI/CD', 'Testing'], color: '#ef4444' },
-  { name: 'Animation System', desc: 'Production-grade UI animation with Framer Motion, 12 Principles, CSS animations.', tags: ['Animation', 'Framer Motion', 'CSS'], color: '#8b5cf6' },
-];
+/* ── Integrations ───────────────────────────────────────────────────────── */
 
-function ProjectsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+function Integrations() {
   return (
-    <section id="projects" ref={ref} style={{ padding: '8rem 2rem', maxWidth: 1200, margin: '0 auto' }}>
-      <motion.div initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-        <div className="section-label">05 — Projects</div>
-        <h2 className="text-4xl md:text-5xl font-black mb-4">Featured <span className="gradient-text">Work</span></h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {PROJECTS.map((p, i) => (
-            <motion.div key={p.name} initial={{ opacity: 0, y: 50, rotateX: 10 }} animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}} transition={{ delay: i * 0.15, duration: 0.7 }} whileHover={{ y: -6 }} className="card" style={{ border: `1px solid ${p.color}22` }}>
-              <div style={{ width: 40, height: 40, borderRadius: 12, background: `${p.color}15`, border: `1px solid ${p.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}><span className="text-2xl">🚀</span></div>
-              <h3 className="font-bold text-lg mb-2" style={{ color: p.color }}>{p.name}</h3>
-              <p className="text-sm mb-4" style={{ color: '#a0a0c0' }}>{p.desc}</p>
-              <div className="flex gap-2 flex-wrap">{p.tags.map(t => <span key={t} className="tag" style={{ color: p.color, borderColor: `${p.color}33`, background: `${p.color}08` }}>{t}</span>)}</div>
+    <ZoomSection eyebrow="08 — Upstream" title={<>Five projects, <span className="gradient-text">pinned and licensed</span></>} lead="integrations/manifest.json is the machine-readable truth: repo, pinned commit, expected files, licence. upstream/ holds an exact export with tree hashes in SNAPSHOTS.json.">
+      <ScrollReveal>
+        <div style={{ position: 'relative', marginBottom: '1rem' }}>
+          <IntegrationCube size={140} />
+        </div>
+      </ScrollReveal>
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        {INTEGRATIONS.map((int, i) => (
+          <ScrollReveal key={int.name} delay={i * 0.055}>
+            <motion.div whileHover={{ y: -4 }} className="card" style={{ padding: '1.3rem 1rem', textAlign: 'center', height: '100%' }}>
+              <h3 style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.4rem' }}>{int.name}</h3>
+              <div className="mono" style={{ fontSize: '0.58rem', color: 'var(--muted)', marginBottom: '0.35rem' }}>{int.phase}</div>
+              <div className="mono" style={{ fontSize: '0.55rem', color: 'var(--dim)' }}>{int.license} · {int.commit}</div>
             </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </section>
+          </ScrollReveal>
+        ))}
+      </div>
+    </ZoomSection>
   );
 }
 
-function Contact() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+/* ── Evidence ───────────────────────────────────────────────────────────── */
+
+function Evidence() {
   return (
-    <section id="contact" ref={ref} style={{ padding: '8rem 2rem', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-      <motion.div initial={{ opacity: 0, y: 60 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-        <div className="section-label" style={{ justifyContent: 'center' }}>06 — Contact</div>
-        <h2 className="text-4xl md:text-5xl font-black mb-4">Let&apos;s Build Something <span className="gradient-text">Verified</span></h2>
-        <p className="mb-10" style={{ color: '#a0a0c0' }}>Available for engineering work — autonomous systems, security automation, and production-grade frontend.</p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <motion.a href="https://github.com/Biswadipgoj" target="_blank" rel="noopener" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-primary">GitHub →</motion.a>
-          <motion.a href="https://github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills" target="_blank" rel="noopener" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-outline">View the System →</motion.a>
-        </div>
-      </motion.div>
-    </section>
+    <ZoomSection eyebrow="09 — Evidence" title={<>It turns “it’s secure” into <span className="gradient-text">a command and a result</span></>} lead="Every command, exit code and artifact is written to .biswodip/. Someone else can re-run it and get the same answer.">
+      <div className="grid lg:grid-cols-2 gap-5">
+        <ScrollReveal>
+          <CommandLog />
+        </ScrollReveal>
+        <ScrollReveal delay={0.12}>
+          <ReleaseGateMeter />
+        </ScrollReveal>
+      </div>
+    </ZoomSection>
   );
 }
 
-function Footer() {
+/* ── Projects ───────────────────────────────────────────────────────────── */
+
+function Projects() {
   return (
-    <footer style={{ padding: '4rem 2rem', borderTop: '1px solid rgba(255,255,255,0.06)', textAlign: 'center' }}>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-        <div className="font-mono text-sm mb-2" style={{ color: '#606080' }}>&lt;Biswodip Goj — Unified Engineering /&gt;</div>
-        <p className="text-sm" style={{ color: '#606080' }}>Apache-2.0 License. Built with evidence, shipped with discipline.</p>
-        <div className="flex items-center justify-center gap-6 mt-4">
-          {[['GitHub', 'https://github.com/Biswadipgoj'], ['Vercel', 'https://vercel.com'], ['npm', 'https://npmjs.com']].map(([name, url]) => (
-            <motion.a key={name} href={url} target="_blank" rel="noopener" whileHover={{ color: '#00d4ff' }} className="text-sm" style={{ color: '#606080' }}>{name}</motion.a>
-          ))}
-        </div>
+    <ZoomSection eyebrow="10 — Work" title={<>What the system <span className="gradient-text">ships</span></>}>
+      <div className="grid md:grid-cols-3 gap-5">
+        {PROJECTS.map((p, i) => (
+          <ScrollReveal key={p.name} delay={i * 0.09}>
+            <motion.div whileHover={{ y: -5 }} className="card" style={{ height: '100%' }}>
+              <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--cyan)', marginBottom: '0.5rem' }}>{p.name}</h3>
+              <p style={{ fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.65, marginBottom: '1rem' }}>{p.desc}</p>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                {p.tags.map((t) => (
+                  <span key={t} className="mono" style={{ fontSize: '0.56rem', padding: '0.18rem 0.55rem', borderRadius: 999, border: '1px solid var(--border)', color: 'var(--muted)' }}>{t}</span>
+                ))}
+              </div>
+            </motion.div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </ZoomSection>
+  );
+}
+
+/* ── Colophon: owner link, never printed as a raw URL ───────────────────── */
+
+function Colophon() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
+  const opacity = useTransform(scrollYProgress, [0, 0.55], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.55], [36, 0]);
+  const [revealed, setRevealed] = useState(false);
+
+  return (
+    <section ref={ref} style={{ padding: '6rem 2rem 4rem', position: 'relative', zIndex: 2 }}>
+      <motion.div style={{ opacity, y, maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+        <hr className="hairline" style={{ marginBottom: '3rem' }} />
+
+        {/* Owner seal — a monogram, not a printed link */}
+        <motion.button
+          onClick={() => setRevealed(true)}
+          onMouseEnter={() => setRevealed(true)}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.98 }}
+          aria-label="Reveal owner contact"
+          style={{
+            width: 84, height: 84, borderRadius: '50%', margin: '0 auto 1.4rem', cursor: 'pointer',
+            background: 'radial-gradient(circle at 35% 30%, rgba(34,211,238,0.16), rgba(99,102,241,0.1))',
+            border: '1px solid var(--border-strong)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            position: 'relative', overflow: 'hidden',
+          }}
+        >
+          <motion.span
+            className="mono"
+            animate={{ opacity: revealed ? 0 : 1, scale: revealed ? 0.7 : 1 }}
+            style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--cyan)', position: 'absolute' }}
+          >
+            BG
+          </motion.span>
+          <motion.span
+            className="mono"
+            initial={false}
+            animate={{ opacity: revealed ? 1 : 0, scale: revealed ? 1 : 0.7 }}
+            style={{ fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--cyan)', position: 'absolute' }}
+          >
+            OPEN
+          </motion.span>
+        </motion.button>
+
+        <h2 className="text-2xl md:text-3xl" style={{ marginBottom: '0.9rem' }}>
+          The repository is the documentation.
+        </h2>
+        <p style={{ color: 'var(--muted)', fontSize: '0.86rem', marginBottom: '1.8rem', lineHeight: 1.7 }}>
+          Everything on this page is drawn from the repository — MASTER-PROMPT.md §0–§43,
+          lifecycle/00–13, security/, references/, integrations/, and the {CAPABILITY_TOTAL}-capability registry.
+        </p>
+
+        <AnimatePresence>
+          {revealed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35 }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '1.8rem' }}>
+                {/* The owner site is linked by name, never printed as a bare URL */}
+                <motion.a
+                  href="https://biswadip.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  className="btn btn-primary"
+                >
+                  biswadip<span style={{ opacity: 0.6 }}>.in</span>
+                </motion.a>
+                <motion.a
+                  href="https://github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -2 }}
+                  className="btn btn-outline"
+                >
+                  Repository on GitHub
+                </motion.a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <p className="mono" style={{ fontSize: '0.58rem', color: 'var(--dim)', lineHeight: 1.9 }}>
+          Apache-2.0 · Copyright (c) 2026 Biswodip Goj<br />
+          Upstream projects remain owned by their authors — see THIRD-PARTY-NOTICES.md
+        </p>
       </motion.div>
-    </footer>
+    </section>
   );
 }

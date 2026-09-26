@@ -9,16 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "css.gg": "^2.1.1",
+    "framer-motion": "^11.18.2",
     "next": "14.2.29",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "framer-motion": "^11.18.2",
-    "css.gg": "^2.1.1"
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/three": "^0.186.0",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5"
   }
 }

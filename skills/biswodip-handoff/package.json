@@ -61,7 +61,8 @@
     "handoff": "node bin/biswodip.mjs handoff",
     "plan": "node bin/biswodip.mjs plan",
     "skills": "node bin/biswodip.mjs skills",
-    "registry": "node scripts/build-repository-registry.mjs ."
+    "registry": "node scripts/build-repository-registry.mjs .",
+    "site:data": "node scripts/generate-site-capabilities.mjs ."
   },
   "engines": {
     "node": ">=18.17"
