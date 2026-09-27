@@ -65,6 +65,7 @@ _Refreshed 2026-09-27T17:54:30.053Z_
 - **Lifecycle phase:** 13 — release; waiting on the PR merge and the site deploy.
 - **Builds / tests (2026-09-27, Windows 11, Node 24):** `verify-package` → 79/84, 0 FAILED. `npm test` → 55 pass, 0 fail, 4 skipped (snapshot-dependent; skip reason printed). Site: `tsc --noEmit` clean, `next build` ≈30 s, `npm audit` 0 vulnerabilities.
 - **Verified by running (this session):** real pinned installs via `install.ps1`, piped `install.sh` and the CLI into scratch projects; `/dip plan` from the installed skill; every step of the main CI job run locally (all pass, incl. security gates); site checked in Chrome — 59 fps scroll benchmark, no console messages, video autoplays muted/looping.
+- **Windows leg VERIFIED (2026-09-28, Windows PowerShell 5.1.26100, Node 24.16):** all 33 tracked `.ps1` files parse with the PS 5.1 parser (0 errors). Via `powershell.exe -File` into a scratch project: `install-integrations.ps1 --dry-run` exit 0; pinned network install exit 0 (5/5 upstream, 8/8 Biswodip skills, 17/17 commands, lock written); `verify-integrations.ps1` 98/99 VERIFIED, 1 UNVERIFIED (Docker not running), 0 FAILED; `detect-integrations.ps1` exit 0; `run-security-gates.ps1 --skip-audit` exit 0; `run-local-pentest.ps1 -DryRun` on loopback exit 0, on `example.com` REFUSED exit 6. `--offline` exits 1 with "no bundled snapshot" — correct in a checkout with `upstream/.snapshots-omitted`. Log: `.biswodip/evidence/windows-leg.log` (local, gitignored).
 - **UNVERIFIED:** CI on GitHub for this branch (not observed); macOS/Linux runs of `install.sh` (tested under Git Bash only); `shellcheck`/PSScriptAnalyzer (not installed here).
 - **BLOCKED:** nothing.
 - **OPEN:** merge the PR; deploy the site (`site/vercel.json`); the catalog import's area labels come from GitHub topics, so a few entries are filed oddly (e.g. `ohmyzsh` under planning).
@@ -110,7 +111,7 @@ _Refreshed 2026-09-27T17:54:30.053Z_
 - **`rsync` for the upstream snapshots** — not installed in the build container. `git archive HEAD | tar -x` is better anyway: it exports exactly the tracked files at the commit, with no `.git` and no local dirt.
 - **Checking the `skills` CLI flags from npm** — `npm view skills` returns `403 Forbidden` behind the proxy. Read the flags from the `vercel-labs/skills` README instead. Do not assume registry access exists.
 - **Delivering the full 42.8 MB zip in chat** — rejected, 30 MiB limit. Now shipped as a 396 KB core build plus two split parts; `scripts/lib/package.mjs` understands an `upstream/.snapshots-omitted` marker so the core build still verifies honestly instead of reporting FAILED.
-- **PowerShell validation** — no `pwsh` in the container and it cannot be installed through the proxy. Left as `UNVERIFIED` rather than assumed-good; the CI matrix parses the `.ps1` files on Windows.
+- **PowerShell validation** — no `pwsh` in the container and it cannot be installed through the proxy. Left as `UNVERIFIED` then; resolved 2026-09-28 on a real Windows host (see §2).
 - **Installing `headroom-ai` automatically when a `package.json` exists** (inherited from v1.2.0) — that silently mutates the user's dependencies. Removed; now opt-in behind `--with-headroom-sdk`.
 - **Scanning everything under `.claude/skills` in the gates** — 36 vendored skills produced hint noise that buried the real planted finding. Those directories are now excluded unless `--include-skills` is passed.
 - **Site design churn (2026-09-27)** — kraft, periwinkle, multi-spectrum, teal/apricot, teal/mint and warm/cool palettes were each rejected; a full-page WebGL fly-through read as "a weird object". The owner picked **candy pop** from previews — ask with previews before the next redesign instead of guessing.
@@ -125,8 +126,8 @@ _Refreshed 2026-09-27T17:54:30.053Z_
 1. **Merge `release/v2.4.0` into `main`** (PR: github.com/Biswadipgoj/BGskills/pull/new/release/v2.4.0) and confirm CI is green there; then `curl …/install.sh | bash` in an empty folder to prove the public one-liner.
 2. **Deploy the site.** `site/` builds a static export (`npm run build` → `site/out`, `vercel.json` present). When the catalog changes: edit `integrations/catalog.json` (or `npm run catalog:import`), then `node scripts/generate-site-capabilities.mjs .` — never hand-edit `site/src/data/*`. To re-record the video, run the `/film` page and record it (see §5).
 3. **Verify the install path from GitHub** in a scratch project: `npx skills add Biswadipgoj/BGskills`, then confirm the skill folders appear in `.claude/skills` and the router triggers by description.
-4. **Run the Windows leg** once: `scripts\install-integrations.ps1 -Root .` and `integrations\strix\run-local-pentest.ps1 -DryRun` on a real Windows host, then move PowerShell parsing from UNVERIFIED to VERIFIED.
-5. **Exercise Strix end to end** on a disposable local app with Docker running and `STRIX_LLM` / `LLM_API_KEY` set — confirm `run.json` classification for a findings run (exit 2) and a clean one.
+4. ~~Run the Windows leg~~ — done 2026-09-28, see §2. Remaining: PSScriptAnalyzer lint (not installed).
+5. **Exercise Strix end to end** on a disposable local app — `STRIX_LLM` / `LLM_API_KEY` are already set on the Windows host; only Docker needs to be running. Confirm `run.json` classification for a findings run (exit 2) and a clean one.
 6. **Refresh upstream** before any release: `node bin/biswodip.mjs refresh-snapshots` then `verify-package`. Never refresh immediately before shipping.
 
 ---

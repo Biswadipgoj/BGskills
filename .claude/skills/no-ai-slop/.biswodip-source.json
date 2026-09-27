@@ -1,0 +1,9 @@
+{
+  "skill": "no-ai-slop",
+  "installedAt": "2026-09-27T18:45:03.923Z",
+  "installedBy": "biswodip-goj-unified-engineering",
+  "integration": "no-ai-slop",
+  "repo": "https://github.com/petergyang/no-ai-slop.git",
+  "commit": "000650b156983f5159695b441477f4e63b25dc85",
+  "upstreamPath": "skills/no-ai-slop"
+}

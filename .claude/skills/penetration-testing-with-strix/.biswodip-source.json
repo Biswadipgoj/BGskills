@@ -1,0 +1,9 @@
+{
+  "skill": "penetration-testing-with-strix",
+  "installedAt": "2026-09-27T18:44:58.955Z",
+  "installedBy": "biswodip-goj-unified-engineering",
+  "integration": "strix",
+  "repo": "https://github.com/usestrix/strix.git",
+  "commit": "56e9ae982c2fdd00c7c0b9afc49af035470dd310",
+  "upstreamPath": "skills/penetration-testing-with-strix"
+}
