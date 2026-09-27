@@ -477,3 +477,37 @@ input[type="checkbox"] { accent-color: var(--teal); width: 18px; height: 18px; }
 /* squishy controls */
 .btn:active, .chip:active { transform: scale(0.95); transition-duration: 80ms; }
 @media (prefers-reduced-motion: reduce) { .term-line { animation: none; } .hero-term, .hero-term:hover { transform: none; } }
+
+/* ===== 3D: depth built from the product's own surfaces ===== */
+.depth-stage { perspective: 1600px; perspective-origin: 50% 40%; }
+.depth-rig { position: relative; transform-style: preserve-3d; will-change: transform; }
+.depth-front { position: relative; transform: translateZ(60px); transform-style: preserve-3d; }
+.depth-front .hero-term { transform: none; }
+.depth-sheet { position: absolute; left: 6%; right: -4%; top: -10%; bottom: 14%; border-radius: 20px; padding: 18px 22px; display: grid; align-content: start; gap: 10px; font-family: var(--font-mono), monospace; font-size: 0.78rem; color: var(--ink-2); background: rgba(247, 241, 232, 0.92); border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 30px 60px -30px rgba(15, 29, 34, 0.45); pointer-events: none; }
+.depth-sheet b { color: var(--ink); font-size: 0.8rem; }
+.depth-sheet span { display: block; padding: 6px 10px; border-radius: 8px; background: rgba(15, 29, 34, 0.05); }
+.depth-sheet code { white-space: pre; color: var(--cool-deep); }
+.depth-sheet--md { transform: translateZ(-60px) translate(26px, -34px) rotate(2.5deg); }
+.depth-sheet--json { transform: translateZ(-140px) translate(56px, -70px) rotate(5deg); background: rgba(217, 239, 234, 0.9); }
+@media (max-width: 999px) { .depth-sheet { display: none; } .depth-front { transform: none; } }
+
+/* sections rise into place with perspective as they scroll in */
+.band-head, .plan-grid, .gate-grid, .folders, .cat-grid, .video, .lc-sticky { transform-origin: 50% 100%; }
+@supports (animation-timeline: view()) {
+  .band-head, .plan-grid, .gate-grid, .video, .grid-2 { animation: rise3d linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+  @keyframes rise3d { from { opacity: 0.2; transform: perspective(1400px) rotateX(14deg) translateY(60px) translateZ(-120px); } to { opacity: 1; transform: none; } }
+}
+
+/* cards lift toward you */
+.cap, .stat, .folder-body, .agent { transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out); }
+.cap:hover, .stat:hover, .folder-body:hover, .agent:hover { transform: perspective(900px) translateZ(28px) rotateX(3deg); }
+
+/* the lifecycle ribbon lies back into the page like a road */
+.ribbon { perspective: 900px; }
+.ribbon .marquee { transform: rotateX(28deg) scale(1.04); transform-origin: 50% 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .band-head, .plan-grid, .gate-grid, .video, .grid-2 { animation: none !important; }
+  .cap:hover, .stat:hover, .folder-body:hover, .agent:hover { transform: none; }
+  .ribbon .marquee { transform: none; }
+}

@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { GithubMark } from './icons';
 import HeroTerminal from './HeroTerminal';
-import { VerbRotator } from './fx';
+import { DepthStage, VerbRotator } from './fx';
 import { GITHUB, RAW } from './links';
 
 const TABS = [
@@ -69,7 +69,14 @@ export default function InstallHero() {
           </div>
         </motion.div>
         <motion.div className="hero-live" initial={{ opacity: 0, y: 30, rotate: 1.5 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}>
-          <HeroTerminal />
+          <DepthStage max={9}>
+            {/* the two files /dip writes, stacked behind the terminal in real depth */}
+            <div className="depth-sheet depth-sheet--json" aria-hidden><b>.biswodip/plan.json</b><code>{`{ "skills": [ … ],
+  "entries": [ … ],
+  "waves": 4 }`}</code></div>
+            <div className="depth-sheet depth-sheet--md" aria-hidden><b>.biswodip/PLAN.md</b><span>Skills to load</span><span>Stack picked — only what this goal needs</span><span>Waves · Installs · LLM gateway</span></div>
+            <div className="depth-front"><HeroTerminal /></div>
+          </DepthStage>
         </motion.div>
       </div>
     </section>

@@ -114,6 +114,31 @@ export function DepthBackdrop() {
   );
 }
 
+/**
+ * A 3D stage for one element: it turns toward the pointer with a spring, and its children can sit at different
+ * depths (translateZ). Mouse only; still under reduced motion.
+ */
+export function DepthStage({ children, className, max = 10 }: { children: React.ReactNode; className?: string; max?: number }) {
+  const reduce = useReducedMotion();
+  const rx = useSpring(useMotionValue(0), { stiffness: 140, damping: 18 });
+  const ry = useSpring(useMotionValue(0), { stiffness: 140, damping: 18 });
+  useEffect(() => {
+    if (reduce) return;
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      ry.set((e.clientX / window.innerWidth - 0.5) * max * 2);
+      rx.set(-(e.clientY / window.innerHeight - 0.5) * max);
+    };
+    window.addEventListener('pointermove', onMove, { passive: true });
+    return () => window.removeEventListener('pointermove', onMove);
+  }, [reduce, rx, ry, max]);
+  return (
+    <div className={`depth-stage ${className || ''}`}>
+      <motion.div className="depth-rig" style={reduce ? undefined : { rotateX: rx, rotateY: ry }}>{children}</motion.div>
+    </div>
+  );
+}
+
 /** Slot-machine word: cycles through `words` (the lifecycle verbs), sliding each in from below. */
 export function VerbRotator({ words, every = 1800 }: { words: string[]; every?: number }) {
   const reduce = useReducedMotion();
