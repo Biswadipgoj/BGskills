@@ -795,4 +795,10 @@ node bin/biswodip.mjs handoff update   # refresh git/evidence facts, keep your p
 
 **Security evidence beats claims. Product correctness beats polish. Taste beats decoration. Simplicity beats performative complexity.**
 
+**Build the smallest correct product, verify it thoroughly, secure it, deploy it safely, monitor it, and continuously improve.**
+
+===========
+
+END OF MASTER PROMPT
+
 *Biswodip Goj Unified Production Engineering System — © 2026 Biswodip Goj — Apache-2.0. Upstream integrations remain the property of their respective authors (see `THIRD-PARTY-NOTICES.md`).*

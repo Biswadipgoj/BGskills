@@ -4,7 +4,7 @@
 #
 # One-command install into any project.
 #
-#   curl -fsSL https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/Biswadipgoj/BGskills/main/install.sh | bash
 #   curl -fsSL …/install.sh | bash -s -- /path/to/project --latest
 #   bash install.sh /path/to/project
 #
@@ -12,7 +12,7 @@
 # pinned, reviewed commits (pass --latest for upstream HEAD). Nothing is added to your package.json.
 set -euo pipefail
 
-REPO="${BISWODIP_REPO:-https://github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills.git}"
+REPO="${BISWODIP_REPO:-https://github.com/Biswadipgoj/BGskills.git}"
 HOME_DIR="${BISWODIP_HOME:-$HOME/.biswodip-goj-unified-engineering}"
 TARGET="."
 ARGS=()

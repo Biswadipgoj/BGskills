@@ -13,8 +13,8 @@ import { GITHUB, RAW } from './links';
 const TABS = [
   { id: 'bash', label: 'macOS / Linux', cmd: `curl -fsSL ${RAW}/install.sh | bash` },
   { id: 'ps', label: 'Windows', cmd: `irm ${RAW}/install.ps1 | iex` },
-  { id: 'npx', label: 'npx', cmd: 'npx --yes github:Biswadipgoj/BISWODIP-ENGINEERING-skills dip install --root .' },
-  { id: 'skills', label: 'Skills only', cmd: 'npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills' },
+  { id: 'npx', label: 'npx', cmd: 'npx --yes github:Biswadipgoj/BGskills dip install --root .' },
+  { id: 'skills', label: 'Skills only', cmd: 'npx skills add Biswadipgoj/BGskills' },
 ] as const;
 
 function CopyCommand() {

@@ -138,7 +138,8 @@ function Bar({ t, i }: { t: MotionValue<number>; i: number }) {
   return <span className="film-bar"><motion.span style={{ scaleX }} /></span>;
 }
 
-export default function PipelineFilm() {
+/** `embed`: just the screen, looping on its own (used on the home page). Without it: the full player (/film). */
+export default function PipelineFilm({ embed = false }: { embed?: boolean } = {}) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.45 });
@@ -156,15 +157,19 @@ export default function PipelineFilm() {
     if (t.get() >= TOTAL - 0.001) t.set(0);
     const from = t.get();
     setPlaying(true);
-    run.current = animate(t, TOTAL, { duration: (TOTAL - from) * SECONDS_PER_CHAPTER, ease: 'linear', onComplete: () => setPlaying(false) });
+    run.current = animate(t, TOTAL, {
+      duration: (TOTAL - from) * SECONDS_PER_CHAPTER, ease: 'linear',
+      // embedded: hold the release stamp for a beat, then start over
+      onComplete: () => { if (embed) { setTimeout(() => { if (run.current) { t.set(0); play(); } }, 1800); } else setPlaying(false); },
+    });
   };
-  const pause = () => { run.current?.stop(); setPlaying(false); };
+  const pause = () => { run.current?.stop(); run.current = null; setPlaying(false); };
   const seek = (v: number) => { const wasPlaying = playing; pause(); t.set(v); if (wasPlaying) play(); };
 
   // Autoplay when it scrolls into view (unless the viewer paused it); stop when it leaves. Reduced motion: no autoplay.
   useEffect(() => {
     if (reduce) return;
-    if (inView && !userPaused && t.get() < TOTAL - 0.001) play();
+    if (inView && !userPaused && (embed || t.get() < TOTAL - 0.001)) play();
     if (!inView) pause();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, reduce]);
@@ -176,6 +181,46 @@ export default function PipelineFilm() {
   const done = frame >= TOTAL - 0.02;
   const secs = Math.round(frame * SECONDS_PER_CHAPTER);
 
+  const film = (
+    <div className="film" ref={ref}>
+      <div className="film-screen" role="region" aria-label={`Pipeline film, chapter ${ch + 1} of 4: ${CHAPTERS[ch].label}`}>
+        <div className="film-chapters">
+          {CHAPTERS.map((c, i) => (
+            <button key={c.key} className="film-chapter" aria-current={i === ch ? 'true' : undefined} onClick={() => seek(i + 0.001)}>
+              <Bar t={t} i={i} />
+              <span><c.Icon size={12} /> {c.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className="film-scene" style={{ perspective: 1000 }}>
+          <AnimatePresence mode="wait">
+            <Scene key={ch} p={p} />
+          </AnimatePresence>
+        </div>
+        <AnimatePresence>
+          {ch === 3 && p > 0.93 ? (
+            <motion.span className="stamp film-stamp" initial={{ opacity: 0, scale: 1.8, rotate: -14 }} animate={{ opacity: 1, scale: 1, rotate: -4 }} exit={{ opacity: 0 }} transition={{ type: 'spring', stiffness: 520, damping: 20 }}>
+              RELEASE READY
+            </motion.span>
+          ) : null}
+        </AnimatePresence>
+      </div>
+
+      {embed ? null : (
+      <div className="film-controls">
+        <button className="btn film-play" onClick={() => { if (playing) { pause(); setUserPaused(true); } else { setUserPaused(false); play(); } }} aria-label={playing ? 'Pause' : done ? 'Replay' : 'Play'}>
+          {playing ? <Pause size={20} /> : done ? <RotateCcw size={20} /> : <Play size={20} />}
+        </button>
+        <label className="sr-only" htmlFor="film-scrub">Position in the film</label>
+        <input id="film-scrub" className="film-scrub" type="range" min={0} max={TOTAL * 100} step={1} value={Math.round(frame * 100)} onChange={(e) => seek(Number(e.target.value) / 100)} />
+        <span className="film-time">0:{String(secs).padStart(2, '0')} / 0:{Math.round(TOTAL * SECONDS_PER_CHAPTER)}</span>
+      </div>
+      )}
+    </div>
+  );
+
+  if (embed) return film;
+
   return (
     <section id="film" className="band" aria-labelledby="film-title">
       <div className="wrap">
@@ -183,39 +228,7 @@ export default function PipelineFilm() {
           Twenty-six seconds, four chapters, the commands and checks the system actually runs. Press play, scrub, or jump to a chapter.
         </SectionHead>
 
-        <div className="film" ref={ref}>
-          <div className="film-screen" role="region" aria-label={`Pipeline film, chapter ${ch + 1} of 4: ${CHAPTERS[ch].label}`}>
-            <div className="film-chapters">
-              {CHAPTERS.map((c, i) => (
-                <button key={c.key} className="film-chapter" aria-current={i === ch ? 'true' : undefined} onClick={() => seek(i + 0.001)}>
-                  <Bar t={t} i={i} />
-                  <span><c.Icon size={12} /> {c.label}</span>
-                </button>
-              ))}
-            </div>
-            <div className="film-scene" style={{ perspective: 1000 }}>
-              <AnimatePresence mode="wait">
-                <Scene key={ch} p={p} />
-              </AnimatePresence>
-            </div>
-            <AnimatePresence>
-              {ch === 3 && p > 0.93 ? (
-                <motion.span className="stamp film-stamp" initial={{ opacity: 0, scale: 1.8, rotate: -14 }} animate={{ opacity: 1, scale: 1, rotate: -4 }} exit={{ opacity: 0 }} transition={{ type: 'spring', stiffness: 520, damping: 20 }}>
-                  RELEASE READY
-                </motion.span>
-              ) : null}
-            </AnimatePresence>
-          </div>
-
-          <div className="film-controls">
-            <button className="btn film-play" onClick={() => { if (playing) { pause(); setUserPaused(true); } else { setUserPaused(false); play(); } }} aria-label={playing ? 'Pause' : done ? 'Replay' : 'Play'}>
-              {playing ? <Pause size={20} /> : done ? <RotateCcw size={20} /> : <Play size={20} />}
-            </button>
-            <label className="sr-only" htmlFor="film-scrub">Position in the film</label>
-            <input id="film-scrub" className="film-scrub" type="range" min={0} max={TOTAL * 100} step={1} value={Math.round(frame * 100)} onChange={(e) => seek(Number(e.target.value) / 100)} />
-            <span className="film-time">0:{String(secs).padStart(2, '0')} / 0:{Math.round(TOTAL * SECONDS_PER_CHAPTER)}</span>
-          </div>
-        </div>
+        {film}
       </div>
     </section>
   );

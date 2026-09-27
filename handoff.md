@@ -121,9 +121,10 @@ _Refreshed 2026-09-27T17:54:30.053Z_
 
 <!-- biswodip:next -->
 
-1. **Merge `release/v2.4.0` into `main`** (PR: github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/pull/new/release/v2.4.0) and confirm CI is green there; then `curl …/install.sh | bash` in an empty folder to prove the public one-liner.
+0. **Rename the GitHub repo to `BGskills` first** (Settings → General → Repository name). All links, installers and the Pages base path already use `Biswadipgoj/BGskills`; GitHub redirects old → new, never the reverse, so merging before the rename breaks the one-liners. Then enable Pages: Settings → Pages → Source: GitHub Actions (`.github/workflows/pages.yml`).
+1. **Merge `release/v2.4.0` into `main`** (PR: github.com/Biswadipgoj/BGskills/pull/new/release/v2.4.0) and confirm CI is green there; then `curl …/install.sh | bash` in an empty folder to prove the public one-liner.
 2. **Deploy the site.** `site/` builds a static export (`npm run build` → `site/out`, `vercel.json` present). When the catalog changes: edit `integrations/catalog.json` (or `npm run catalog:import`), then `node scripts/generate-site-capabilities.mjs .` — never hand-edit `site/src/data/*`. To re-record the video, run the `/film` page and record it (see §5).
-3. **Verify the install path from GitHub** in a scratch project: `npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills`, then confirm the skill folders appear in `.claude/skills` and the router triggers by description.
+3. **Verify the install path from GitHub** in a scratch project: `npx skills add Biswadipgoj/BGskills`, then confirm the skill folders appear in `.claude/skills` and the router triggers by description.
 4. **Run the Windows leg** once: `scripts\install-integrations.ps1 -Root .` and `integrations\strix\run-local-pentest.ps1 -DryRun` on a real Windows host, then move PowerShell parsing from UNVERIFIED to VERIFIED.
 5. **Exercise Strix end to end** on a disposable local app with Docker running and `STRIX_LLM` / `LLM_API_KEY` set — confirm `run.json` classification for a findings run (exit 2) and a clean one.
 6. **Refresh upstream** before any release: `node bin/biswodip.mjs refresh-snapshots` then `verify-package`. Never refresh immediately before shipping.

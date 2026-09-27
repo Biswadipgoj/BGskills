@@ -231,7 +231,7 @@ test('CLI accepts a leading "dip" (npx github:… dip install) and install defau
 test('installers point at the real repository and never close the caller\'s shell', () => {
   const sh = fs.readFileSync(path.join(PKG_ROOT, 'install.sh'), 'utf8');
   const ps = fs.readFileSync(path.join(PKG_ROOT, 'install.ps1'), 'utf8');
-  for (const s of [sh, ps]) assert.match(s, /Biswadipgoj\/BISWODIP-ENGINEERING-skills\.git/);
+  for (const s of [sh, ps]) assert.match(s, /Biswadipgoj\/BGskills\.git/);
   assert.match(sh, /BASH_SOURCE\[0\]:-/, 'safe under curl | bash with set -u');
   assert.doesNotMatch(ps.replace(/^#.*$/gm, ''), /(?<![.\w])exit\b/, 'install.ps1 must not call exit (irm | iex would close the terminal)');
   assert.ok(!/[^\x00-\x7F]/.test(ps), 'install.ps1 stays ASCII so Windows PowerShell 5.1 reads it correctly');

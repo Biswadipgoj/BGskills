@@ -151,7 +151,7 @@ async function main() {
       const { table } = await import('../scripts/lib/common.mjs');
       log.title('Installable skills');
       table(['SKILL', 'PURPOSE', '~TOKENS ON TRIGGER', 'FILES'], rows.map((r) => [r.name, r.title, String(r.tokens), String(r.files)]));
-      log.info('Install all: npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills');
+      log.info('Install all: npx skills add Biswadipgoj/BGskills');
       return 0;
     }
     case 'plan': {

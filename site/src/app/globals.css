@@ -49,8 +49,8 @@
   /* spacing scale */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
   --band: clamp(88px, 10vw, 136px);
-  --gutter: clamp(20px, 4.5vw, 72px);
-  --max: 1360px;
+  --gutter: clamp(20px, 5vw, 112px);
+  --max: 1920px;
   --radius: 28px;
   --radius-sm: 18px;
   --line: 3px solid var(--plum);
@@ -610,3 +610,7 @@ code { font-family: var(--font-mono), monospace; }
 /* the rotating verb holds one line box; words swap inside it */
 .rotator { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.02; padding-bottom: 0.08em; }
 .rotator-word { display: inline-block; }
+/* full-page layout: sections span the viewport; only reading text keeps a measure */
+.hero { min-height: calc(100svh - 70px); }
+.band-head { max-width: min(1200px, 100%); }
+@media (min-width: 1600px) { .cat-grid { grid-template-columns: repeat(5, 1fr); } .folders { gap: var(--s6); } .hero-grid { gap: clamp(64px, 6vw, 160px); } }

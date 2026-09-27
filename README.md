@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href=".github/workflows/ci.yml"><img alt="CI" src="https://github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/actions/workflows/ci.yml/badge.svg"></a>
+  <a href=".github/workflows/ci.yml"><img alt="CI" src="https://github.com/Biswadipgoj/BGskills/actions/workflows/ci.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/License-Apache_2.0-0B1220?style=for-the-badge&labelColor=0B1220&color=6366F1"></a>
   <a href="CHANGELOG.md"><img alt="Version 2.3.0" src="https://img.shields.io/badge/version-2.3.0-0B1220?style=for-the-badge&labelColor=0B1220&color=22D3EE"></a>
   <a href="package.json"><img alt="Node >= 18.17" src="https://img.shields.io/badge/node-%E2%89%A5%2018.17-0B1220?style=for-the-badge&labelColor=0B1220&color=3C873A"></a>
@@ -42,10 +42,10 @@
 
 ```bash
 # from anywhere: clone this repo and install into a target project
-curl -fsSL https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Biswadipgoj/BGskills/main/install.sh | bash
 
 # or
-npx --yes github:Biswadipgoj/BISWODIP-ENGINEERING-skills dip install --root .
+npx --yes github:Biswadipgoj/BGskills dip install --root .
 ```
 
 Then, in that project:
@@ -66,30 +66,30 @@ Then, in that project:
 Or install the skills alone, straight from this repository (skills only — no `/dip` command or `@dip` agents; use the installer above for those):
 
 ```bash
-npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills                                   # all eight
-npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills --skill biswodip-security-review  # just one
+npx skills add Biswadipgoj/BGskills                                   # all eight
+npx skills add Biswadipgoj/BGskills --skill biswodip-security-review  # just one
 ```
 
 Or clone it and let the installer wire up the upstream projects too:
 
 ```bash
 # 1. From your target project, detect what already exists (nothing is installed yet)
-node /path/to/BISWODIP-ENGINEERING-skills/bin/biswodip.mjs detect --root .
+node /path/to/BGskills/bin/biswodip.mjs detect --root .
 
 # 2. Clone every upstream repository, verify each one, install the agent skills
-bash /path/to/BISWODIP-ENGINEERING-skills/scripts/install-integrations.sh .
+bash /path/to/BGskills/scripts/install-integrations.sh .
 
 # 3. Confirm what is installed, against the lock file
-bash /path/to/BISWODIP-ENGINEERING-skills/scripts/verify-integrations.sh . --verbose
+bash /path/to/BGskills/scripts/verify-integrations.sh . --verbose
 
 # 4. Run the automated security gates
-bash /path/to/BISWODIP-ENGINEERING-skills/scripts/run-security-gates.sh . --project-checks
+bash /path/to/BGskills/scripts/run-security-gates.sh . --project-checks
 ```
 
 Windows PowerShell:
 
 ```powershell
-& C:\path\to\BISWODIP-ENGINEERING-skills\scripts\install-integrations.ps1 -Root .
+& C:\path\to\BGskills\scripts\install-integrations.ps1 -Root .
 ```
 
 Then tell your agent: **“Follow MASTER-PROMPT.md for this repository.”** Installed as a skill, it triggers on its own for build, harden, review, audit, pentest and release-gate work.
@@ -194,7 +194,7 @@ INTEGRATION | STATUS | VERSION | SOURCE | LOCATION | ACTION TAKEN
 ## Repository layout
 
 ```text
-BISWODIP-ENGINEERING-skills/
+BGskills/
 ├── MASTER-PROMPT.md          # the operating system: §0–§43
 ├── lifecycle/                # 00-bootstrap … 13-release — one procedure per phase
 ├── security/                 # server authority, authorization, financial, webhooks,

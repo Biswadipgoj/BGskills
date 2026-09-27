@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright (c) 2026 Biswodip Goj — Biswodip Goj Unified Engineering
 // Skill catalogue and builder. Each skill is installable on its own from GitHub
-// (`npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills --skill <name>`) and carries
+// (`npx skills add Biswadipgoj/BGskills --skill <name>`) and carries
 // only the files its phase needs, so an agent loads a small SKILL.md instead of the whole system.
 
 import fs from 'node:fs';

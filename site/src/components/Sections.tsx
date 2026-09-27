@@ -14,7 +14,7 @@ import { Bot, Boxes, GitBranch, Layers, Route, Search, Terminal } from 'lucide-r
 import { RAW } from './links';
 
 const NAV = [
-  ['install', 'Install'], ['video', 'Video'], ['plan', 'Planner'], ['lifecycle', 'Lifecycle'], ['gate', 'Release gate'], ['upstreams', 'Upstreams'], ['catalog', 'Catalog'], ['commands', 'Commands'],
+  ['install', 'Install'], ['how', 'How it works'], ['plan', 'Planner'], ['lifecycle', 'Lifecycle'], ['gate', 'Release gate'], ['upstreams', 'Upstreams'], ['catalog', 'Catalog'], ['commands', 'Commands'],
 ] as const;
 
 export function Header() {

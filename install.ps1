@@ -4,8 +4,8 @@
 #
 # One-command install into any project.
 #
-#   irm https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/main/install.ps1 | iex
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/main/install.ps1))) -Target C:\path\to\project -Latest
+#   irm https://raw.githubusercontent.com/Biswadipgoj/BGskills/main/install.ps1 | iex
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/Biswadipgoj/BGskills/main/install.ps1))) -Target C:\path\to\project -Latest
 #   .\install.ps1 -Target C:\path\to\project
 #
 # Installs: 8 skills + /dip commands + @dip agents, and clones the five upstream projects at their
@@ -23,7 +23,7 @@ param(
 )
 
 function Install-Biswodip {
-  $Repo = if ($env:BISWODIP_REPO) { $env:BISWODIP_REPO } else { "https://github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills.git" }
+  $Repo = if ($env:BISWODIP_REPO) { $env:BISWODIP_REPO } else { "https://github.com/Biswadipgoj/BGskills.git" }
   $HomeDir = if ($env:BISWODIP_HOME) { $env:BISWODIP_HOME } else { Join-Path $HOME ".biswodip-goj-unified-engineering" }
 
   foreach ($tool in @("git", "node")) {
