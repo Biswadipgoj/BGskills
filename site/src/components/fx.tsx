@@ -150,8 +150,8 @@ export function VerbRotator({ words, every = 1800 }: { words: string[]; every?: 
   }, [reduce, words.length, every]);
   return (
     <span className="rotator" aria-live="off">
-      <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span key={words[i]} className="rotator-word grad-text" initial={{ y: '70%', opacity: 0, rotateX: -60 }} animate={{ y: 0, opacity: 1, rotateX: 0 }} exit={{ y: '-70%', opacity: 0, rotateX: 60 }} transition={{ type: 'spring', stiffness: 420, damping: 28 }}>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span key={words[i]} className="rotator-word grad-text" initial={{ y: '60%', opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: '-60%', opacity: 0 }} transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}>
           {words[i]}
         </motion.span>
       </AnimatePresence>
