@@ -1,6 +1,6 @@
 # Handoff — BISWODIP-GOJ-UNIFIED-ENGINEERING
 
-_Last updated: 2026-09-26T12:30:00.000Z_
+_Last updated: 2026-09-27T17:54:30.058Z_
 
 Read this first. Verify section 2 against the repository (`git status`, run the build) before trusting it, then continue from section 6.
 
@@ -28,18 +28,46 @@ Maintain the Biswodip Goj Unified Engineering system: one evidence-driven operat
 
 > Facts below are refreshed by `biswodip handoff update`. Everything outside this block is written by hand — do not let the tool own your reasoning.
 
-- **Version:** 2.3.0 — git repository on branch `main`, remote `origin` = github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills.
-- **Package self-verification:** VERIFIED — 78/84, 0 FAILED. 6 UNVERIFIED = the five omitted upstream snapshots (this is the core-build copy; `upstream/.snapshots-omitted` present) plus PowerShell parsing.
-- **Tests:** 49/53 pass. The 4 failures are all environmental in this core-build copy (bundled-snapshot checks + offline/full install need the omitted `upstream/` snapshots or network) — not regressions.
+- **Branch / commit:** `release/v2.4.0` @ `bbf60fb` — Site: candy-pop redesign — lilac/pink page, plum ink, pink/yellow/mint accents, sticker cards, bouncy pill buttons, Fredoka + Nunito; fix rotating headline verb; re-record how-it-works video in the new style
+- **Last commit at:** 2026-09-27T20:19:40+05:30 · unpushed commits: 0
+- **Uncommitted changes:** 0
+
+**Recent commits**
+
+- `bbf60fb Site: candy-pop redesign — lilac/pink page, plum ink, pink/yellow/mint accents, sticker cards, bouncy pill buttons, Fredoka + Nunito; fix rotating headline verb; re-record how-it-works video in the new style`
+- `fc44b68 Site: 3D depth without objects — hero terminal on a 3D stage with PLAN.md/plan.json layered behind, sections rise in with perspective (scroll-driven CSS), cards lift in 3D, lifecycle ribbon tilted into the page`
+- `f982dd5 v2.4.0: working installers, lean /dip plans, 599-entry catalog, rebuilt site`
+- `58057ad Refresh handoff.md for v2.3.0 and the portfolio site/catalog work`
+- `3169fe7 Add capability catalog expansion and Next.js portfolio site`
+- `2015740 bug fixed`
+- `9cedcaa Merge pull request #1 from Biswadipgoj/claude/determined-tesla-tbxxn3`
+- `8530484 Add /dip auto-planning, specialist subagents and /dip-setapi gateway`
+
+**Evidence:** 3 commands logged in `.biswodip/evidence/commands.log`
+  - `2026-09-27T12:57:22.575Z · exit=0 · 97ms · node -e process.exit(process.env.OCR_LLM_MODEL === 'ci-model' ? 0 : 1)`
+  - `2026-09-27T12:57:24.795Z · exit=1 · 358ms · npm.cmd audit --json --omit=dev`
+  - `2026-09-27T12:58:16.408Z · exit=1 · 644ms · npm.cmd audit --json --omit=dev`
+
+**Gate reports**
+
+- `.biswodip/evidence/security-gates-2026-09-27T12-57-23-591Z/report.md`
+- `.biswodip/evidence/security-gates-2026-09-27T12-58-15-182Z/report.md`
+
+**Strix runs**
+
+- `.biswodip/evidence/strix-2026-09-27T12-57-23-436Z.json`
+
+_Refreshed 2026-09-27T17:54:30.053Z_
 
 <!-- biswodip:auto:end -->
 
-- **Lifecycle phase:** 13 — release, plus in-flight distribution work (the portfolio site).
-- **Builds / tests:** `verify-package` → 0 FAILED. `npm test` → 49/53 (4 expected snapshot/install failures, see above). Site `tsc --noEmit` → clean; static export exists in `site/out/` (full `next build` is slow — three.js-heavy).
-- **Verified by running (this session):** re-ran `generate-site-capabilities.mjs` — no drift, catalog and `site/src/data/capabilities.ts` in sync (89 capabilities, 45 required); `tsc --noEmit` clean across `page.tsx` + all 3D components; `verify-package` 0 FAILED.
-- **UNVERIFIED:** PowerShell `.ps1` parsing (no `pwsh` here — CI covers Windows). A fresh full `next build` — exceeds the sandbox's ~3-min per-call cap; compiles under `tsc` and a prior static export exists.
+- **Version:** 2.4.0 on branch `release/v2.4.0` (pushed). **Not merged into `main` yet** — until it is, the one-line installers on GitHub still serve the old, broken URL.
+- **Lifecycle phase:** 13 — release; waiting on the PR merge and the site deploy.
+- **Builds / tests (2026-09-27, Windows 11, Node 24):** `verify-package` → 79/84, 0 FAILED. `npm test` → 55 pass, 0 fail, 4 skipped (snapshot-dependent; skip reason printed). Site: `tsc --noEmit` clean, `next build` ≈30 s, `npm audit` 0 vulnerabilities.
+- **Verified by running (this session):** real pinned installs via `install.ps1`, piped `install.sh` and the CLI into scratch projects; `/dip plan` from the installed skill; every step of the main CI job run locally (all pass, incl. security gates); site checked in Chrome — 59 fps scroll benchmark, no console messages, video autoplays muted/looping.
+- **UNVERIFIED:** CI on GitHub for this branch (not observed); macOS/Linux runs of `install.sh` (tested under Git Bash only); `shellcheck`/PSScriptAnalyzer (not installed here).
 - **BLOCKED:** nothing.
-- **OPEN:** the site is not yet deployed (Vercel config `site/vercel.json` present); README CI badge depends on Actions being green on `origin`.
+- **OPEN:** merge the PR; deploy the site (`site/vercel.json`); the catalog import's area labels come from GitHub topics, so a few entries are filed oddly (e.g. `ohmyzsh` under planning).
 
 ## 3) Active files
 
@@ -72,6 +100,7 @@ Maintain the Biswodip Goj Unified Engineering system: one evidence-driven operat
 8. Evidence: `.biswodip/evidence/` in any project the tooling runs against; the build ran `verify-package`, `node --test`, a live pinned install, an offline install, and the Strix guard checks.
 9. **v2.2.0 / v2.3.0 — distribution + orchestration.** Added the `/dip` entry layer and installers (v2.2.0), then auto-planning, specialist subagents and the `/dip-setapi` LLM gateway (v2.3.0). See `CHANGELOG.md`.
 10. **Portfolio site + catalog expansion (2026-09-26, commit `3169fe7`).** Expanded `integrations/catalog.json` with 44 top-starred repos (89 capabilities, 45 required) via `scripts/add-top-starred.mjs`; the catalog is the single source of truth. `scripts/generate-site-capabilities.mjs` → `site/src/data/capabilities.ts` → `scripts/wire-site-capabilities.mjs` wires it into `site/src/app/page.tsx`. Added the Next.js site under `site/` (React 18, framer-motion, three.js, Tailwind; 3D visuals; static export). Catalog + scripts propagated to all 7 `skills/biswodip-*` mirrors. `.kilo/` (Kilo Code worktree metadata) is now gitignored.
+11. **v2.4.0 (2026-09-27, branch `release/v2.4.0`).** Installers pointed at the real repo (they cloned a non-existent `BISWODIP-GOJ-UNIFIED-ENGINEERING`); `npx … dip install` works (leading `dip` accepted); installs are pinned by default (`--latest` for HEAD); `install.ps1` is `irm | iex`-safe and ASCII-only. Planner core moved to `scripts/lib/plan-core.mjs` (shared with the site; drift test guards the copy): no mobile agent for web goals, one pick per `group`, ideas only for vague goals. Catalog 89 → 599 via `scripts/import-github-catalog.mjs` (510 real repos ≥20k stars, `catalogOnly` = used only when named). Design skill + frontend/mobile agents: visuals must show the product. CI: snapshot tests skip with a reason, live pinned install, gates exclude only `test/tooling.test.mjs` fixtures. Site rebuilt (candy-pop design, live `/dip` terminal, autoplay video recorded from `/film`, planner, lifecycle, release gate, catalog); Next 16 / React 19; three.js removed; `wire-site-capabilities.mjs` deleted.
 
 ## 5) Failed attempts
 
@@ -84,13 +113,16 @@ Maintain the Biswodip Goj Unified Engineering system: one evidence-driven operat
 - **PowerShell validation** — no `pwsh` in the container and it cannot be installed through the proxy. Left as `UNVERIFIED` rather than assumed-good; the CI matrix parses the `.ps1` files on Windows.
 - **Installing `headroom-ai` automatically when a `package.json` exists** (inherited from v1.2.0) — that silently mutates the user's dependencies. Removed; now opt-in behind `--with-headroom-sdk`.
 - **Scanning everything under `.claude/skills` in the gates** — 36 vendored skills produced hint noise that buried the real planted finding. Those directories are now excluded unless `--include-skills` is passed.
+- **Site design churn (2026-09-27)** — kraft, periwinkle, multi-spectrum, teal/apricot, teal/mint and warm/cool palettes were each rejected; a full-page WebGL fly-through read as "a weird object". The owner picked **candy pop** from previews — ask with previews before the next redesign instead of guessing.
+- **Site jank** — 75 `backdrop-filter` surfaces + animated conic borders + `background-attachment: fixed` gave ~5 fps scrolling. Keep motion to transform/opacity; no per-frame repaints.
+- **Recording video with Playwright** — `recordVideo` needs Playwright's own ffmpeg; install it with `PLAYWRIGHT_BROWSERS_PATH=<scratch> npx playwright-core install ffmpeg`, encode with `ffmpeg-static`. Serve a *copy* of `site/out` — a server on `out/` locks it and breaks `next build` (EBUSY).
 
 ## 6) Next steps
 
 <!-- biswodip:next -->
 
-1. **Deploy the portfolio site.** `site/` has `vercel.json` and produces a static export; wire it to Vercel (or GitHub Pages) and confirm the live build matches `tsc`/local export. When editing capabilities, edit `integrations/catalog.json` then re-run `generate-site-capabilities.mjs` + `wire-site-capabilities.mjs` — never hand-edit `capabilities.ts`.
-2. **Push and confirm CI green** on `origin/main`; the README badge resolves only after Actions passes.
+1. **Merge `release/v2.4.0` into `main`** (PR: github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/pull/new/release/v2.4.0) and confirm CI is green there; then `curl …/install.sh | bash` in an empty folder to prove the public one-liner.
+2. **Deploy the site.** `site/` builds a static export (`npm run build` → `site/out`, `vercel.json` present). When the catalog changes: edit `integrations/catalog.json` (or `npm run catalog:import`), then `node scripts/generate-site-capabilities.mjs .` — never hand-edit `site/src/data/*`. To re-record the video, run the `/film` page and record it (see §5).
 3. **Verify the install path from GitHub** in a scratch project: `npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills`, then confirm the skill folders appear in `.claude/skills` and the router triggers by description.
 4. **Run the Windows leg** once: `scripts\install-integrations.ps1 -Root .` and `integrations\strix\run-local-pentest.ps1 -DryRun` on a real Windows host, then move PowerShell parsing from UNVERIFIED to VERIFIED.
 5. **Exercise Strix end to end** on a disposable local app with Docker running and `STRIX_LLM` / `LLM_API_KEY` set — confirm `run.json` classification for a findings run (exit 2) and a clean one.
