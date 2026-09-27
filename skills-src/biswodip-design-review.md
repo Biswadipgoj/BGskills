@@ -25,6 +25,24 @@ They are guidance, never permission to add visual complexity.
 11. **Performance** — bundle impact, image sizes, layout shift, animation cost, unnecessary client JS.
 12. **Security and regression** — visual work never becomes the authorization path; optimistic UI never implies a completed financial or security operation; business behaviour unchanged.
 
+## Visuals and motion come from the project, not from a mood board
+
+Before adding any image, illustration, icon set, 3D, video, background effect or animation, write one line: **what fact about this product does it show?** No answer → it does not ship.
+
+| Building | Imagery that belongs | Motion that belongs |
+|---|---|---|
+| Website / web app | The real product: its screens, its data, its output, photos of the actual place, food, people or objects the business sells. Diagrams of the real flow. | Scroll that reveals the product's own sequence (steps of the booking, stages of the pipeline); hover/press feedback; state changes (added, saved, failed). |
+| Mobile app (Android/iOS) | Real screens and the content users will see; platform icons (`@expo/vector-icons`, SF Symbols). No web hero graphics squeezed onto a phone. | Native gestures and transitions (`react-native-reanimated`): navigation, list insert/remove, pull-to-refresh, pressed states. Nothing that plays on a timer. |
+| Tool, dashboard, dev product | Real terminal output, real config, real numbers from the system. | Data arriving, filters applying, a run progressing — driven by the actual state. |
+
+Rules that follow from it:
+
+- **Subject** — a restaurant site shows the restaurant; a CLI shows the CLI running. Abstract blobs, glowing orbs, particle fields, floating 3D shapes, stock "circuit board" or "AI brain" art, and random gradients are decoration with no subject — remove them.
+- **Palette and type** come from the brand, the domain or the existing product — not the default neon-on-black or purple-to-blue gradient. If there is no brand, derive it from the subject (materials, place, audience) and write down why.
+- **Every animation has a trigger and a meaning**: it answers "what just changed?" or "what comes next?". Looping ambient motion, parallax for its own sake and entrance animations on every block fail this test.
+- **Placeholders are labelled** as placeholders, and the list of real assets needed goes in the report. Never ship generated "photos" of people, products or places as if they were real.
+- **One library per job.** Use what the repo already has; add an animation or icon library only when the plan picked it.
+
 ## Never
 
 Fake data to fill a screen · fake loading percentages · fake analytics · "AI-powered" labels with nothing behind them · client-side checks described as authorization · animation hiding weak information architecture · a design system package where a few tokens would do.
@@ -34,6 +52,7 @@ Fake data to fill a screen · fake loading percentages · fake analytics · "AI-
 - [ ] Every interaction has real loading, empty, error and success states.
 - [ ] Keyboard-only walkthrough done.
 - [ ] Reduced motion verified.
+- [ ] Every image and animation names the product fact it shows; the rest was removed.
 - [ ] Copy passed through `no-ai-slop`.
 - [ ] Screenshots or notes recorded as evidence.
 

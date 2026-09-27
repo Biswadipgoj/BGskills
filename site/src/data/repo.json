@@ -1,0 +1,279 @@
+{
+ "version": "2.4.0",
+ "license": "Apache-2.0",
+ "lifecycle": [
+  {
+   "n": "00",
+   "title": "Bootstrap",
+   "phase": "Phase 0–1",
+   "file": "lifecycle/00-bootstrap.md",
+   "gates": [
+    "Every required integration is PRESENT, CLONED, PINNED or SNAPSHOT — or explicitly BLOCKED with a reason.",
+    "Skills are installed for the agent in use, and not duplicated across scopes.",
+    "The lock file exists and matches what is on disk."
+   ]
+  },
+  {
+   "n": "01",
+   "title": "Plan",
+   "phase": "Phase 3 & 5",
+   "file": "lifecycle/01-plan.md",
+   "gates": [
+    "Acceptance criteria are testable and cover failure and unauthorized paths.",
+    "Every MUST CHANGE item has an owner file/module.",
+    "Rollback is written down."
+   ]
+  },
+  {
+   "n": "02",
+   "title": "Inspect",
+   "phase": "Phase 2",
+   "file": "lifecycle/02-inspect.md",
+   "gates": [
+    "You can describe the architecture without guessing.",
+    "Baseline build/test state recorded.",
+    "Sensitive operations and their current authorization are listed."
+   ]
+  },
+  {
+   "n": "03",
+   "title": "Threat model",
+   "phase": "Phase 4",
+   "file": "lifecycle/03-threat-model.md",
+   "gates": [
+    "Every sensitive operation has a named server-side control.",
+    "Every abuse case has either a control or an explicit accepted risk with an owner.",
+    "The threat model is written to .biswodip/evidence/THREAT-MODEL.md, not held in your head."
+   ]
+  },
+  {
+   "n": "04",
+   "title": "Implement",
+   "phase": "Phase 6",
+   "file": "lifecycle/04-implement.md",
+   "gates": [
+    "Every acceptance criterion has an implementation.",
+    "No security decision depends on client code.",
+    "Nothing in DO NOT CHANGE was modified."
+   ]
+  },
+  {
+   "n": "05",
+   "title": "Verify",
+   "phase": "Phase 7 & 14",
+   "file": "lifecycle/05-verify.md",
+   "gates": [
+    "Every acceptance criterion has a passing test or an explicit UNVERIFIED/BLOCKED status.",
+    "No pre-existing failure was silently adopted as \"expected\".",
+    "Exit codes recorded, not paraphrased."
+   ]
+  },
+  {
+   "n": "06",
+   "title": "Design and accessibility",
+   "phase": "Phase 8",
+   "file": "lifecycle/06-design.md",
+   "gates": [
+    "Every interaction has real loading, empty, error and success states.",
+    "Keyboard-only walkthrough completed.",
+    "Reduced-motion verified."
+   ]
+  },
+  {
+   "n": "07",
+   "title": "Performance and context efficiency",
+   "phase": "Phase 9",
+   "file": "lifecycle/07-performance.md",
+   "gates": [
+    "Before/after numbers recorded for every optimisation.",
+    "No security control, test or business rule removed for speed.",
+    "Expensive paths are bounded."
+   ]
+  },
+  {
+   "n": "08",
+   "title": "Security review",
+   "phase": "Phase 10",
+   "file": "lifecycle/08-security.md",
+   "gates": [
+    "Every applicable area reviewed with a status, not skipped silently.",
+    "Findings recorded with file and line.",
+    "Automated gate evidence saved under .biswodip/evidence/."
+   ]
+  },
+  {
+   "n": "09",
+   "title": "Authorized penetration testing",
+   "phase": "Phase 11 & 15",
+   "file": "lifecycle/09-pentest.md",
+   "gates": [
+    "Scope, authorization, mode, budget and run status recorded.",
+    "Every finding reproduced manually or dismissed with a reason.",
+    "Evidence written to .biswodip/evidence/."
+   ]
+  },
+  {
+   "n": "10",
+   "title": "Fix",
+   "phase": "Phase 13",
+   "file": "lifecycle/10-fix.md",
+   "gates": [
+    "Every confirmed finding is FIXED or formally documented.",
+    "Every fix has a regression test.",
+    "No security control elsewhere was weakened to make the fix work."
+   ]
+  },
+  {
+   "n": "11",
+   "title": "Adversarial break test",
+   "phase": "Phase 12",
+   "file": "lifecycle/11-adversarial.md",
+   "gates": [
+    "All applicable attacks attempted, with results recorded.",
+    "Every success is a finding in 10-fix.md.",
+    "Nothing was tested against a system you are not authorized to test."
+   ]
+  },
+  {
+   "n": "12",
+   "title": "Evidence matrix and score",
+   "phase": "Phase 16–17",
+   "file": "lifecycle/12-score.md",
+   "gates": [
+    "Matrix complete; no blank statuses.",
+    "Score computed from the matrix, with the caps applied.",
+    "Blocker list explicitly answered yes/no."
+   ]
+  },
+  {
+   "n": "13",
+   "title": "Release gate and report",
+   "phase": "Phase 17–18",
+   "file": "lifecycle/13-release.md",
+   "gates": [
+    "Every blocker in §33 answered from evidence.",
+    "Score, statuses and remaining risks stated.",
+    "Evidence locations listed so another engineer can re-check them."
+   ]
+  }
+ ],
+ "upstreams": [
+  {
+   "id": "taste",
+   "name": "Taste Skill",
+   "repo": "https://github.com/Leonxlnx/taste-skill",
+   "license": "MIT",
+   "commit": "5217fb45be2c0b302f29c9cd31cbd3237501c684",
+   "version": null,
+   "skills": 13
+  },
+  {
+   "id": "emilkowalski",
+   "name": "Emil Kowalski Skills",
+   "repo": "https://github.com/emilkowalski/skills",
+   "license": "MIT",
+   "commit": "85e8e2363b713506e1d5b6e07a0eb2da66be1bc3",
+   "version": null,
+   "skills": 13
+  },
+  {
+   "id": "headroom",
+   "name": "Headroom",
+   "repo": "https://github.com/headroomlabs-ai/headroom",
+   "license": "Apache-2.0",
+   "commit": "94206e265203acfd72a3b939e9a964e29175ad50",
+   "version": "0.38.0",
+   "skills": 0
+  },
+  {
+   "id": "strix",
+   "name": "Strix",
+   "repo": "https://github.com/usestrix/strix",
+   "license": "Apache-2.0",
+   "commit": "56e9ae982c2fdd00c7c0b9afc49af035470dd310",
+   "version": "1.6.2",
+   "skills": 9
+  },
+  {
+   "id": "no-ai-slop",
+   "name": "No AI Slop",
+   "repo": "https://github.com/petergyang/no-ai-slop",
+   "license": "MIT",
+   "commit": "000650b156983f5159695b441477f4e63b25dc85",
+   "version": null,
+   "skills": 1
+  }
+ ],
+ "commands": [
+  {
+   "name": "/dip",
+   "description": "Biswodip Goj Unified Engineering — auto-plans the goal, picks the few skills and stack it needs, runs subagents, verifies with evidence"
+  },
+  {
+   "name": "/dip-setapi",
+   "description": "Save the LLM gateway (base URL, API key, model) once; every /dip agent and tool picks it up automatically"
+  },
+  {
+   "name": "/dip:bootstrap",
+   "description": "Detect and install the five engineering integrations into this project"
+  },
+  {
+   "name": "/dip:design",
+   "description": "Design, accessibility and copy review — complete states, responsive, no AI slop"
+  },
+  {
+   "name": "/dip:handoff",
+   "description": "Write or refresh handoff.md so the next session resumes without losing context"
+  },
+  {
+   "name": "/dip:pentest",
+   "description": "Authorized penetration test (Strix + manual adversarial pass), then fix root causes"
+  },
+  {
+   "name": "/dip:plan",
+   "description": "Plan only — which few skills, stack entries and subagents this goal needs; changes nothing"
+  },
+  {
+   "name": "/dip:release",
+   "description": "Evidence matrix, weighted score with caps, blockers, and the final release report"
+  },
+  {
+   "name": "/dip:security",
+   "description": "Server-authoritative security review with an evidence-backed status per control"
+  }
+ ],
+ "agents": [
+  {
+   "name": "@dip-backend",
+   "description": "Backend and data builder for /dip. Builds APIs, data models and migrations, cache, search, analytics and monitoring with the stack the plan chose (Prisma, Redis, Meilisearch, ClickHouse, TiDB, Netdata, Appwrite)."
+  },
+  {
+   "name": "@dip-browser",
+   "description": "Browser automation and crawling agent for /dip. Drives the browser with jev-ultrafast (instead of Playwright), falls back to Browser Use, and crawls with Crawlee (Node) or Scrapling (Python)."
+  },
+  {
+   "name": "@dip-frontend",
+   "description": "Web front-end builder for /dip. Builds UI, CSS, icons and animation with the stack the plan chose (Motion, Anime.js, Animate.css, Bootstrap, Font Awesome, css.gg, Impeccable, Front-End Checklist) and the design-review skill."
+  },
+  {
+   "name": "@dip-infra",
+   "description": "Infrastructure and automation agent for /dip. Deployment, Kubernetes, scaling decisions, workflow automation with n8n, and multi-agent orchestration with Ruflo or Paperclip."
+  },
+  {
+   "name": "@dip-mobile",
+   "description": "Mobile builder for /dip. Builds Android and iOS apps with React Native through Expo, with Appwrite (or the existing backend) for auth and data."
+  },
+  {
+   "name": "@dip-planner",
+   "description": "Planning agent for /dip. Reads the repository and .biswodip/PLAN.md, confirms or cuts the proposed stack, writes acceptance criteria, and splits the work into tasks with one owner per file area. Use first in every /dip run, or when asked to plan a feature."
+  },
+  {
+   "name": "@dip-quality",
+   "description": "Quality agent for /dip. Runs and adds tests, reviews the diff, draws the architecture, and enforces TDD and verification discipline (Keploy, Open Code Review, Archify, Superpowers, Matt Pocock skills)."
+  },
+  {
+   "name": "@dip",
+   "description": "Biswodip Goj Unified Engineering agent. Use for building, hardening, reviewing, auditing, pentesting or release-gating a repository, and whenever work must be backed by evidence rather than claims. Invoke with @dip."
+  }
+ ]
+}

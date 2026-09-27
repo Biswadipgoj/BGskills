@@ -1,0 +1,7834 @@
+{
+ "agents": {
+  "dip-planner": "Decides the plan: reads the repo and the goal, picks the few stack entries and skills that matter, splits work into waves with file ownership, launches the other agents.",
+  "dip-frontend": "Web UI, CSS, icons, animation and design quality.",
+  "dip-mobile": "Android/iOS apps with React Native and Expo, Appwrite as the backend.",
+  "dip-backend": "APIs, data model, databases, search, cache, analytics, monitoring.",
+  "dip-quality": "Tests, code review, architecture diagrams, TDD and engineering-discipline skills.",
+  "dip-browser": "Goal-driven browser automation (jev-ultrafast first), crawling and scraping.",
+  "dip-infra": "Kubernetes, scalability, workflow automation, multi-agent orchestration."
+ },
+ "entries": [
+  {
+   "id": "motion",
+   "name": "Motion",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "animation-library",
+   "priority": 2,
+   "use": "Animation for React/JS/Vue: layout animations, gestures, springs, scroll-linked motion. First choice for React UI motion.",
+   "docs": "https://motion.dev/docs",
+   "repo": "https://github.com/motiondivision/motion",
+   "signals": {
+    "keywords": [
+     "animation",
+     "animate",
+     "motion",
+     "transition",
+     "gesture",
+     "spring",
+     "parallax",
+     "micro-interaction"
+    ]
+   }
+  },
+  {
+   "id": "anime",
+   "name": "Anime.js",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "animation-library",
+   "use": "Framework-free timelines for DOM, SVG and CSS: staggers, SVG path drawing, sequenced animation.",
+   "docs": "https://animejs.com/documentation",
+   "repo": "https://github.com/juliangarnier/anime",
+   "signals": {
+    "keywords": [
+     "timeline",
+     "svg animation",
+     "stagger",
+     "anime",
+     "vanilla"
+    ]
+   }
+  },
+  {
+   "id": "animate-css",
+   "name": "Animate.css",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "animation-library",
+   "use": "Drop-in CSS keyframe classes for entrance/exit/attention effects when a JS animation library is not justified. Honour prefers-reduced-motion.",
+   "docs": "https://animate.style",
+   "repo": "https://github.com/animate-css/animate.css",
+   "signals": {
+    "keywords": [
+     "css animation",
+     "fade",
+     "entrance",
+     "static site"
+    ]
+   }
+  },
+  {
+   "id": "bootstrap",
+   "name": "Bootstrap",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "css-framework",
+   "use": "Responsive grid, components and utilities. Use when the project already has it, or needs an accessible component baseline without a design system.",
+   "docs": "https://getbootstrap.com/docs/",
+   "repo": "https://github.com/twbs/bootstrap",
+   "signals": {
+    "keywords": [
+     "bootstrap",
+     "grid",
+     "css framework",
+     "admin panel"
+    ]
+   }
+  },
+  {
+   "id": "font-awesome",
+   "name": "Font Awesome",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "icon-set",
+   "priority": 1,
+   "use": "Icon set (free tier) as SVG, web font or JS. Import only the icons used.",
+   "docs": "https://docs.fontawesome.com",
+   "repo": "https://github.com/FortAwesome/Font-Awesome",
+   "signals": {
+    "keywords": [
+     "icon",
+     "icons",
+     "font awesome",
+     "fontawesome"
+    ]
+   }
+  },
+  {
+   "id": "css-gg",
+   "name": "css.gg",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "icon-set",
+   "use": "Pure-CSS/SVG icons with no font or JS, for tiny bundles. Custom licence: read https://css.gg/licence.txt before shipping.",
+   "docs": "https://css.gg",
+   "repo": "https://github.com/astrit/css.gg",
+   "signals": {
+    "keywords": [
+     "css icons",
+     "lightweight icons",
+     "css.gg"
+    ]
+   }
+  },
+  {
+   "id": "impeccable",
+   "name": "Impeccable",
+   "kind": "skill",
+   "agent": "dip-frontend",
+   "group": "design-guidance-skill",
+   "use": "Agent design-quality skill: design vocabulary, audits and anti-patterns for front-end work. Writes provider hooks, so it is installed only on request.",
+   "docs": "https://impeccable.style",
+   "repo": "https://github.com/pbakaus/impeccable",
+   "signals": {
+    "keywords": [
+     "design",
+     "polish",
+     "ui",
+     "ux",
+     "beautiful",
+     "redesign",
+     "typography",
+     "layout",
+     "creative"
+    ]
+   }
+  },
+  {
+   "id": "front-end-checklist",
+   "name": "Front-End Checklist",
+   "kind": "reference",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "use": "Pre-launch checklist: head/meta/SEO, accessibility, performance, images, CSS, JS. Use as the web launch gate next to lifecycle/06-design.md.",
+   "docs": "https://frontendchecklist.io",
+   "repo": "https://github.com/thedaviddias/Front-End-Checklist",
+   "signals": {
+    "keywords": [
+     "seo",
+     "meta",
+     "checklist",
+     "launch",
+     "lighthouse",
+     "web vitals"
+    ]
+   }
+  },
+  {
+   "id": "app-ideas",
+   "name": "App Ideas",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "whenVague": true,
+   "use": "Tiered app ideas with user stories. Use when the goal is vague or asks for ideas; turn the chosen idea into acceptance criteria.",
+   "repo": "https://github.com/florinpop17/app-ideas",
+   "signals": {
+    "keywords": [
+     "idea",
+     "ideas",
+     "what should i build",
+     "project idea",
+     "inspire"
+    ]
+   }
+  },
+  {
+   "id": "react-native",
+   "name": "React Native",
+   "kind": "framework",
+   "agent": "dip-mobile",
+   "use": "Native Android/iOS apps in React. Start new apps through Expo, which React Native recommends.",
+   "docs": "https://reactnative.dev/docs/getting-started",
+   "repo": "https://github.com/react/react-native",
+   "signals": {
+    "keywords": [
+     "android",
+     "ios",
+     "mobile",
+     "react native",
+     "apk",
+     "play store",
+     "app store"
+    ]
+   }
+  },
+  {
+   "id": "expo",
+   "name": "Expo",
+   "kind": "framework",
+   "agent": "dip-mobile",
+   "group": "mobile-framework",
+   "priority": 2,
+   "use": "React Native framework: Expo Router, native modules, dev builds, EAS Build for Android APK/AAB. Add packages with `npx expo install` so versions match the SDK.",
+   "docs": "https://docs.expo.dev",
+   "repo": "https://github.com/expo/expo",
+   "signals": {
+    "keywords": [
+     "android",
+     "expo",
+     "mobile",
+     "apk",
+     "aab",
+     "eas",
+     "ios"
+    ]
+   }
+  },
+  {
+   "id": "appwrite",
+   "name": "Appwrite",
+   "kind": "service",
+   "agent": "dip-mobile",
+   "use": "Self-hostable backend: auth, databases, storage, functions, realtime. SDKs: appwrite (web), react-native-appwrite (mobile), node-appwrite (server; its API key stays server-side). Access is enforced by collection/document permissions — review them like server code.",
+   "docs": "https://appwrite.io/docs",
+   "repo": "https://github.com/appwrite/appwrite",
+   "signals": {
+    "keywords": [
+     "appwrite",
+     "baas",
+     "backend as a service",
+     "login",
+     "firebase alternative",
+     "realtime"
+    ]
+   }
+  },
+  {
+   "id": "prisma",
+   "name": "Prisma ORM",
+   "kind": "library",
+   "agent": "dip-backend",
+   "use": "Type-safe ORM and migrations for Postgres, MySQL/TiDB, SQLite, SQL Server, MongoDB. Never run destructive migrations against shared data without permission.",
+   "docs": "https://www.prisma.io/docs",
+   "repo": "https://github.com/prisma/orm",
+   "signals": {
+    "keywords": [
+     "database",
+     "orm",
+     "schema",
+     "migration",
+     "postgres",
+     "mysql",
+     "sql",
+     "prisma"
+    ]
+   }
+  },
+  {
+   "id": "redis",
+   "name": "Redis",
+   "kind": "service",
+   "agent": "dip-backend",
+   "use": "In-memory store for cache, sessions, rate limits, queues, pub/sub and streams. Set TTLs; never cache per-user data under shared keys.",
+   "docs": "https://redis.io/docs/latest/",
+   "repo": "https://github.com/redis/redis",
+   "signals": {
+    "keywords": [
+     "cache",
+     "caching",
+     "redis",
+     "session",
+     "rate limit",
+     "queue",
+     "pubsub",
+     "leaderboard"
+    ]
+   }
+  },
+  {
+   "id": "meilisearch",
+   "name": "Meilisearch",
+   "kind": "service",
+   "agent": "dip-backend",
+   "use": "Typo-tolerant full-text, faceted and hybrid search. Master key stays server-side; clients get scoped search keys.",
+   "docs": "https://www.meilisearch.com/docs",
+   "repo": "https://github.com/meilisearch/meilisearch",
+   "signals": {
+    "keywords": [
+     "search",
+     "full text",
+     "autocomplete",
+     "faceted",
+     "meilisearch"
+    ]
+   }
+  },
+  {
+   "id": "clickhouse",
+   "name": "ClickHouse",
+   "kind": "service",
+   "agent": "dip-backend",
+   "use": "Columnar OLAP database for analytics, events, logs and time series. Client: @clickhouse/client. Not a transactional store.",
+   "docs": "https://clickhouse.com/docs",
+   "repo": "https://github.com/ClickHouse/ClickHouse",
+   "signals": {
+    "keywords": [
+     "analytics",
+     "olap",
+     "events",
+     "logs",
+     "time series",
+     "clickhouse",
+     "warehouse"
+    ]
+   }
+  },
+  {
+   "id": "tidb",
+   "name": "TiDB",
+   "kind": "service",
+   "agent": "dip-backend",
+   "use": "Distributed MySQL-compatible SQL database. Use when a single MySQL node will not scale; connect with any MySQL client or Prisma's mysql provider. Local cluster: `tiup playground`.",
+   "docs": "https://docs.pingcap.com/tidb/stable",
+   "repo": "https://github.com/pingcap/tidb",
+   "signals": {
+    "keywords": [
+     "distributed sql",
+     "tidb",
+     "horizontal scale",
+     "htap",
+     "sharding"
+    ]
+   }
+  },
+  {
+   "id": "netdata",
+   "name": "Netdata",
+   "kind": "service",
+   "agent": "dip-backend",
+   "use": "Per-second infrastructure and application monitoring with alerts. Keep the dashboard on localhost or behind auth.",
+   "docs": "https://learn.netdata.cloud",
+   "repo": "https://github.com/netdata/netdata",
+   "signals": {
+    "keywords": [
+     "monitoring",
+     "observability",
+     "metrics",
+     "alerts",
+     "netdata",
+     "uptime"
+    ]
+   }
+  },
+  {
+   "id": "keploy",
+   "name": "Keploy",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "use": "Records real API traffic (HTTP, databases, queues) as replayable tests and mocks: `keploy record -c \"<run app>\"`, then `keploy test`. Linux/eBPF; record only test data, never production PII.",
+   "docs": "https://keploy.io/docs",
+   "repo": "https://github.com/keploy/keploy",
+   "signals": {
+    "keywords": [
+     "test",
+     "tests",
+     "api test",
+     "integration test",
+     "mock",
+     "regression",
+     "coverage"
+    ]
+   }
+  },
+  {
+   "id": "open-code-review",
+   "name": "Open Code Review",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "use": "Precision-first AI code review CLI (`ocr`). Reads its model from OCR_LLM_URL / OCR_LLM_TOKEN / OCR_LLM_MODEL, which `dip exec` fills from /dip-setapi.",
+   "docs": "https://open-codereview.ai/docs/quickstart",
+   "repo": "https://github.com/alibaba/open-code-review",
+   "signals": {
+    "keywords": [
+     "review",
+     "code review",
+     "pr review",
+     "quality",
+     "refactor",
+     "bugs"
+    ]
+   }
+  },
+  {
+   "id": "archify",
+   "name": "Archify",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Agent skill that turns an architecture, plan or idea into a self-contained interactive HTML diagram. Use to explain a system or the plan itself.",
+   "docs": "https://tt-a1i.github.io/archify/",
+   "repo": "https://github.com/tt-a1i/archify",
+   "signals": {
+    "keywords": [
+     "architecture",
+     "diagram",
+     "visualize",
+     "explain",
+     "system design",
+     "onboarding",
+     "plan"
+    ]
+   }
+  },
+  {
+   "id": "superpowers",
+   "name": "Superpowers",
+   "kind": "plugin",
+   "agent": "dip-quality",
+   "use": "Skills for brainstorming, writing plans, TDD, systematic debugging, subagent-driven development and verification before completion.",
+   "docs": "https://github.com/obra/superpowers#installation",
+   "repo": "https://github.com/obra/superpowers",
+   "signals": {
+    "keywords": [
+     "tdd",
+     "test driven",
+     "debug",
+     "debugging",
+     "plan",
+     "refactor",
+     "feature",
+     "bug"
+    ]
+   }
+  },
+  {
+   "id": "mattpocock-skills",
+   "name": "Matt Pocock skills",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Engineering and productivity skills for coding agents (TypeScript-heavy). Pick the ones you need; include setup-matt-pocock-skills.",
+   "docs": "https://github.com/mattpocock/skills#installation-30-second-setup",
+   "repo": "https://github.com/mattpocock/skills",
+   "signals": {
+    "keywords": [
+     "typescript",
+     "types",
+     "refactor",
+     "clean code"
+    ]
+   }
+  },
+  {
+   "id": "claude-plugins-official",
+   "name": "Claude plugins (official)",
+   "kind": "plugin",
+   "agent": "dip-quality",
+   "use": "Anthropic's plugin marketplace. Useful here: code-review, pr-review-toolkit, feature-dev, frontend-design, code-simplifier, and a language-server plugin for the repo's language (typescript-lsp, pyright-lsp, gopls-lsp, rust-analyzer-lsp, kotlin-lsp).",
+   "repo": "https://github.com/anthropics/claude-plugins-official",
+   "signals": {
+    "keywords": [
+     "review",
+     "feature",
+     "lsp",
+     "plugin",
+     "simplify"
+    ]
+   }
+  },
+  {
+   "id": "awesome-claude-code",
+   "name": "Awesome Claude Code",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "use": "Curated list of Claude Code skills, hooks, commands and workflows. Search it when a need is not covered by this catalog.",
+   "repo": "https://github.com/hesreallyhim/awesome-claude-code",
+   "signals": {
+    "keywords": [
+     "claude code",
+     "hook",
+     "slash command",
+     "workflow",
+     "skill"
+    ]
+   }
+  },
+  {
+   "id": "jev-ultrafast",
+   "name": "Jev Ultrafast",
+   "kind": "tool",
+   "agent": "dip-browser",
+   "use": "Default browser driver for goal-driven tasks (use it instead of Playwright): one natural-language goal, an indexed action space (CLICK/TYPE_TEXT/SELECT/SCROLL/WAIT/DONE), one round trip per step. Needs TYPESAFE_API_KEY (TypeSafe) plus an OpenAI-compatible text model, which `dip exec` fills from /dip-setapi. Setup: clone, `uv sync`, `uv run browser-harness --doctor`.",
+   "docs": "https://github.com/browser-use/jev-ultrafast#try-it",
+   "repo": "https://github.com/browser-use/jev-ultrafast",
+   "signals": {
+    "keywords": [
+     "browser",
+     "automate",
+     "automation",
+     "e2e",
+     "end to end",
+     "click",
+     "fill form",
+     "navigate",
+     "web agent",
+     "playwright",
+     "ui test"
+    ]
+   }
+  },
+  {
+   "id": "browser-use",
+   "name": "Browser Use",
+   "kind": "library",
+   "agent": "dip-browser",
+   "fallbackFor": "jev-ultrafast",
+   "use": "Fallback browser agent when jev-ultrafast is unavailable (no TypeSafe key): Python library driving Chrome with any OpenAI-compatible model.",
+   "docs": "https://docs.browser-use.com",
+   "repo": "https://github.com/browser-use/browser-use",
+   "signals": {
+    "keywords": [
+     "browser agent",
+     "browser",
+     "automate"
+    ]
+   }
+  },
+  {
+   "id": "crawlee",
+   "name": "Crawlee",
+   "kind": "library",
+   "agent": "dip-browser",
+   "group": "scraper",
+   "lang": "node",
+   "use": "Crawling framework (Node): HTTP and headless crawlers, request queues, retries, proxy rotation, storage. Respect robots.txt, terms and rate limits.",
+   "docs": "https://crawlee.dev/docs/quick-start",
+   "repo": "https://github.com/apify/crawlee",
+   "signals": {
+    "keywords": [
+     "crawl",
+     "crawler",
+     "scrape",
+     "scraping",
+     "spider",
+     "extract data"
+    ]
+   }
+  },
+  {
+   "id": "scrapling",
+   "name": "Scrapling",
+   "kind": "library",
+   "agent": "dip-browser",
+   "group": "scraper",
+   "lang": "python",
+   "use": "Python scraping with adaptive selectors that survive page changes, plus fetchers. Same rules: robots.txt, terms, rate limits, no personal data.",
+   "docs": "https://scrapling.readthedocs.io",
+   "repo": "https://github.com/D4Vinci/Scrapling",
+   "signals": {
+    "keywords": [
+     "scrape",
+     "scraping",
+     "python scraper",
+     "extract",
+     "parse html"
+    ]
+   }
+  },
+  {
+   "id": "kubernetes-the-hard-way",
+   "name": "Kubernetes The Hard Way",
+   "kind": "reference",
+   "agent": "dip-infra",
+   "use": "Step-by-step Kubernetes bootstrap for understanding every component (certs, etcd, control plane, networking). Learning reference, not a production installer.",
+   "repo": "https://github.com/kelseyhightower/kubernetes-the-hard-way",
+   "signals": {
+    "keywords": [
+     "kubernetes",
+     "k8s",
+     "cluster",
+     "deploy",
+     "helm",
+     "container orchestration"
+    ]
+   }
+  },
+  {
+   "id": "awesome-scalability",
+   "name": "Awesome Scalability",
+   "kind": "reference",
+   "agent": "dip-infra",
+   "use": "Patterns for scalable, reliable, performant large systems, with real-world case studies. Read before choosing caches, queues, sharding or replication.",
+   "repo": "https://github.com/binhnguyennus/awesome-scalability",
+   "signals": {
+    "keywords": [
+     "scale",
+     "scalability",
+     "high traffic",
+     "millions of users",
+     "performance",
+     "reliability",
+     "system design",
+     "distributed"
+    ]
+   }
+  },
+  {
+   "id": "n8n",
+   "name": "n8n",
+   "kind": "service",
+   "agent": "dip-infra",
+   "use": "Self-hostable workflow automation with 400+ integrations and AI nodes. Keep credentials in n8n's store, never in workflow JSON committed to git.",
+   "docs": "https://docs.n8n.io",
+   "repo": "https://github.com/n8n-io/n8n",
+   "signals": {
+    "keywords": [
+     "workflow",
+     "automation",
+     "zapier",
+     "integration",
+     "n8n",
+     "webhook",
+     "cron job"
+    ]
+   }
+  },
+  {
+   "id": "ruflo",
+   "name": "Ruflo",
+   "kind": "plugin",
+   "agent": "dip-infra",
+   "use": "Multi-agent swarm orchestration for Claude Code (memory, swarms, MCP). Lite path: `/plugin marketplace add ruvnet/ruflo` then `/plugin install ruflo-core@ruflo`. `npx ruflo init` installs hooks and an MCP server — only with permission.",
+   "docs": "https://github.com/ruvnet/ruflo#readme",
+   "repo": "https://github.com/ruvnet/ruflo",
+   "signals": {
+    "keywords": [
+     "swarm",
+     "multi agent",
+     "multi-agent",
+     "orchestration",
+     "agents"
+    ]
+   }
+  },
+  {
+   "id": "paperclip",
+   "name": "Paperclip",
+   "kind": "service",
+   "agent": "dip-infra",
+   "use": "App for running and managing teams of AI agents for ongoing work. Installed with its own verified installer (download install.sh and install.sh.sha256, check the hash, then run).",
+   "docs": "https://docs.paperclip.ing",
+   "repo": "https://github.com/paperclipai/paperclip",
+   "signals": {
+    "keywords": [
+     "agent team",
+     "ai company",
+     "manage agents",
+     "autonomous agents"
+    ]
+   }
+  },
+  {
+   "id": "codex-security",
+   "name": "OpenAI Codex Security",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Automated security analysis and vulnerability detection using AI-powered code scanning. Integrates with CI/CD pipelines for real-time security feedback. Use as a reference security-analysis capability.",
+   "docs": "https://github.com/openai/codex-security",
+   "repo": "https://github.com/openai/codex-security",
+   "signals": {
+    "keywords": [
+     "security",
+     "codex",
+     "vulnerability",
+     "static analysis",
+     "security scan",
+     "sast"
+    ]
+   }
+  },
+  {
+   "id": "sqlmap",
+   "name": "SQLMap",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "platform": "cross",
+   "use": "Automated SQL injection detection and database takeover tool. USE ONLY AGAINST EXPLICITLY AUTHORIZED TARGETS in disposable test environments with test data. Never use against production or unauthorized systems. Part of the authorized-security-testing capability set.",
+   "docs": "https://sqlmap.org",
+   "repo": "https://github.com/sqlmapproject/sqlmap",
+   "signals": {
+    "keywords": [
+     "sqlmap",
+     "sql injection",
+     "sqli",
+     "database security",
+     "injection test"
+    ]
+   }
+  },
+  {
+   "id": "awesome-hacking",
+   "name": "Awesome Hacking",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "use": "Curated collection of hacking resources, security tools, CTFs, and offensive security knowledge. Use as a security knowledge/reference capability for penetration testing, vulnerability research, and defensive security. Part of the security capability matrix.",
+   "docs": "https://github.com/Hack-with-Github/Awesome-Hacking",
+   "repo": "https://github.com/Hack-with-Github/Awesome-Hacking",
+   "signals": {
+    "keywords": [
+     "hacking",
+     "ctf",
+     "security tools",
+     "offensive security",
+     "vulnerability research",
+     "exploit"
+    ]
+   }
+  },
+  {
+   "id": "cloudflare-security-audit",
+   "name": "Cloudflare Security Audit Skill",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Security auditing workflows for Cloudflare-protected applications. Includes WAF rule analysis, DDoS mitigation review, zero-trust configuration audit, and CDN security assessment. Use for security auditing workflows when cloud infrastructure is involved.",
+   "docs": "https://github.com/cloudflare/security-audit-skill",
+   "repo": "https://github.com/cloudflare/security-audit-skill",
+   "signals": {
+    "keywords": [
+     "cloudflare",
+     "waf",
+     "ddos",
+     "zero-trust",
+     "cdn security",
+     "audit",
+     "cloud security"
+    ]
+   }
+  },
+  {
+   "id": "emil-design-eng",
+   "name": "Emil Design Engineering",
+   "kind": "skill",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "design-guidance-skill",
+   "priority": 2,
+   "use": "UI polish, micro-interactions, and premium design engineering using Framer Motion and CSS. Makes interfaces feel intentional and crafted.",
+   "docs": "https://ui-skills.com/skills/emilkowalski",
+   "repo": "https://github.com/emilkowalski/skills",
+   "signals": {
+    "keywords": [
+     "design",
+     "polish",
+     "ui",
+     "ux",
+     "emil",
+     "motion",
+     "animation",
+     "premium"
+    ]
+   }
+  },
+  {
+   "id": "make-interfaces-better",
+   "name": "Make Interfaces Feel Better",
+   "kind": "skill",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "design-guidance-skill",
+   "use": "Small UX improvements that make interfaces significantly better: timing, spacing, contrast, focus management, scroll behavior, feedback loops.",
+   "docs": "https://ui-skills.com/skills/jakubkras",
+   "repo": "https://github.com/emilkowalski/skills",
+   "signals": {
+    "keywords": [
+     "ui",
+     "ux",
+     "details",
+     "timing",
+     "spacing",
+     "focus",
+     "scroll",
+     "feedback"
+    ]
+   }
+  },
+  {
+   "id": "react-doctor",
+   "name": "React Doctor",
+   "kind": "skill",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "use": "Automatically finds React performance issues, unnecessary re-renders, bundle bloat, and hooks misuse. Uses Million.js for automatic optimization.",
+   "docs": "https://ui-skills.com/skills/million",
+   "repo": "https://github.com/aidenybai/million",
+   "signals": {
+    "keywords": [
+     "react",
+     "performance",
+     "re-render",
+     "million",
+     "bundle",
+     "hooks",
+     "optimize"
+    ]
+   }
+  },
+  {
+   "id": "fixing-accessibility",
+   "name": "Fixing Accessibility",
+   "kind": "skill",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "use": "Comprehensive accessibility fixes: ARIA labels, keyboard navigation, focus management, color contrast, screen reader support, WCAG compliance.",
+   "docs": "https://ui-skills.com/skills/ibelick",
+   "repo": "https://github.com/ibelick/ui-skills",
+   "signals": {
+    "keywords": [
+     "accessibility",
+     "a11y",
+     "aria",
+     "keyboard",
+     "focus",
+     "wcag",
+     "screen reader",
+     "contrast"
+    ]
+   }
+  },
+  {
+   "id": "12-principles-animation",
+   "name": "12 Principles of Animation",
+   "kind": "skill",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "use": "Apply Disney 12 principles of animation to UI: squash and stretch, anticipation, staging, ease in/out, arc, secondary action, timing, overlapping action, slow in/out, arc, exaggeration, solid drawing, appeal.",
+   "docs": "https://ui-skills.com/skills/raphael",
+   "repo": "https://github.com/raphaelsalaja/ui-skills",
+   "signals": {
+    "keywords": [
+     "animation principles",
+     "disney",
+     "squash stretch",
+     "anticipation",
+     "easing",
+     "motion",
+     "timing"
+    ]
+   }
+  },
+  {
+   "id": "shadcn-ui",
+   "name": "shadcn/ui",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "component-kit",
+   "priority": 1,
+   "use": "Beautifully designed, accessible, copy-and-paste UI components built with Radix UI and Tailwind CSS. Not a component library — you own the code.",
+   "docs": "https://ui.shadcn.com",
+   "repo": "https://github.com/shadcn-ui/ui",
+   "signals": {
+    "keywords": [
+     "shadcn",
+     "ui components",
+     "radix",
+     "accessible",
+     "tailwind",
+     "component",
+     "dialog",
+     "dropdown"
+    ]
+   }
+  },
+  {
+   "id": "playwright-test",
+   "name": "Playwright",
+   "kind": "library",
+   "agent": "dip-quality",
+   "use": "E2E test runner only (not the browser automation core). jev-ultrafast is the primary browser driver; Playwright is a secondary test framework.",
+   "docs": "https://playwright.dev",
+   "repo": "https://github.com/microsoft/playwright",
+   "signals": {
+    "keywords": [
+     "playwright",
+     "e2e test",
+     "browser test",
+     "chromium",
+     "test runner"
+    ]
+   }
+  },
+  {
+   "id": "agent-reach",
+   "name": "Agent Reach",
+   "kind": "skill",
+   "agent": "dip-planner",
+   "platform": "cross",
+   "use": "Web research and information-gathering capability for agents: reach out to external sources, gather better context before planning. Use to enrich the requirement analysis with real-world evidence.",
+   "docs": "https://github.com/Panniantong/agent-reach",
+   "repo": "https://github.com/Panniantong/agent-reach",
+   "signals": {
+    "keywords": [
+     "research",
+     "gather",
+     "reach",
+     "context",
+     "investigate",
+     "enrich",
+     "information"
+    ]
+   }
+  },
+  {
+   "id": "lightpanda-browser",
+   "name": "Lightpanda Browser",
+   "kind": "tool",
+   "agent": "dip-browser",
+   "platform": "web",
+   "use": "Headless browser built for AI and automation in Zig. Extremely low memory and fast startup; CDP-compatible so it drops in where Chromium would.",
+   "docs": "https://lightpanda.io/docs",
+   "repo": "https://github.com/lightpanda-io/browser",
+   "signals": {
+    "keywords": [
+     "headless",
+     "cdp",
+     "browser",
+     "automation",
+     "lightweight"
+    ]
+   }
+  },
+  {
+   "id": "stagehand",
+   "name": "Browserbase Stagehand",
+   "kind": "library",
+   "agent": "dip-browser",
+   "platform": "web",
+   "use": "SDK to extract data and interact with any site using natural language plus code. Pairs with Playwright/CDP for agent-driven browsing.",
+   "docs": "https://docs.stagehand.dev",
+   "repo": "https://github.com/browserbase/stagehand",
+   "signals": {
+    "keywords": [
+     "browser",
+     "extract",
+     "agent",
+     "automation",
+     "stagehand"
+    ]
+   }
+  },
+  {
+   "id": "skyvern",
+   "name": "Skyvern",
+   "kind": "service",
+   "agent": "dip-browser",
+   "platform": "web",
+   "use": "Automate browser-based workflows with AI and computer vision. Resilient to layout changes; good for form-heavy workflows.",
+   "docs": "https://docs.skyvern.com",
+   "repo": "https://github.com/Skyvern-AI/skyvern",
+   "signals": {
+    "keywords": [
+     "browser",
+     "workflow",
+     "automation",
+     "vision",
+     "rpa"
+    ]
+   }
+  },
+  {
+   "id": "steel-browser",
+   "name": "Steel Browser",
+   "kind": "service",
+   "agent": "dip-browser",
+   "platform": "web",
+   "use": "Open-source browser API and sandbox for AI agents and apps. Batteries-included session management without owning infrastructure.",
+   "docs": "https://docs.steel.dev",
+   "repo": "https://github.com/steel-dev/steel-browser",
+   "signals": {
+    "keywords": [
+     "browser",
+     "sandbox",
+     "api",
+     "agent",
+     "session"
+    ]
+   }
+  },
+  {
+   "id": "browsermcp",
+   "name": "Browser MCP",
+   "kind": "plugin",
+   "agent": "dip-browser",
+   "platform": "web",
+   "use": "MCP server that lets AI applications control the browser through an extension. Useful for interactive visual QA.",
+   "docs": "https://browsermcp.io",
+   "repo": "https://github.com/BrowserMCP/mcp",
+   "signals": {
+    "keywords": [
+     "mcp",
+     "browser",
+     "automation",
+     "extension"
+    ]
+   }
+  },
+  {
+   "id": "react-spring",
+   "name": "React Spring",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "animation-library",
+   "use": "Spring-physics based React animation library. Use for physics-driven, interruptible motion where springs read better than keyframes.",
+   "docs": "https://react-spring.dev",
+   "repo": "https://github.com/pmndrs/react-spring",
+   "signals": {
+    "keywords": [
+     "animation",
+     "spring",
+     "react",
+     "physics",
+     "motion"
+    ]
+   }
+  },
+  {
+   "id": "react-flip-toolkit",
+   "name": "React Flip Toolkit",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "animation-library",
+   "use": "Lightweight magic-move library for configurable layout transitions (FLIP technique). Ideal for list reordering and shared-element transitions.",
+   "docs": "https://github.com/aholachek/react-flip-toolkit",
+   "repo": "https://github.com/aholachek/react-flip-toolkit",
+   "signals": {
+    "keywords": [
+     "animation",
+     "flip",
+     "layout",
+     "transition",
+     "react"
+    ]
+   }
+  },
+  {
+   "id": "dotlottie-web",
+   "name": "dotLottie Web",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "animation-library",
+   "use": "High-performance Lottie and dotLottie player powered by Rust + WASM. Use for designer-authored vector animation on the web.",
+   "docs": "https://docs.lottiefiles.com",
+   "repo": "https://github.com/LottieFiles/dotlottie-web",
+   "signals": {
+    "keywords": [
+     "animation",
+     "lottie",
+     "wasm",
+     "vector",
+     "motion"
+    ]
+   }
+  },
+  {
+   "id": "tailwindcss",
+   "name": "Tailwind CSS",
+   "kind": "framework",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "css-framework",
+   "priority": 2,
+   "use": "Utility-first CSS framework for rapid, consistent UI. Composable, purge-friendly, and the base for shadcn/ui and daisyUI.",
+   "docs": "https://tailwindcss.com/docs",
+   "repo": "https://github.com/tailwindlabs/tailwindcss",
+   "signals": {
+    "keywords": [
+     "css",
+     "tailwind",
+     "utility"
+    ]
+   }
+  },
+  {
+   "id": "daisyui",
+   "name": "daisyUI",
+   "kind": "library",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "component-kit",
+   "use": "Component library on top of Tailwind CSS. Semantic class names for buttons, cards, modals and themes.",
+   "docs": "https://daisyui.com",
+   "repo": "https://github.com/saadeghi/daisyui",
+   "signals": {
+    "keywords": [
+     "tailwind",
+     "components",
+     "theme"
+    ]
+   }
+  },
+  {
+   "id": "bulma",
+   "name": "Bulma",
+   "kind": "framework",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "css-framework",
+   "use": "Modern Flexbox-based CSS framework with no JavaScript dependency. Good when a project wants CSS-only components.",
+   "docs": "https://bulma.io/documentation",
+   "repo": "https://github.com/jgthms/bulma",
+   "signals": {
+    "keywords": [
+     "css",
+     "flexbox",
+     "framework"
+    ]
+   }
+  },
+  {
+   "id": "pico-css",
+   "name": "Pico CSS",
+   "kind": "framework",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "css-framework",
+   "use": "Minimal CSS framework for semantic HTML. Near-zero classes, dark mode built in — excellent for content-first pages.",
+   "docs": "https://picocss.com/docs",
+   "repo": "https://github.com/picocss/pico",
+   "signals": {
+    "keywords": [
+     "css",
+     "minimal",
+     "semantic"
+    ]
+   }
+  },
+  {
+   "id": "semantic-ui",
+   "name": "Semantic UI",
+   "kind": "framework",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "group": "css-framework",
+   "use": "Component framework built around natural-language principles. Reference for semantic naming and component APIs.",
+   "docs": "https://semantic-ui.com",
+   "repo": "https://github.com/Semantic-Org/Semantic-UI",
+   "signals": {
+    "keywords": [
+     "css",
+     "semantic"
+    ]
+   }
+  },
+  {
+   "id": "trivy",
+   "name": "Trivy",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "use": "Find vulnerabilities, misconfigurations, secrets and SBOM issues across containers, Kubernetes, IaC and repositories. Primary dependency/container scanner.",
+   "docs": "https://trivy.dev",
+   "repo": "https://github.com/aquasecurity/trivy",
+   "signals": {
+    "keywords": [
+     "security",
+     "vulnerability",
+     "scanner",
+     "sbom",
+     "container",
+     "iac"
+    ]
+   }
+  },
+  {
+   "id": "gitleaks",
+   "name": "Gitleaks",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "use": "Detect hardcoded secrets and credentials in git history and working trees. Gate on findings before release.",
+   "docs": "https://gitleaks.io",
+   "repo": "https://github.com/gitleaks/gitleaks",
+   "signals": {
+    "keywords": [
+     "security",
+     "secrets",
+     "leaks",
+     "git",
+     "scan"
+    ]
+   }
+  },
+  {
+   "id": "trufflehog",
+   "name": "TruffleHog",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "use": "Find, verify and analyze leaked credentials. Verification reduces false positives versus plain regex scanners.",
+   "docs": "https://trufflesecurity.com/trufflehog",
+   "repo": "https://github.com/trufflesecurity/trufflehog",
+   "signals": {
+    "keywords": [
+     "security",
+     "credentials",
+     "secrets",
+     "verify",
+     "scan"
+    ]
+   }
+  },
+  {
+   "id": "shannon",
+   "name": "Shannon",
+   "kind": "service",
+   "agent": "dip-quality",
+   "use": "AI pentester for web apps and APIs: reads source, identifies attack vectors, executes real exploits to prove vulnerabilities before production. Authorized targets only.",
+   "docs": "https://github.com/KeygraphHQ/shannon",
+   "repo": "https://github.com/KeygraphHQ/shannon",
+   "signals": {
+    "keywords": [
+     "security",
+     "pentest",
+     "exploit",
+     "owasp",
+     "appsec"
+    ]
+   }
+  },
+  {
+   "id": "web-check",
+   "name": "Web-Check",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "use": "All-in-one OSINT tool for analysing any website: headers, DNS, TLS, cookies, security posture. Use for passive recon of authorized targets.",
+   "docs": "https://web-check.xyz",
+   "repo": "https://github.com/lissy93/web-check",
+   "signals": {
+    "keywords": [
+     "security",
+     "osint",
+     "recon",
+     "headers",
+     "tls"
+    ]
+   }
+  },
+  {
+   "id": "spiderfoot",
+   "name": "SpiderFoot",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "use": "Automates OSINT for threat intelligence and attack-surface mapping. Reference for external footprint analysis.",
+   "docs": "https://www.spiderfoot.net",
+   "repo": "https://github.com/smicallef/spiderfoot",
+   "signals": {
+    "keywords": [
+     "security",
+     "osint",
+     "recon",
+     "threat-intel",
+     "footprint"
+    ]
+   }
+  },
+  {
+   "id": "skillspector",
+   "name": "NVIDIA SkillSpector",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "use": "Security scanner for AI agent skills: detects prompt injection, data exfiltration and supply-chain risk in Claude/Codex/MCP skills before install.",
+   "docs": "https://github.com/NVIDIA/SkillSpector",
+   "repo": "https://github.com/NVIDIA/SkillSpector",
+   "signals": {
+    "keywords": [
+     "security",
+     "agent-skills",
+     "prompt-injection",
+     "supply-chain",
+     "scan"
+    ]
+   }
+  },
+  {
+   "id": "lynis",
+   "name": "Lynis",
+   "kind": "cli",
+   "agent": "dip-infra",
+   "use": "Security auditing and hardening tool for Linux, macOS and UNIX. Compliance-oriented (HIPAA, ISO 27001, PCI DSS).",
+   "docs": "https://cisofy.com/lynis",
+   "repo": "https://github.com/CISOfy/lynis",
+   "signals": {
+    "keywords": [
+     "security",
+     "audit",
+     "hardening",
+     "compliance",
+     "linux"
+    ]
+   }
+  },
+  {
+   "id": "prowler",
+   "name": "Prowler",
+   "kind": "cli",
+   "agent": "dip-infra",
+   "use": "Open-source cloud security platform: automates security and compliance assessment across AWS, Azure and GCP.",
+   "docs": "https://docs.prowler.com",
+   "repo": "https://github.com/prowler-cloud/prowler",
+   "signals": {
+    "keywords": [
+     "security",
+     "cloud",
+     "compliance",
+     "cspm",
+     "aws",
+     "azure",
+     "gcp"
+    ]
+   }
+  },
+  {
+   "id": "wazuh",
+   "name": "Wazuh",
+   "kind": "service",
+   "agent": "dip-infra",
+   "use": "Open-source XDR and SIEM platform for endpoints and cloud workloads. Unified detection, response and compliance monitoring.",
+   "docs": "https://documentation.wazuh.com",
+   "repo": "https://github.com/wazuh/wazuh",
+   "signals": {
+    "keywords": [
+     "security",
+     "siem",
+     "xdr",
+     "monitoring",
+     "detection",
+     "compliance"
+    ]
+   }
+  },
+  {
+   "id": "rustscan",
+   "name": "RustScan",
+   "kind": "cli",
+   "agent": "dip-quality",
+   "use": "Modern port scanner that feeds results into Nmap. Fast discovery phase for authorized network testing.",
+   "docs": "https://github.com/bee-san/RustScan",
+   "repo": "https://github.com/bee-san/RustScan",
+   "signals": {
+    "keywords": [
+     "security",
+     "port-scan",
+     "nmap",
+     "recon",
+     "network"
+    ]
+   }
+  },
+  {
+   "id": "fail2ban",
+   "name": "Fail2ban",
+   "kind": "service",
+   "agent": "dip-infra",
+   "use": "Intrusion-prevention daemon that bans hosts causing repeated authentication failures. Standard server hardening.",
+   "docs": "https://github.com/fail2ban/fail2ban",
+   "repo": "https://github.com/fail2ban/fail2ban",
+   "signals": {
+    "keywords": [
+     "security",
+     "intrusion",
+     "hardening",
+     "server",
+     "ban"
+    ]
+   }
+  },
+  {
+   "id": "x64dbg",
+   "name": "x64dbg",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "use": "Open-source user-mode debugger for Windows, optimized for reverse engineering and malware analysis. Reference for binary analysis.",
+   "docs": "https://x64dbg.com",
+   "repo": "https://github.com/x64dbg/x64dbg",
+   "signals": {
+    "keywords": [
+     "security",
+     "debugger",
+     "reverse-engineering",
+     "malware",
+     "binary"
+    ]
+   }
+  },
+  {
+   "id": "scapy",
+   "name": "Scapy",
+   "kind": "library",
+   "agent": "dip-quality",
+   "use": "Python packet manipulation program and library. Craft, send, sniff and dissect network traffic for protocol testing.",
+   "docs": "https://scapy.readthedocs.io",
+   "repo": "https://github.com/secdev/scapy",
+   "signals": {
+    "keywords": [
+     "security",
+     "network",
+     "packet",
+     "pcap",
+     "protocol"
+    ]
+   }
+  },
+  {
+   "id": "anthropics-skills",
+   "name": "Anthropic Agent Skills",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "use": "Public reference repository for the Agent Skills format. The canonical model for how a skill declares scope and triggers.",
+   "docs": "https://github.com/anthropics/skills",
+   "repo": "https://github.com/anthropics/skills",
+   "signals": {
+    "keywords": [
+     "skills",
+     "agent",
+     "anthropic",
+     "reference",
+     "format"
+    ]
+   }
+  },
+  {
+   "id": "addyosmani-agent-skills",
+   "name": "Addy Osmani Agent Skills",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "use": "Production-grade engineering skills for AI coding agents. Strong reference for code-quality and review workflows.",
+   "docs": "https://github.com/addyosmani/agent-skills",
+   "repo": "https://github.com/addyosmani/agent-skills",
+   "signals": {
+    "keywords": [
+     "skills",
+     "engineering",
+     "quality",
+     "review",
+     "agents"
+    ]
+   }
+  },
+  {
+   "id": "awesome-claude-skills",
+   "name": "Awesome Claude Skills",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "use": "Curated list of Claude skills, resources and tools for customizing agent workflows. Discovery source for new capabilities.",
+   "docs": "https://github.com/ComposioHQ/awesome-claude-skills",
+   "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+   "signals": {
+    "keywords": [
+     "skills",
+     "claude",
+     "awesome",
+     "workflow",
+     "discovery"
+    ]
+   }
+  },
+  {
+   "id": "awesome-agent-skills",
+   "name": "Awesome Agent Skills",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "use": "1000+ agent skills from official teams and the community, compatible with Claude Code, Codex, Gemini CLI and Cursor.",
+   "docs": "https://github.com/VoltAgent/awesome-agent-skills",
+   "repo": "https://github.com/VoltAgent/awesome-agent-skills",
+   "signals": {
+    "keywords": [
+     "skills",
+     "agents",
+     "awesome",
+     "registry",
+     "discovery"
+    ]
+   }
+  },
+  {
+   "id": "wshobson-agents",
+   "name": "wshobson/agents",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "use": "Multi-harness agentic plugin marketplace and subagent patterns for Claude Code, Codex and Cursor. Reference for agent decomposition.",
+   "docs": "https://github.com/wshobson/agents",
+   "repo": "https://github.com/wshobson/agents",
+   "signals": {
+    "keywords": [
+     "agents",
+     "subagents",
+     "marketplace",
+     "orchestration",
+     "plugins"
+    ]
+   }
+  },
+  {
+   "id": "awesome-copilot",
+   "name": "GitHub Awesome Copilot",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "use": "Community-contributed instructions, agents and skills from GitHub. Reference for instruction-file conventions.",
+   "docs": "https://github.com/github/awesome-copilot",
+   "repo": "https://github.com/github/awesome-copilot",
+   "signals": {
+    "keywords": [
+     "copilot",
+     "instructions",
+     "agents",
+     "awesome",
+     "conventions"
+    ]
+   }
+  },
+  {
+   "id": "open-design",
+   "name": "Open Design",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "use": "Local-first design engine that turns a coding agent into a design engine: prototypes, landing pages, dashboards, slides, exports.",
+   "docs": "https://github.com/nexu-io/open-design",
+   "repo": "https://github.com/nexu-io/open-design",
+   "signals": {
+    "keywords": [
+     "prototyping",
+     "local-first",
+     "export"
+    ]
+   }
+  },
+  {
+   "id": "ponytail",
+   "name": "Ponytail",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Agent skill that enforces YAGNI: the best code is the code you never wrote. Useful as a minimalism counterweight during planning.",
+   "docs": "https://github.com/DietrichGebert/ponytail",
+   "repo": "https://github.com/DietrichGebert/ponytail",
+   "signals": {
+    "keywords": [
+     "yagni",
+     "minimalism",
+     "simplicity",
+     "review"
+    ]
+   }
+  },
+  {
+   "id": "humanizer",
+   "name": "Humanizer",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Agent skill that removes signs of AI-generated writing from text. Use when polishing user-facing copy and docs.",
+   "docs": "https://github.com/blader/humanizer",
+   "repo": "https://github.com/blader/humanizer",
+   "signals": {
+    "keywords": [
+     "writing",
+     "copy",
+     "editing",
+     "docs"
+    ]
+   }
+  },
+  {
+   "id": "book-to-skill",
+   "name": "Book to Skill",
+   "kind": "skill",
+   "agent": "dip-planner",
+   "use": "Turn a technical book PDF into a reusable agent skill. Reference for building durable knowledge skills from long-form sources.",
+   "docs": "https://github.com/virgiliojr94/book-to-skill",
+   "repo": "https://github.com/virgiliojr94/book-to-skill",
+   "signals": {
+    "keywords": [
+     "knowledge",
+     "pdf",
+     "reference",
+     "learning"
+    ]
+   }
+  },
+  {
+   "id": "diagram-design",
+   "name": "Diagram Design",
+   "kind": "skill",
+   "agent": "dip-quality",
+   "use": "Editorial diagram design skill producing self-contained HTML + SVG. Complements Archify for crisp architecture visuals.",
+   "docs": "https://github.com/cathrynlavery/diagram-design",
+   "repo": "https://github.com/cathrynlavery/diagram-design",
+   "signals": {
+    "keywords": [
+     "diagram",
+     "svg",
+     "architecture"
+    ]
+   }
+  },
+  {
+   "id": "angular",
+   "name": "Angular",
+   "kind": "framework",
+   "agent": "dip-frontend",
+   "platform": "web",
+   "use": "Batteries-included TypeScript web framework with dependency injection, routing and forms. Use when a project already targets Angular.",
+   "docs": "https://angular.dev",
+   "repo": "https://github.com/angular/angular",
+   "signals": {
+    "keywords": [
+     "angular",
+     "framework",
+     "typescript",
+     "spa",
+     "frontend"
+    ]
+   }
+  },
+  {
+   "id": "hono",
+   "name": "Hono",
+   "kind": "framework",
+   "agent": "dip-backend",
+   "platform": "web",
+   "use": "Ultrafast web framework built on Web Standards. Runs on Cloudflare Workers, Deno, Bun and Node — ideal for edge APIs.",
+   "docs": "https://hono.dev",
+   "repo": "https://github.com/honojs/hono",
+   "signals": {
+    "keywords": [
+     "hono",
+     "api",
+     "edge",
+     "workers",
+     "backend",
+     "typescript"
+    ]
+   }
+  },
+  {
+   "id": "flask",
+   "name": "Flask",
+   "kind": "framework",
+   "agent": "dip-backend",
+   "use": "Python micro-framework for web applications. Minimal core with a large extension ecosystem; good for Python services and APIs.",
+   "docs": "https://flask.palletsprojects.com",
+   "repo": "https://github.com/pallets/flask",
+   "signals": {
+    "keywords": [
+     "flask",
+     "python",
+     "api",
+     "backend",
+     "wsgi"
+    ]
+   }
+  },
+  {
+   "id": "phoenix",
+   "name": "Phoenix",
+   "kind": "framework",
+   "agent": "dip-backend",
+   "use": "Elixir web framework with first-class realtime (LiveView, channels). Strong for concurrent, realtime applications.",
+   "docs": "https://hexdocs.pm/phoenix",
+   "repo": "https://github.com/phoenixframework/phoenix",
+   "signals": {
+    "keywords": [
+     "phoenix",
+     "elixir",
+     "realtime",
+     "backend",
+     "websocket"
+    ]
+   }
+  },
+  {
+   "id": "flutter",
+   "name": "Flutter",
+   "kind": "framework",
+   "agent": "dip-mobile",
+   "group": "mobile-framework",
+   "use": "Cross-platform UI toolkit for mobile, web and desktop from one Dart codebase. Consider alongside React Native/Expo for mobile goals.",
+   "docs": "https://docs.flutter.dev",
+   "repo": "https://github.com/flutter/flutter",
+   "signals": {
+    "keywords": [
+     "flutter",
+     "dart",
+     "mobile",
+     "cross-platform"
+    ]
+   }
+  },
+  {
+   "id": "system-design-primer",
+   "name": "system-design-primer",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/donnemartin/system-design-primer",
+   "repo": "https://github.com/donnemartin/system-design-primer",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "developer-roadmap",
+   "name": "developer-roadmap",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://roadmap.sh",
+   "repo": "https://github.com/nilbuild/developer-roadmap",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ecc",
+   "name": "ECC",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ecc.tools",
+   "repo": "https://github.com/affaan-m/ECC",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react",
+   "name": "react",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://react.dev",
+   "repo": "https://github.com/react/react",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hermes-agent",
+   "name": "hermes-agent",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://hermes-agent.nousresearch.com",
+   "repo": "https://github.com/NousResearch/hermes-agent",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "the-book-of-secret-knowledge",
+   "name": "the-book-of-secret-knowledge",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/trimstray/the-book-of-secret-knowledge",
+   "repo": "https://github.com/trimstray/the-book-of-secret-knowledge",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "deepseek-harness",
+   "name": "deepseek-harness",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://deepseek.com/harness",
+   "repo": "https://github.com/deepseek-ai/deepseek-harness",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "freedomain",
+   "name": "FreeDomain",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://dashboard.digitalplat.org",
+   "repo": "https://github.com/DigitalPlatDev/FreeDomain",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ohmyzsh",
+   "name": "ohmyzsh",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ohmyz.sh",
+   "repo": "https://github.com/ohmyzsh/ohmyzsh",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "firecrawl",
+   "name": "firecrawl",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://firecrawl.dev",
+   "repo": "https://github.com/firecrawl/firecrawl",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "the-art-of-command-line",
+   "name": "the-art-of-command-line",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/jlevy/the-art-of-command-line",
+   "repo": "https://github.com/jlevy/the-art-of-command-line",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "javaguide",
+   "name": "JavaGuide",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://javaguide.cn",
+   "repo": "https://github.com/Snailclimb/JavaGuide",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dify",
+   "name": "dify",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://dify.ai",
+   "repo": "https://github.com/langgenius/dify",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "open-webui",
+   "name": "open-webui",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://openwebui.com",
+   "repo": "https://github.com/open-webui/open-webui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "langchain",
+   "name": "langchain",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.langchain.com/langchain/",
+   "repo": "https://github.com/langchain-ai/langchain",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cc-switch",
+   "name": "cc-switch",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ccswitch.io",
+   "repo": "https://github.com/farion1231/cc-switch",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "excalidraw",
+   "name": "excalidraw",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://excalidraw.com",
+   "repo": "https://github.com/excalidraw/excalidraw",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ui-ux-pro-max-skill",
+   "name": "ui-ux-pro-max-skill",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.uupm.cc/",
+   "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kubernetes",
+   "name": "kubernetes",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://kubernetes.io",
+   "repo": "https://github.com/kubernetes/kubernetes",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "graphify",
+   "name": "graphify",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.graphify.com",
+   "repo": "https://github.com/Graphify-Labs/graphify",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-design-md",
+   "name": "awesome-design-md",
+   "kind": "reference",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://getdesign.md/",
+   "repo": "https://github.com/VoltAgent/awesome-design-md",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "three-js",
+   "name": "three.js",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://threejs.org/",
+   "repo": "https://github.com/mrdoob/three.js",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "d3",
+   "name": "d3",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://d3js.org",
+   "repo": "https://github.com/d3/d3",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "caveman",
+   "name": "caveman",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.caveman.so/docs/quickstart",
+   "repo": "https://github.com/JuliusBrussee/caveman",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gemini-cli",
+   "name": "gemini-cli",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://geminicli.com",
+   "repo": "https://github.com/google-gemini/gemini-cli",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nodebestpractices",
+   "name": "nodebestpractices",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://twitter.com/nodepractices/",
+   "repo": "https://github.com/goldbergyoni/nodebestpractices",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "material-ui",
+   "name": "material-ui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://mui.com/material-ui/",
+   "repo": "https://github.com/mui/material-ui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "puppeteer",
+   "name": "puppeteer",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://pptr.dev",
+   "repo": "https://github.com/puppeteer/puppeteer",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-mcp-servers",
+   "name": "awesome-mcp-servers",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://glama.ai/mcp/servers",
+   "repo": "https://github.com/punkpeye/awesome-mcp-servers",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ruview",
+   "name": "RuView",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://Cognitum.One/RuView",
+   "repo": "https://github.com/ruvnet/RuView",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-mem",
+   "name": "claude-mem",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://claude-mem.ai",
+   "repo": "https://github.com/thedotmack/claude-mem",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "manim",
+   "name": "manim",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/3b1b/manim",
+   "repo": "https://github.com/3b1b/manim",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "stirling-pdf",
+   "name": "Stirling-PDF",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://stirling.com",
+   "repo": "https://github.com/Stirling-Tools/Stirling-PDF",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sherlock",
+   "name": "sherlock",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://sherlockproject.xyz",
+   "repo": "https://github.com/sherlock-project/sherlock",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "uptime-kuma",
+   "name": "uptime-kuma",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://uptime.kuma.pet",
+   "repo": "https://github.com/louislam/uptime-kuma",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ragflow",
+   "name": "ragflow",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ragflow.io",
+   "repo": "https://github.com/infiniflow/ragflow",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "storybook",
+   "name": "storybook",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://storybook.js.org",
+   "repo": "https://github.com/storybookjs/storybook",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "taste-skill",
+   "name": "taste-skill",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://tasteskill.dev",
+   "repo": "https://github.com/Leonxlnx/taste-skill",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mermaid",
+   "name": "mermaid",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://mermaid.ai/open-source/",
+   "repo": "https://github.com/mermaid-js/mermaid",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "svelte",
+   "name": "svelte",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://svelte.dev",
+   "repo": "https://github.com/sveltejs/svelte",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "worldmonitor",
+   "name": "worldmonitor",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://worldmonitor.app",
+   "repo": "https://github.com/koala73/worldmonitor",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mall",
+   "name": "mall",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.macrozheng.com/admin/",
+   "repo": "https://github.com/macrozheng/mall",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "devops-exercises",
+   "name": "devops-exercises",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/bregman-arie/devops-exercises",
+   "repo": "https://github.com/bregman-arie/devops-exercises",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "crawl4ai",
+   "name": "crawl4ai",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://crawl4ai.com",
+   "repo": "https://github.com/unclecode/crawl4ai",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "understand-anything",
+   "name": "Understand-Anything",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://understand-anything.com/",
+   "repo": "https://github.com/Egonex-AI/Understand-Anything",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cs-video-courses",
+   "name": "cs-video-courses",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/Developer-Y/cs-video-courses",
+   "repo": "https://github.com/Developer-Y/cs-video-courses",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "llm-course",
+   "name": "llm-course",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://mlabonne.github.io/blog/",
+   "repo": "https://github.com/mlabonne/llm-course",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "deer-flow",
+   "name": "deer-flow",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://deerflow.tech",
+   "repo": "https://github.com/bytedance/deer-flow",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "lobehub",
+   "name": "lobehub",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://lobehub.com",
+   "repo": "https://github.com/lobehub/lobehub",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "rtk",
+   "name": "rtk",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.rtk-ai.app",
+   "repo": "https://github.com/rtk-ai/rtk",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "payloadsallthethings",
+   "name": "PayloadsAllTheThings",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://swisskyrepo.github.io/PayloadsAllTheThings/",
+   "repo": "https://github.com/swisskyrepo/PayloadsAllTheThings",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hoppscotch",
+   "name": "hoppscotch",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://hoppscotch.io",
+   "repo": "https://github.com/hoppscotch/hoppscotch",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hackingtool",
+   "name": "hackingtool",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/Z4nzu/hackingtool",
+   "repo": "https://github.com/Z4nzu/hackingtool",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ghidra",
+   "name": "ghidra",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/NationalSecurityAgency/ghidra",
+   "repo": "https://github.com/NationalSecurityAgency/ghidra",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "orca",
+   "name": "orca",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://onOrca.dev",
+   "repo": "https://github.com/stablyai/orca",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "prompt-engineering-guide",
+   "name": "Prompt-Engineering-Guide",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.promptingguide.ai/",
+   "repo": "https://github.com/dair-ai/Prompt-Engineering-Guide",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "learn-claude-code",
+   "name": "learn-claude-code",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://learn.shareai.run",
+   "repo": "https://github.com/shareAI-lab/learn-claude-code",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "appflowy",
+   "name": "AppFlowy",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://appflowy.com",
+   "repo": "https://github.com/AppFlowy-IO/AppFlowy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "grafana",
+   "name": "grafana",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://grafana.com",
+   "repo": "https://github.com/grafana/grafana",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "unsloth",
+   "name": "unsloth",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://unsloth.ai/docs",
+   "repo": "https://github.com/unslothai/unsloth",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "leetcodeanimation",
+   "name": "LeetCodeAnimation",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://www.algomooc.com",
+   "repo": "https://github.com/MisterBooo/LeetCodeAnimation",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "imgui",
+   "name": "imgui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/ocornut/imgui",
+   "repo": "https://github.com/ocornut/imgui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "caddy",
+   "name": "caddy",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://caddyserver.com",
+   "repo": "https://github.com/caddyserver/caddy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-agents-for-beginners",
+   "name": "ai-agents-for-beginners",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://aka.ms/ai-agents-beginners",
+   "repo": "https://github.com/microsoft/ai-agents-for-beginners",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "headroom",
+   "name": "headroom",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.headroomlabs.ai/docs",
+   "repo": "https://github.com/headroomlabs-ai/headroom",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "affine",
+   "name": "AFFiNE",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://affine.pro",
+   "repo": "https://github.com/toeverything/AFFiNE",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "career-ops",
+   "name": "career-ops",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://career-ops.org",
+   "repo": "https://github.com/career-ops-hq/career-ops",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "moby",
+   "name": "moby",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://mobyproject.org/",
+   "repo": "https://github.com/moby/moby",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "act",
+   "name": "act",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://nektosact.com",
+   "repo": "https://github.com/nektos/act",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "daytona",
+   "name": "daytona",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://daytona.io",
+   "repo": "https://github.com/daytonaio/daytona",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "omniroute",
+   "name": "OmniRoute",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://omniroute.online",
+   "repo": "https://github.com/diegosouzapw/OmniRoute",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "oh-my-openagent",
+   "name": "oh-my-openagent",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://omo.dev",
+   "repo": "https://github.com/code-yeongyu/oh-my-openagent",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "system-prompts-leaks",
+   "name": "system_prompts_leaks",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/asgeirtj/system_prompts_leaks",
+   "repo": "https://github.com/asgeirtj/system_prompts_leaks",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vaultwarden",
+   "name": "vaultwarden",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/dani-garcia/vaultwarden",
+   "repo": "https://github.com/dani-garcia/vaultwarden",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "echarts",
+   "name": "echarts",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://echarts.apache.org",
+   "repo": "https://github.com/apache/echarts",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gpt4free",
+   "name": "gpt4free",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://t.me/g4f_channel",
+   "repo": "https://github.com/xtekky/gpt4free",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "anything-llm",
+   "name": "anything-llm",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://anythingllm.com",
+   "repo": "https://github.com/Mintplex-Labs/anything-llm",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-code-best-practice",
+   "name": "claude-code-best-practice",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://linkedin.com/in/shanraisshan",
+   "repo": "https://github.com/shanraisshan/claude-code-best-practice",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "docusaurus",
+   "name": "docusaurus",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docusaurus.io",
+   "repo": "https://github.com/facebook/docusaurus",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "prometheus",
+   "name": "prometheus",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://prometheus.io/",
+   "repo": "https://github.com/prometheus/prometheus",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mem0",
+   "name": "mem0",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://mem0.ai",
+   "repo": "https://github.com/mem0ai/mem0",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "webpack",
+   "name": "webpack",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://webpack.js.org",
+   "repo": "https://github.com/webpack/webpack",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "strix",
+   "name": "strix",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://strix.ai",
+   "repo": "https://github.com/usestrix/strix",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "traefik",
+   "name": "traefik",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://traefik.io",
+   "repo": "https://github.com/traefik/traefik",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "tldr",
+   "name": "tldr",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://tldr.sh",
+   "repo": "https://github.com/tldr-pages/tldr",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "memos",
+   "name": "memos",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://usememos.com",
+   "repo": "https://github.com/usememos/memos",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "last30days-skill",
+   "name": "last30days-skill",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/mvanhorn/last30days-skill",
+   "repo": "https://github.com/mvanhorn/last30days-skill",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "trendradar",
+   "name": "TrendRadar",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://trendradar.sandev.cc",
+   "repo": "https://github.com/sansan0/TrendRadar",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "context7",
+   "name": "context7",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://context7.com",
+   "repo": "https://github.com/upstash/context7",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "coolify",
+   "name": "coolify",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://coolify.io",
+   "repo": "https://github.com/coollabsio/coolify",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "autogen",
+   "name": "autogen",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://microsoft.github.io/autogen/",
+   "repo": "https://github.com/microsoft/autogen",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pocketbase",
+   "name": "pocketbase",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://pocketbase.io",
+   "repo": "https://github.com/pocketbase/pocketbase",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "penpot",
+   "name": "penpot",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://penpot.app",
+   "repo": "https://github.com/penpot/penpot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "rclone",
+   "name": "rclone",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://rclone.org",
+   "repo": "https://github.com/rclone/rclone",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "plane",
+   "name": "plane",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/makeplane/plane",
+   "repo": "https://github.com/makeplane/plane",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mempalace",
+   "name": "mempalace",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/MemPalace/mempalace",
+   "repo": "https://github.com/MemPalace/mempalace",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "crewai",
+   "name": "crewAI",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://crewai.com",
+   "repo": "https://github.com/crewAIInc/crewAI",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-engineering-from-scratch",
+   "name": "ai-engineering-from-scratch",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://aiengineeringfromscratch.com",
+   "repo": "https://github.com/rohitg00/ai-engineering-from-scratch",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gitea",
+   "name": "gitea",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://gitea.com",
+   "repo": "https://github.com/go-gitea/gitea",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-android-ui",
+   "name": "awesome-android-ui",
+   "kind": "reference",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/wasabeef/awesome-android-ui",
+   "repo": "https://github.com/wasabeef/awesome-android-ui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "joplin",
+   "name": "joplin",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://joplinapp.org",
+   "repo": "https://github.com/laurent22/joplin",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "imhex",
+   "name": "ImHex",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://imhex.werwolv.net/",
+   "repo": "https://github.com/WerWolv/ImHex",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "goose",
+   "name": "goose",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://goose-docs.ai/",
+   "repo": "https://github.com/aaif-goose/goose",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dive",
+   "name": "dive",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/wagoodman/dive",
+   "repo": "https://github.com/wagoodman/dive",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "material-design-icons",
+   "name": "material-design-icons",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/google/material-design-icons",
+   "repo": "https://github.com/google/material-design-icons",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hyperframes",
+   "name": "hyperframes",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/heygen-com/hyperframes",
+   "repo": "https://github.com/heygen-com/hyperframes",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "windows",
+   "name": "windows",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/dockur/windows",
+   "repo": "https://github.com/dockur/windows",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cliproxyapi",
+   "name": "CLIProxyAPI",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/router-for-me/CLIProxyAPI",
+   "repo": "https://github.com/router-for-me/CLIProxyAPI",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "docker-osx",
+   "name": "Docker-OSX",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://hub.docker.com/r/sickcodes/docker-osx",
+   "repo": "https://github.com/sickcodes/Docker-OSX",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-openclaw-skills",
+   "name": "awesome-openclaw-skills",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://clawskills.sh/",
+   "repo": "https://github.com/VoltAgent/awesome-openclaw-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ionic-framework",
+   "name": "ionic-framework",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://ionicframework.com",
+   "repo": "https://github.com/ionic-team/ionic-framework",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chrome-devtools-mcp",
+   "name": "chrome-devtools-mcp",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://developer.chrome.com/docs/devtools/agents",
+   "repo": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "etcd",
+   "name": "etcd",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://etcd.io",
+   "repo": "https://github.com/etcd-io/etcd",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hiring-without-whiteboards",
+   "name": "hiring-without-whiteboards",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/poteto/hiring-without-whiteboards",
+   "repo": "https://github.com/poteto/hiring-without-whiteboards",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cherry-studio",
+   "name": "cherry-studio",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://cherryai.com",
+   "repo": "https://github.com/CherryHQ/cherry-studio",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "professional-programming",
+   "name": "professional-programming",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/charlax/professional-programming",
+   "repo": "https://github.com/charlax/professional-programming",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "i-have-adhd",
+   "name": "i-have-adhd",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/ayghri/i-have-adhd",
+   "repo": "https://github.com/ayghri/i-have-adhd",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-agent-book",
+   "name": "ai-agent-book",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/bojieli/ai-agent-book",
+   "repo": "https://github.com/bojieli/ai-agent-book",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cl4r1t4s",
+   "name": "CL4R1T4S",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/elder-plinius/CL4R1T4S",
+   "repo": "https://github.com/elder-plinius/CL4R1T4S",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "tldraw",
+   "name": "tldraw",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://tldraw.dev",
+   "repo": "https://github.com/tldraw/tldraw",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mastodon",
+   "name": "mastodon",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://joinmastodon.org",
+   "repo": "https://github.com/mastodon/mastodon",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "huginn",
+   "name": "huginn",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/huginn/huginn",
+   "repo": "https://github.com/huginn/huginn",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ruff",
+   "name": "ruff",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://docs.astral.sh/ruff",
+   "repo": "https://github.com/astral-sh/ruff",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "terraform",
+   "name": "terraform",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/hashicorp/terraform",
+   "repo": "https://github.com/hashicorp/terraform",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "academic-research-skills",
+   "name": "academic-research-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://buymeacoffee.com/crucify020v",
+   "repo": "https://github.com/Imbad0202/academic-research-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "localai",
+   "name": "LocalAI",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://localai.io",
+   "repo": "https://github.com/mudler/LocalAI",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "algorithm-visualizer",
+   "name": "algorithm-visualizer",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://algorithm-visualizer.org/",
+   "repo": "https://github.com/algorithm-visualizer/algorithm-visualizer",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cal-diy",
+   "name": "cal.diy",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://cal.diy",
+   "repo": "https://github.com/calcom/cal.diy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nanobot",
+   "name": "nanobot",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://nanobot.wiki",
+   "repo": "https://github.com/HKUDS/nanobot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-react-components",
+   "name": "awesome-react-components",
+   "kind": "reference",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/brillout/awesome-react-components",
+   "repo": "https://github.com/brillout/awesome-react-components",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-bits",
+   "name": "react-bits",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://reactbits.dev",
+   "repo": "https://github.com/DavidHDev/react-bits",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "githubdaily",
+   "name": "GitHubDaily",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://githubdaily.com",
+   "repo": "https://github.com/GitHubDaily/GitHubDaily",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "jeecgboot",
+   "name": "JeecgBoot",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://jeecg.com",
+   "repo": "https://github.com/jeecgboot/JeecgBoot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gogs",
+   "name": "gogs",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://gogs.io",
+   "repo": "https://github.com/gogs/gogs",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "bruno",
+   "name": "bruno",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.usebruno.com/",
+   "repo": "https://github.com/usebruno/bruno",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cowagent",
+   "name": "CowAgent",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://cowagent.ai",
+   "repo": "https://github.com/zhayujie/CowAgent",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "agentic-awesome-skills",
+   "name": "agentic-awesome-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://aaskills.tech/",
+   "repo": "https://github.com/sickn33/agentic-awesome-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "scientific-agent-skills",
+   "name": "scientific-agent-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://arxiv.org/abs/2609.00065",
+   "repo": "https://github.com/K-Dense-AI/scientific-agent-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "siyuan",
+   "name": "siyuan",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://b3log.org/siyuan",
+   "repo": "https://github.com/siyuan-note/siyuan",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-cheatsheets",
+   "name": "awesome-cheatsheets",
+   "kind": "reference",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://lecoupa.github.io/awesome-cheatsheets/",
+   "repo": "https://github.com/LeCoupa/awesome-cheatsheets",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "data-engineering-zoomcamp",
+   "name": "data-engineering-zoomcamp",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://courses.datatalks.club/register/de-zoomcamp/",
+   "repo": "https://github.com/DataTalksClub/data-engineering-zoomcamp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "full-stack-fastapi-template",
+   "name": "full-stack-fastapi-template",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/fastapi/full-stack-fastapi-template",
+   "repo": "https://github.com/fastapi/full-stack-fastapi-template",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "files",
+   "name": "Files",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://files.community",
+   "repo": "https://github.com/files-community/Files",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "jest",
+   "name": "jest",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://jestjs.io",
+   "repo": "https://github.com/jestjs/jest",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mitmproxy",
+   "name": "mitmproxy",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://mitmproxy.org",
+   "repo": "https://github.com/mitmproxy/mitmproxy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "logseq",
+   "name": "logseq",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://logseq.com",
+   "repo": "https://github.com/logseq/logseq",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "codebase-memory-mcp",
+   "name": "codebase-memory-mcp",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://deusdata.github.io/codebase-memory-mcp/",
+   "repo": "https://github.com/DeusData/codebase-memory-mcp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "librechat",
+   "name": "LibreChat",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://librechat.ai/",
+   "repo": "https://github.com/LibreChat-AI/LibreChat",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-hook-form",
+   "name": "react-hook-form",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://react-hook-form.com",
+   "repo": "https://github.com/react-hook-form/react-hook-form",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sentry",
+   "name": "sentry",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://sentry.io",
+   "repo": "https://github.com/getsentry/sentry",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "jsoncrack-com",
+   "name": "jsoncrack.com",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://jsoncrack.com/",
+   "repo": "https://github.com/AykutSarac/jsoncrack.com",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kong",
+   "name": "kong",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://konghq.com/install/",
+   "repo": "https://github.com/Kong/kong",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-job-search",
+   "name": "ai-job-search",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/MadsLorentzen/ai-job-search",
+   "repo": "https://github.com/MadsLorentzen/ai-job-search",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gods-eye-view",
+   "name": "gods-eye-view",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://maptheworld.ai/",
+   "repo": "https://github.com/bilawalsidhu/gods-eye-view",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gradio",
+   "name": "gradio",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/gradio-app/gradio",
+   "repo": "https://github.com/gradio-app/gradio",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "reactive-resume",
+   "name": "reactive-resume",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://rxresu.me",
+   "repo": "https://github.com/reactive-resume/reactive-resume",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pm2",
+   "name": "pm2",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://pm2.keymetrics.io/docs/usage/quick-start/",
+   "repo": "https://github.com/Unitech/pm2",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sub2api",
+   "name": "sub2api",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/Wei-Shaw/sub2api",
+   "repo": "https://github.com/Wei-Shaw/sub2api",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "yazi",
+   "name": "yazi",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://yazi-rs.github.io",
+   "repo": "https://github.com/sxyazi/yazi",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "agno",
+   "name": "agno",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.agno.com",
+   "repo": "https://github.com/agno-agi/agno",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "langgraph",
+   "name": "langgraph",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.langchain.com/oss/python/langgraph/",
+   "repo": "https://github.com/langchain-ai/langgraph",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gkd",
+   "name": "gkd",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://gkd.li",
+   "repo": "https://github.com/gkd-kit/gkd",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chatbox",
+   "name": "chatbox",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://chatboxai.app?utm_medium=github",
+   "repo": "https://github.com/chatboxai/chatbox",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cheat-sh",
+   "name": "cheat.sh",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://cheat.sh/",
+   "repo": "https://github.com/chubin/cheat.sh",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-howto",
+   "name": "claude-howto",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/luongnv89/claude-howto",
+   "repo": "https://github.com/luongnv89/claude-howto",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sunshine",
+   "name": "Sunshine",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/LizardByte/Sunshine",
+   "repo": "https://github.com/LizardByte/Sunshine",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-design-tools",
+   "name": "Awesome-Design-Tools",
+   "kind": "reference",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/goabstract/Awesome-Design-Tools",
+   "repo": "https://github.com/goabstract/Awesome-Design-Tools",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sniffnet",
+   "name": "sniffnet",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://sniffnet.app",
+   "repo": "https://github.com/GyulyVGC/sniffnet",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "astrbot",
+   "name": "AstrBot",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://astrbot.app",
+   "repo": "https://github.com/AstrBotDevs/AstrBot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vuetify",
+   "name": "vuetify",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://vuetifyjs.com",
+   "repo": "https://github.com/vuetifyjs/vuetify",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "codewhale",
+   "name": "Codewhale",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://codewhale.net/",
+   "repo": "https://github.com/Hmbown/Codewhale",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "tooljet",
+   "name": "ToolJet",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://tooljet.com",
+   "repo": "https://github.com/ToolJet/ToolJet",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "herdr",
+   "name": "herdr",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://herdr.dev",
+   "repo": "https://github.com/herdrdev/herdr",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "outline",
+   "name": "outline",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.getoutline.com",
+   "repo": "https://github.com/outline/outline",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "it-tools",
+   "name": "it-tools",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://it-tools.tech",
+   "repo": "https://github.com/CorentinTh/it-tools",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chakra-ui",
+   "name": "chakra-ui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://chakra-ui.com",
+   "repo": "https://github.com/chakra-ui/chakra-ui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "deeptutor",
+   "name": "DeepTutor",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/HKUDS/DeepTutor",
+   "repo": "https://github.com/HKUDS/DeepTutor",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "openhuman",
+   "name": "openhuman",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://tinyhumans.ai/openhuman",
+   "repo": "https://github.com/tinyhumansai/openhuman",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "shellcheck",
+   "name": "shellcheck",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.shellcheck.net",
+   "repo": "https://github.com/koalaman/shellcheck",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chattts",
+   "name": "ChatTTS",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://2noise.com",
+   "repo": "https://github.com/2noise/ChatTTS",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mindshub",
+   "name": "mindshub",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://mindshub.ai",
+   "repo": "https://github.com/mindsdb/mindshub",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sharex",
+   "name": "ShareX",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://getsharex.com",
+   "repo": "https://github.com/ShareX/ShareX",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "drawdb",
+   "name": "drawdb",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://drawdb.app",
+   "repo": "https://github.com/drawdb-io/drawdb",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "aseprite",
+   "name": "aseprite",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://www.aseprite.org",
+   "repo": "https://github.com/aseprite/aseprite",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "erpnext",
+   "name": "erpnext",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://frappe.io/erpnext",
+   "repo": "https://github.com/frappe/erpnext",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "quivr",
+   "name": "quivr",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://core.quivr.com",
+   "repo": "https://github.com/The-Vibe-Company/quivr",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "open-notebook",
+   "name": "open-notebook",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.open-notebook.ai",
+   "repo": "https://github.com/lfnovo/open-notebook",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "devdocs",
+   "name": "devdocs",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://devdocs.io",
+   "repo": "https://github.com/freeCodeCamp/devdocs",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "oh-my-claudecode",
+   "name": "oh-my-claudecode",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://oh-my-claudecode.dev",
+   "repo": "https://github.com/Yeachan-Heo/oh-my-claudecode",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dioxus",
+   "name": "dioxus",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://dioxuslabs.com",
+   "repo": "https://github.com/DioxusLabs/dioxus",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ui-tars-desktop",
+   "name": "UI-TARS-desktop",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://agent-tars.com",
+   "repo": "https://github.com/bytedance/UI-TARS-desktop",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "spacedrive",
+   "name": "spacedrive",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://spacedrive.com",
+   "repo": "https://github.com/spacedriveapp/spacedrive",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "materialize",
+   "name": "materialize",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://materializecss.com",
+   "repo": "https://github.com/Dogfalo/materialize",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "langchain-chatchat",
+   "name": "Langchain-Chatchat",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/chatchat-space/Langchain-Chatchat",
+   "repo": "https://github.com/chatchat-space/Langchain-Chatchat",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cli",
+   "name": "cli",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://httpie.io",
+   "repo": "https://github.com/httpie/cli",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "portainer",
+   "name": "portainer",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.portainer.io",
+   "repo": "https://github.com/portainer/portainer",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "harness",
+   "name": "harness",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.harness.io/open-source",
+   "repo": "https://github.com/harness/harness",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "istio",
+   "name": "istio",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://istio.io",
+   "repo": "https://github.com/istio/istio",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "compose",
+   "name": "compose",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://docs.docker.com/compose/",
+   "repo": "https://github.com/docker/compose",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "500-ai-agents-projects",
+   "name": "500-AI-Agents-Projects",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ashishpatel26.github.io/500-AI-Agents-Projects/",
+   "repo": "https://github.com/ashishpatel26/500-AI-Agents-Projects",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-engineering-hub",
+   "name": "ai-engineering-hub",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://join.dailydoseofds.com",
+   "repo": "https://github.com/patchy631/ai-engineering-hub",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "trilium",
+   "name": "Trilium",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://triliumnotes.org",
+   "repo": "https://github.com/TriliumNext/Trilium",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "maigret",
+   "name": "maigret",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://maigret.app/gh",
+   "repo": "https://github.com/soxoj/maigret",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "playwright-mcp",
+   "name": "playwright-mcp",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.npmjs.com/package/@playwright/mcp",
+   "repo": "https://github.com/microsoft/playwright-mcp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dokploy",
+   "name": "dokploy",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://dokploy.com/",
+   "repo": "https://github.com/Dokploy/dokploy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "khoj",
+   "name": "khoj",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://khoj.dev",
+   "repo": "https://github.com/khoj-ai/khoj",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "casaos",
+   "name": "CasaOS",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://casaos.zimaspace.com",
+   "repo": "https://github.com/IceWhaleTech/CasaOS",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chatwoot",
+   "name": "chatwoot",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.chatwoot.com/help-center",
+   "repo": "https://github.com/chatwoot/chatwoot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "glance",
+   "name": "glance",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/glanceapp/glance",
+   "repo": "https://github.com/glanceapp/glance",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pdfmathtranslate",
+   "name": "PDFMathTranslate",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://pdf2zh.com",
+   "repo": "https://github.com/PDFMathTranslate/PDFMathTranslate",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "wtfpython",
+   "name": "wtfpython",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/satwikkansal/wtfpython",
+   "repo": "https://github.com/satwikkansal/wtfpython",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "1panel",
+   "name": "1Panel",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://1panel.pro",
+   "repo": "https://github.com/1Panel-dev/1Panel",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "server",
+   "name": "server",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://nextcloud.com",
+   "repo": "https://github.com/nextcloud/server",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vane",
+   "name": "Vane",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/ItzCrazyKns/Vane",
+   "repo": "https://github.com/ItzCrazyKns/Vane",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-docker",
+   "name": "awesome-docker",
+   "kind": "reference",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://average.joe.dev/awesome-docker/",
+   "repo": "https://github.com/veggiemonk/awesome-docker",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "medusa",
+   "name": "medusa",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://medusajs.com",
+   "repo": "https://github.com/medusajs/medusa",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vault",
+   "name": "vault",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://developer.hashicorp.com/vault",
+   "repo": "https://github.com/hashicorp/vault",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "next-ai-draw-io",
+   "name": "next-ai-draw-io",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://next-ai-drawio.jiang.jp/",
+   "repo": "https://github.com/DayuanJiang/next-ai-draw-io",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cyberchef",
+   "name": "CyberChef",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://gchq.github.io/CyberChef",
+   "repo": "https://github.com/gchq/CyberChef",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pageindex",
+   "name": "PageIndex",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://pageindex.ai",
+   "repo": "https://github.com/VectifyAI/PageIndex",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "lottie-android",
+   "name": "lottie-android",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/airbnb/lottie-android",
+   "repo": "https://github.com/airbnb/lottie-android",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "deepseek-reasonix",
+   "name": "DeepSeek-Reasonix",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/esengine/DeepSeek-Reasonix",
+   "repo": "https://github.com/esengine/DeepSeek-Reasonix",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-cto",
+   "name": "awesome-cto",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/kuchin/awesome-cto",
+   "repo": "https://github.com/kuchin/awesome-cto",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-website-cloner-template",
+   "name": "ai-website-cloner-template",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://dsc.gg/jcodesmore",
+   "repo": "https://github.com/JCodesMore/ai-website-cloner-template",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "qwenpaw",
+   "name": "QwenPaw",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/agentscope-ai/QwenPaw",
+   "repo": "https://github.com/agentscope-ai/QwenPaw",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-sysadmin",
+   "name": "awesome-sysadmin",
+   "kind": "reference",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://sysadmin.awesome-selfhosted.net",
+   "repo": "https://github.com/awesome-foss/awesome-sysadmin",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "langfuse",
+   "name": "langfuse",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://langfuse.com",
+   "repo": "https://github.com/langfuse/langfuse",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "seaweedfs",
+   "name": "seaweedfs",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://seaweedfs.com",
+   "repo": "https://github.com/seaweedfs/seaweedfs",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "k9s",
+   "name": "k9s",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://k9scli.io",
+   "repo": "https://github.com/derailed/k9s",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "changedetection-io",
+   "name": "changedetection.io",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://changedetection.io",
+   "repo": "https://github.com/dgtlmoon/changedetection.io",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vibe-trading",
+   "name": "Vibe-Trading",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://vibetrading.wiki/",
+   "repo": "https://github.com/HKUDS/Vibe-Trading",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "k3s",
+   "name": "k3s",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://k3s.io",
+   "repo": "https://github.com/k3s-io/k3s",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "tabby",
+   "name": "tabby",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://tabbyml.com",
+   "repo": "https://github.com/TabbyML/tabby",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "glances",
+   "name": "glances",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/nicolargo/glances",
+   "repo": "https://github.com/nicolargo/glances",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gpt-pilot",
+   "name": "gpt-pilot",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/Pythagora-io/gpt-pilot",
+   "repo": "https://github.com/Pythagora-io/gpt-pilot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "oh-my-pi",
+   "name": "oh-my-pi",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://omp.sh",
+   "repo": "https://github.com/can1357/oh-my-pi",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "anthropic-cybersecurity-skills",
+   "name": "Anthropic-Cybersecurity-Skills",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://mahipal.engineer/Anthropic-Cybersecurity-Skills/",
+   "repo": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nacos",
+   "name": "nacos",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://nacos.io",
+   "repo": "https://github.com/alibaba/nacos",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cheatsheetseries",
+   "name": "CheatSheetSeries",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://cheatsheetseries.owasp.org",
+   "repo": "https://github.com/OWASP/CheatSheetSeries",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "github-mcp-server",
+   "name": "github-mcp-server",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/github/github-mcp-server",
+   "repo": "https://github.com/github/github-mcp-server",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "aionui",
+   "name": "AionUi",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.aionui.com",
+   "repo": "https://github.com/iOfficeAI/AionUi",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "podman",
+   "name": "podman",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://podman.io",
+   "repo": "https://github.com/podman-container-tools/podman",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "homepage",
+   "name": "homepage",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://gethomepage.dev",
+   "repo": "https://github.com/gethomepage/homepage",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sharp",
+   "name": "sharp",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://sharp.pixelplumbing.com",
+   "repo": "https://github.com/lovell/sharp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-three-fiber",
+   "name": "react-three-fiber",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://docs.pmnd.rs/react-three-fiber",
+   "repo": "https://github.com/pmndrs/react-three-fiber",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "agentscope",
+   "name": "agentscope",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.agentscope.io/",
+   "repo": "https://github.com/agentscope-ai/agentscope",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "handy",
+   "name": "Handy",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://handy.computer",
+   "repo": "https://github.com/cjpais/Handy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "signoz",
+   "name": "signoz",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://signoz.io",
+   "repo": "https://github.com/SigNoz/signoz",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dokku",
+   "name": "dokku",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://dokku.com",
+   "repo": "https://github.com/dokku/dokku",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "minikube",
+   "name": "minikube",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://minikube.sigs.k8s.io/",
+   "repo": "https://github.com/kubernetes/minikube",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "finceptterminal",
+   "name": "FinceptTerminal",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://fincept.in",
+   "repo": "https://github.com/Fincept-Corporation/FinceptTerminal",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "editor-js",
+   "name": "editor.js",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://editorjs.io",
+   "repo": "https://github.com/codex-team/editor.js",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-code-templates",
+   "name": "claude-code-templates",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://aitmpl.com",
+   "repo": "https://github.com/davila7/claude-code-templates",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "code-review-graph",
+   "name": "code-review-graph",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://code-review-graph.com",
+   "repo": "https://github.com/tirth8205/code-review-graph",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "influxdb",
+   "name": "influxdb",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://influxdata.com",
+   "repo": "https://github.com/influxdata/influxdb",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nginx",
+   "name": "nginx",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://nginx.org/",
+   "repo": "https://github.com/nginx/nginx",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cloakbrowser",
+   "name": "CloakBrowser",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://cloakbrowser.dev/",
+   "repo": "https://github.com/CloakHQ/CloakBrowser",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "invisible-playwright-mcp",
+   "name": "invisible_playwright_mcp",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/feder-cr/invisible_playwright_mcp/wiki",
+   "repo": "https://github.com/feder-cr/invisible_playwright_mcp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nuclei",
+   "name": "nuclei",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://docs.projectdiscovery.io/tools/nuclei",
+   "repo": "https://github.com/projectdiscovery/nuclei",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "docsify",
+   "name": "docsify",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docsify.js.org",
+   "repo": "https://github.com/docsifyjs/docsify",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "how-to-secure-a-linux-server",
+   "name": "How-To-Secure-A-Linux-Server",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/imthenachoman/How-To-Secure-A-Linux-Server",
+   "repo": "https://github.com/imthenachoman/How-To-Secure-A-Linux-Server",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "officecli",
+   "name": "OfficeCLI",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://officecli.ai",
+   "repo": "https://github.com/iOfficeAI/OfficeCLI",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-expert-roadmap",
+   "name": "AI-Expert-Roadmap",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://i.am.ai/roadmap",
+   "repo": "https://github.com/AMAI-GmbH/AI-Expert-Roadmap",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sortable",
+   "name": "Sortable",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://sortablejs.github.io/Sortable/",
+   "repo": "https://github.com/SortableJS/Sortable",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "googleworkspace-cli",
+   "name": "cli",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://developers.google.com/workspace",
+   "repo": "https://github.com/googleworkspace/cli",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hosts",
+   "name": "hosts",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/StevenBlack/hosts",
+   "repo": "https://github.com/StevenBlack/hosts",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cognee",
+   "name": "cognee",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.cognee.ai",
+   "repo": "https://github.com/topoteretes/cognee",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "colima",
+   "name": "colima",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://colima.run",
+   "repo": "https://github.com/abiosoft/colima",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "supermemory",
+   "name": "supermemory",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://supermemory.ai/docs",
+   "repo": "https://github.com/supermemoryai/supermemory",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nanoclaw",
+   "name": "nanoclaw",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://nanoclaw.dev",
+   "repo": "https://github.com/nanocoai/nanoclaw",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "openssl",
+   "name": "openssl",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://openssl-library.org/",
+   "repo": "https://github.com/openssl/openssl",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "heroui",
+   "name": "heroui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://heroui.com",
+   "repo": "https://github.com/heroui-inc/heroui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pythonrobotics",
+   "name": "PythonRobotics",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://atsushisakai.github.io/PythonRobotics/",
+   "repo": "https://github.com/AtsushiSakai/PythonRobotics",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "layui",
+   "name": "layui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://layui.dev",
+   "repo": "https://github.com/layui/layui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "spring-boot-examples",
+   "name": "spring-boot-examples",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/ityouknow/spring-boot-examples",
+   "repo": "https://github.com/ityouknow/spring-boot-examples",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "weknora",
+   "name": "WeKnora",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://weknora.weixin.qq.com",
+   "repo": "https://github.com/Tencent/WeKnora",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "algo",
+   "name": "algo",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://blog.trailofbits.com/2016/12/12/meet-algo-the-vpn-that-works/",
+   "repo": "https://github.com/trailofbits/algo",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "composio",
+   "name": "composio",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.composio.dev",
+   "repo": "https://github.com/ComposioHQ/composio",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "css-protips",
+   "name": "css-protips",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/AllThingsSmitty/css-protips",
+   "repo": "https://github.com/AllThingsSmitty/css-protips",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "helm",
+   "name": "helm",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://helm.sh",
+   "repo": "https://github.com/helm/helm",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "xiaozhi-esp32",
+   "name": "xiaozhi-esp32",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://xiaozhi.me",
+   "repo": "https://github.com/78/xiaozhi-esp32",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "better-auth",
+   "name": "better-auth",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://better-auth.com",
+   "repo": "https://github.com/better-auth/better-auth",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "consul",
+   "name": "consul",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.consul.io",
+   "repo": "https://github.com/hashicorp/consul",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "librepods",
+   "name": "librepods",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/librepods-org/librepods",
+   "repo": "https://github.com/librepods-org/librepods",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "9router",
+   "name": "9router",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://9router.com",
+   "repo": "https://github.com/decolua/9router",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "frontend-slides",
+   "name": "frontend-slides",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/zarazhangrui/frontend-slides",
+   "repo": "https://github.com/zarazhangrui/frontend-slides",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "serena",
+   "name": "serena",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://oraios.github.io/serena",
+   "repo": "https://github.com/oraios/serena",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-osint",
+   "name": "awesome-osint",
+   "kind": "reference",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/jivoi/awesome-osint",
+   "repo": "https://github.com/jivoi/awesome-osint",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "90daysofdevops",
+   "name": "90DaysOfDevOps",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.90daysofdevops.com/",
+   "repo": "https://github.com/MichaelCade/90DaysOfDevOps",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "fastgpt",
+   "name": "FastGPT",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://fastgpt.io",
+   "repo": "https://github.com/labring/FastGPT",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "proxmoxve",
+   "name": "ProxmoxVE",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://community-scripts.org/",
+   "repo": "https://github.com/community-scripts/ProxmoxVE",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gpt-researcher",
+   "name": "gpt-researcher",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://gptr.dev",
+   "repo": "https://github.com/assafelovic/gpt-researcher",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "opencli",
+   "name": "OpenCLI",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://opencli.info/",
+   "repo": "https://github.com/jackwener/OpenCLI",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "h4cker",
+   "name": "h4cker",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://hackerrepo.org",
+   "repo": "https://github.com/The-Art-of-Hacking/h4cker",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mcp-for-blender",
+   "name": "mcp-for-blender",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.mcp-for-blender.com/",
+   "repo": "https://github.com/ahujasid/mcp-for-blender",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "harbor",
+   "name": "harbor",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://goharbor.io",
+   "repo": "https://github.com/goharbor/harbor",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "infisical",
+   "name": "infisical",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://infisical.com",
+   "repo": "https://github.com/Infisical/infisical",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "standard",
+   "name": "standard",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://standardjs.com",
+   "repo": "https://github.com/standard/standard",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chroma",
+   "name": "chroma",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.trychroma.com/",
+   "repo": "https://github.com/chroma-core/chroma",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "opendataloader-pdf",
+   "name": "opendataloader-pdf",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://opendataloader.org",
+   "repo": "https://github.com/opendataloader-project/opendataloader-pdf",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nx",
+   "name": "nx",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://nx.dev",
+   "repo": "https://github.com/nrwl/nx",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hey-xyz",
+   "name": "hey.xyz",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://hey.xyz",
+   "repo": "https://github.com/slymnoyann/hey.xyz",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "page-agent",
+   "name": "page-agent",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://alibaba.github.io/page-agent/",
+   "repo": "https://github.com/alibaba/page-agent",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "analytics",
+   "name": "analytics",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://plausible.io",
+   "repo": "https://github.com/plausible/analytics",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "create-t3-app",
+   "name": "create-t3-app",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://create.t3.gg",
+   "repo": "https://github.com/t3-oss/create-t3-app",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ente",
+   "name": "ente",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://ente.com",
+   "repo": "https://github.com/ente/ente",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "authelia",
+   "name": "authelia",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.authelia.com",
+   "repo": "https://github.com/authelia/authelia",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gitbook",
+   "name": "gitbook",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.gitbook.com",
+   "repo": "https://github.com/GitbookIO/gitbook",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "keepassxc",
+   "name": "keepassxc",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://keepassxc.org/",
+   "repo": "https://github.com/keepassxreboot/keepassxc",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "wiki",
+   "name": "wiki",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://js.wiki",
+   "repo": "https://github.com/requarks/wiki",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "celery",
+   "name": "celery",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.celeryq.dev",
+   "repo": "https://github.com/celery/celery",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "headlessui",
+   "name": "headlessui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://headlessui.com",
+   "repo": "https://github.com/tailwindlabs/headlessui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gsap",
+   "name": "GSAP",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://gsap.com",
+   "repo": "https://github.com/greensock/GSAP",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "setup-ipsec-vpn",
+   "name": "setup-ipsec-vpn",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/hwdsl2/setup-ipsec-vpn",
+   "repo": "https://github.com/hwdsl2/setup-ipsec-vpn",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cs249r-book",
+   "name": "cs249r_book",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://mlsysbook.ai",
+   "repo": "https://github.com/harvard-edge/cs249r_book",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "repomix",
+   "name": "repomix",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://repomix.com",
+   "repo": "https://github.com/yamadashy/repomix",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "next-auth",
+   "name": "next-auth",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://authjs.dev",
+   "repo": "https://github.com/nextauthjs/next-auth",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kestra",
+   "name": "kestra",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://go.kestra.io/home",
+   "repo": "https://github.com/kestra-io/kestra",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mastra",
+   "name": "mastra",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://mastra.ai",
+   "repo": "https://github.com/mastra-ai/mastra",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chat2db",
+   "name": "Chat2DB",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://chat2db.ai",
+   "repo": "https://github.com/OtterMind/Chat2DB",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nginxconfig-io",
+   "name": "nginxconfig.io",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://do.co/nginxconfig",
+   "repo": "https://github.com/digitalocean/nginxconfig.io",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vibe-kanban",
+   "name": "vibe-kanban",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.vibekanban.com/",
+   "repo": "https://github.com/BloopAI/vibe-kanban",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-hud",
+   "name": "claude-hud",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/jarrodwatts/claude-hud",
+   "repo": "https://github.com/jarrodwatts/claude-hud",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "qwen-code",
+   "name": "qwen-code",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://qwenlm.github.io/qwen-code-docs/en/users/overview",
+   "repo": "https://github.com/QwenLM/qwen-code",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mlflow",
+   "name": "mlflow",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://mlflow.org",
+   "repo": "https://github.com/mlflow/mlflow",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-task-master",
+   "name": "claude-task-master",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://tryhamster.com",
+   "repo": "https://github.com/eyaltoledano/claude-task-master",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "fastmcp",
+   "name": "fastmcp",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://gofastmcp.com",
+   "repo": "https://github.com/PrefectHQ/fastmcp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "element-plus",
+   "name": "element-plus",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://element-plus.org",
+   "repo": "https://github.com/element-plus/element-plus",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "platform",
+   "name": "platform",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://huly.io",
+   "repo": "https://github.com/hcengineering/platform",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "recharts",
+   "name": "recharts",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://recharts.github.io",
+   "repo": "https://github.com/recharts/recharts",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "eslint",
+   "name": "eslint",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://eslint.org",
+   "repo": "https://github.com/eslint/eslint",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mkdocs-material",
+   "name": "mkdocs-material",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://squidfunk.github.io/mkdocs-material/",
+   "repo": "https://github.com/squidfunk/mkdocs-material",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "beads",
+   "name": "beads",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://beads.gascity.com",
+   "repo": "https://github.com/gastownhall/beads",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "wox",
+   "name": "Wox",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.woxlauncher.com/",
+   "repo": "https://github.com/Wox-launcher/Wox",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cmux",
+   "name": "cmux",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://cmux.com",
+   "repo": "https://github.com/manaflow-ai/cmux",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kilocode",
+   "name": "kilocode",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://kilo.ai/",
+   "repo": "https://github.com/Kilo-Org/kilocode",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "graphite",
+   "name": "Graphite",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://graphite.art",
+   "repo": "https://github.com/GraphiteEditor/Graphite",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "openzeppelin-contracts",
+   "name": "openzeppelin-contracts",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://openzeppelin.com/contracts",
+   "repo": "https://github.com/OpenZeppelin/openzeppelin-contracts",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "shields",
+   "name": "shields",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://shields.io",
+   "repo": "https://github.com/badges/shields",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "planning-with-files",
+   "name": "planning-with-files",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.skills.sh/othmanadi/planning-with-files/planning-with-files",
+   "repo": "https://github.com/OthmanAdi/planning-with-files",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-virtualized",
+   "name": "react-virtualized",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/bvaughn/react-virtualized",
+   "repo": "https://github.com/bvaughn/react-virtualized",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "guizang-ppt-skill",
+   "name": "guizang-ppt-skill",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/op7418/guizang-ppt-skill",
+   "repo": "https://github.com/op7418/guizang-ppt-skill",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "lottie-ios",
+   "name": "lottie-ios",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://lottie.airbnb.tech",
+   "repo": "https://github.com/airbnb/lottie-ios",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "onlook",
+   "name": "onlook",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://onlook.com",
+   "repo": "https://github.com/onlook-dev/onlook",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "haystack",
+   "name": "haystack",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://haystack.deepset.ai",
+   "repo": "https://github.com/deepset-ai/haystack",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pm-skills",
+   "name": "pm-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.productcompass.pm/p/pm-skills-2-red-team-ship",
+   "repo": "https://github.com/phuryn/pm-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "jenkins",
+   "name": "jenkins",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.jenkins.io",
+   "repo": "https://github.com/jenkinsci/jenkins",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dashy",
+   "name": "dashy",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://dashy.to",
+   "repo": "https://github.com/lissy93/dashy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-skills",
+   "name": "claude-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://alirezarezvani.medium.com/",
+   "repo": "https://github.com/alirezarezvani/claude-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "focalboard",
+   "name": "focalboard",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.focalboard.com",
+   "repo": "https://github.com/mattermost-community/focalboard",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "docker-practice",
+   "name": "docker_practice",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://yeasy.gitbook.io/docker_practice/",
+   "repo": "https://github.com/yeasy/docker_practice",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "faas",
+   "name": "faas",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.openfaas.com",
+   "repo": "https://github.com/openfaas/faas",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "testify",
+   "name": "testify",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://pkg.go.dev/github.com/stretchr/testify",
+   "repo": "https://github.com/stretchr/testify",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "baoyu-skills",
+   "name": "baoyu-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/JimLiu/baoyu-skills",
+   "repo": "https://github.com/JimLiu/baoyu-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dapr",
+   "name": "dapr",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://dapr.io",
+   "repo": "https://github.com/dapr/dapr",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "feather",
+   "name": "feather",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://feathericons.com",
+   "repo": "https://github.com/feathericons/feather",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kratos",
+   "name": "kratos",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://go-kratos.dev",
+   "repo": "https://github.com/go-kratos/kratos",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "rancher",
+   "name": "rancher",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/rancher/rancher",
+   "repo": "https://github.com/rancher/rancher",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "simple-icons",
+   "name": "simple-icons",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://simpleicons.org",
+   "repo": "https://github.com/simple-icons/simple-icons",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-native-elements",
+   "name": "react-native-elements",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://reactnativeelements.com",
+   "repo": "https://github.com/react-native-elements/react-native-elements",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "biome",
+   "name": "biome",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://biomejs.dev",
+   "repo": "https://github.com/biomejs/biome",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "floci",
+   "name": "floci",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://floci.io/floci/",
+   "repo": "https://github.com/floci-io/floci",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "beszel",
+   "name": "beszel",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://beszel.dev",
+   "repo": "https://github.com/henrygd/beszel",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "authentik",
+   "name": "authentik",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://goauthentik.io",
+   "repo": "https://github.com/goauthentik/authentik",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pulumi",
+   "name": "pulumi",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.pulumi.com",
+   "repo": "https://github.com/pulumi/pulumi",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "agentskills",
+   "name": "agentskills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://agentskills.io",
+   "repo": "https://github.com/agentskills/agentskills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "apktool",
+   "name": "Apktool",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://apktool.org",
+   "repo": "https://github.com/iBotPeaches/Apktool",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-n8n-templates",
+   "name": "awesome-n8n-templates",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://n8n.partnerlinks.io/h1pwwf5m4toe",
+   "repo": "https://github.com/enescingoz/awesome-n8n-templates",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "cilium",
+   "name": "cilium",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://cilium.io",
+   "repo": "https://github.com/cilium/cilium",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "d2",
+   "name": "d2",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://d2lang.com",
+   "repo": "https://github.com/d2lang/d2",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "promptfoo",
+   "name": "promptfoo",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://promptfoo.dev",
+   "repo": "https://github.com/promptfoo/promptfoo",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "claude-code-game-studios",
+   "name": "Claude-Code-Game-Studios",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+   "repo": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "awesome-claude-code-subagents",
+   "name": "awesome-claude-code-subagents",
+   "kind": "reference",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://getdesign.md/",
+   "repo": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kuboard-press",
+   "name": "kuboard-press",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://kuboard.cn/",
+   "repo": "https://github.com/eip-work/kuboard-press",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "tdengine",
+   "name": "TDengine",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://tdengine.com",
+   "repo": "https://github.com/taosdata/TDengine",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "distilly",
+   "name": "distilly",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/titanwings/distilly",
+   "repo": "https://github.com/titanwings/distilly",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "gin-vue-admin",
+   "name": "gin-vue-admin",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/flipped-aurora/gin-vue-admin",
+   "repo": "https://github.com/flipped-aurora/gin-vue-admin",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "pentagi",
+   "name": "pentagi",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://pentagi.com",
+   "repo": "https://github.com/vxcontrol/pentagi",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "skywalking",
+   "name": "skywalking",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://skywalking.apache.org/",
+   "repo": "https://github.com/apache/skywalking",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "letta",
+   "name": "letta",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.letta.com/",
+   "repo": "https://github.com/letta-ai/letta",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "radare2",
+   "name": "radare2",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.radare.org",
+   "repo": "https://github.com/radareorg/radare2",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dub",
+   "name": "dub",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://dub.co",
+   "repo": "https://github.com/dubinc/dub",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "lvgl",
+   "name": "lvgl",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://lvgl.io",
+   "repo": "https://github.com/lvgl/lvgl",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "activepieces",
+   "name": "activepieces",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.activepieces.com",
+   "repo": "https://github.com/activepieces/activepieces",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "firefly-iii",
+   "name": "firefly-iii",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://firefly-iii.org/",
+   "repo": "https://github.com/firefly-iii/firefly-iii",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "lucide",
+   "name": "lucide",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://lucide.dev",
+   "repo": "https://github.com/lucide-icons/lucide",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "javascript-testing-best-practices",
+   "name": "javascript-testing-best-practices",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://testjavascript.com/",
+   "repo": "https://github.com/goldbergyoni/javascript-testing-best-practices",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dolt",
+   "name": "dolt",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.dolthub.com",
+   "repo": "https://github.com/dolthub/dolt",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dockge",
+   "name": "dockge",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://dockge.kuma.pet",
+   "repo": "https://github.com/louislam/dockge",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dash",
+   "name": "dash",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://plotly.com/dash",
+   "repo": "https://github.com/plotly/dash",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "python-sdk",
+   "name": "python-sdk",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://py.sdk.modelcontextprotocol.io/",
+   "repo": "https://github.com/modelcontextprotocol/python-sdk",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "genai-agents",
+   "name": "GenAI_Agents",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://diamant-ai.com",
+   "repo": "https://github.com/NirDiamant/GenAI_Agents",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nocobase",
+   "name": "nocobase",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.nocobase.com",
+   "repo": "https://github.com/nocobase/nocobase",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "devise",
+   "name": "devise",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/heartcombo/devise",
+   "repo": "https://github.com/heartcombo/devise",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "editor",
+   "name": "editor",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://editor.pascal.app",
+   "repo": "https://github.com/pascalorg/editor",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "argo-cd",
+   "name": "argo-cd",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://argo-cd.readthedocs.io",
+   "repo": "https://github.com/argoproj/argo-cd",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "social-analyzer",
+   "name": "social-analyzer",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/qeeqbox/social-analyzer",
+   "repo": "https://github.com/qeeqbox/social-analyzer",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "context-mode",
+   "name": "context-mode",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://context-mode.com",
+   "repo": "https://github.com/mksglu/context-mode",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "p5-js",
+   "name": "p5.js",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/processing/p5.js",
+   "repo": "https://github.com/processing/p5.js",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "air",
+   "name": "air",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/air-verse/air",
+   "repo": "https://github.com/air-verse/air",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "slint",
+   "name": "slint",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://slint.dev",
+   "repo": "https://github.com/slint-ui/slint",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "prefect",
+   "name": "prefect",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://prefect.io",
+   "repo": "https://github.com/PrefectHQ/prefect",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "happy",
+   "name": "happy",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://happy.engineering",
+   "repo": "https://github.com/slopus/happy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "learn-go-with-tests",
+   "name": "learn-go-with-tests",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/quii/learn-go-with-tests",
+   "repo": "https://github.com/quii/learn-go-with-tests",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-starter-kit",
+   "name": "react-starter-kit",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://reactstarter.com",
+   "repo": "https://github.com/kriasoft/react-starter-kit",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "osquery",
+   "name": "osquery",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://osquery.io",
+   "repo": "https://github.com/osquery/osquery",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "archon",
+   "name": "Archon",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://archon.diy",
+   "repo": "https://github.com/coleam00/Archon",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "intro-js",
+   "name": "intro.js",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/usablica/intro.js",
+   "repo": "https://github.com/usablica/intro.js",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "slim",
+   "name": "slim",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/slimtoolkit/slim",
+   "repo": "https://github.com/slimtoolkit/slim",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "eza",
+   "name": "eza",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://eza.rocks",
+   "repo": "https://github.com/eza-community/eza",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "api-security-checklist",
+   "name": "API-Security-Checklist",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/shieldfy/API-Security-Checklist",
+   "repo": "https://github.com/shieldfy/API-Security-Checklist",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chinese-programmer-wrong-pronunciation",
+   "name": "chinese-programmer-wrong-pronunciation",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/shimohq/chinese-programmer-wrong-pronunciation",
+   "repo": "https://github.com/shimohq/chinese-programmer-wrong-pronunciation",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "octotree",
+   "name": "octotree",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.octotree.io/",
+   "repo": "https://github.com/ovity/octotree",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "jaeger",
+   "name": "jaeger",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.jaegertracing.io/",
+   "repo": "https://github.com/jaegertracing/jaeger",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "lens",
+   "name": "lens",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://lenshq.io",
+   "repo": "https://github.com/lensapp/lens",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sops",
+   "name": "sops",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://getsops.io",
+   "repo": "https://github.com/getsops/sops",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "distroless",
+   "name": "distroless",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/GoogleContainerTools/distroless",
+   "repo": "https://github.com/GoogleContainerTools/distroless",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "go-micro",
+   "name": "go-micro",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://go-micro.dev",
+   "repo": "https://github.com/micro/go-micro",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "winboat",
+   "name": "winboat",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.winboat.app/",
+   "repo": "https://github.com/winboat-org/winboat",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "n8n-mcp",
+   "name": "n8n-mcp",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.n8n-mcp.com/",
+   "repo": "https://github.com/czlonkowski/n8n-mcp",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "oxc",
+   "name": "oxc",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://oxc.rs",
+   "repo": "https://github.com/oxc-project/oxc",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mocha",
+   "name": "mocha",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://mochajs.org",
+   "repo": "https://github.com/mochajs/mocha",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "self-hosting-guide",
+   "name": "Self-Hosting-Guide",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/mikeroyal/Self-Hosting-Guide",
+   "repo": "https://github.com/mikeroyal/Self-Hosting-Guide",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "anubis",
+   "name": "anubis",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://anubis.techaro.lol/",
+   "repo": "https://github.com/TecharoHQ/anubis",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "svgo",
+   "name": "svgo",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://svgo.dev/",
+   "repo": "https://github.com/svg/svgo",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "safeline",
+   "name": "SafeLine",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://ly.safepoint.cloud/fUxS0GW",
+   "repo": "https://github.com/chaitin/SafeLine",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vector",
+   "name": "vector",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://vector.dev",
+   "repo": "https://github.com/vectordotdev/vector",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-bootstrap",
+   "name": "react-bootstrap",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://react-bootstrap.github.io/",
+   "repo": "https://github.com/react-bootstrap/react-bootstrap",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "openui",
+   "name": "openui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://openui.fly.dev",
+   "repo": "https://github.com/wandb/openui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "docker-cheat-sheet",
+   "name": "docker-cheat-sheet",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/wsargent/docker-cheat-sheet",
+   "repo": "https://github.com/wsargent/docker-cheat-sheet",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nemoclaw",
+   "name": "NemoClaw",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docs.nvidia.com/nemoclaw/latest/",
+   "repo": "https://github.com/NVIDIA/NemoClaw",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "macos-security-and-privacy-guide",
+   "name": "macOS-Security-and-Privacy-Guide",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://drduh.github.io/macOS-Security-and-Privacy-Guide/",
+   "repo": "https://github.com/drduh/macOS-Security-and-Privacy-Guide",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "witr",
+   "name": "witr",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://pranshuparmar.github.io/witr/",
+   "repo": "https://github.com/pranshuparmar/witr",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "singlefile",
+   "name": "SingleFile",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://getsinglefile.com",
+   "repo": "https://github.com/gildas-lormeau/SingleFile",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hero",
+   "name": "Hero",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://HeroTransitions.github.io/Hero/",
+   "repo": "https://github.com/HeroTransitions/Hero",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "scrollreveal",
+   "name": "scrollreveal",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://scrollrevealjs.org/",
+   "repo": "https://github.com/jlmakes/scrollreveal",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mkdocs",
+   "name": "mkdocs",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.mkdocs.org",
+   "repo": "https://github.com/mkdocs/mkdocs",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "generator-jhipster",
+   "name": "generator-jhipster",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.jhipster.tech",
+   "repo": "https://github.com/jhipster/generator-jhipster",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "opcode",
+   "name": "opcode",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://opcode.sh",
+   "repo": "https://github.com/winfunc/opcode",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "darkreader",
+   "name": "darkreader",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://darkreader.org/",
+   "repo": "https://github.com/darkreader/darkreader",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "magicui",
+   "name": "magicui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://magicui.design",
+   "repo": "https://github.com/magicuidesign/magicui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "personal-security-checklist",
+   "name": "personal-security-checklist",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://digital-defense.io",
+   "repo": "https://github.com/lissy93/personal-security-checklist",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "neko",
+   "name": "neko",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://neko.m1k1o.net/",
+   "repo": "https://github.com/m1k1o/neko",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "waveterm",
+   "name": "waveterm",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.waveterm.dev",
+   "repo": "https://github.com/wavetermdev/waveterm",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "super-productivity",
+   "name": "super-productivity",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/super-productivity/super-productivity",
+   "repo": "https://github.com/super-productivity/super-productivity",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "sweetalert",
+   "name": "sweetalert",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://sweetalert.js.org",
+   "repo": "https://github.com/t4t5/sweetalert",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "openobserve",
+   "name": "openobserve",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://openobserve.ai",
+   "repo": "https://github.com/openobserve/openobserve",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "react-native-web",
+   "name": "react-native-web",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://necolas.github.io/react-native-web",
+   "repo": "https://github.com/necolas/react-native-web",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "blueprint",
+   "name": "blueprint",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://blueprintjs.com/",
+   "repo": "https://github.com/palantir/blueprint",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nnn",
+   "name": "nnn",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/jarun/nnn",
+   "repo": "https://github.com/jarun/nnn",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "appium",
+   "name": "appium",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/appium/appium",
+   "repo": "https://github.com/appium/appium",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "codexbar",
+   "name": "CodexBar",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://codex.bar",
+   "repo": "https://github.com/steipete/CodexBar",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "recommenders",
+   "name": "recommenders",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://recommenders-team.github.io/recommenders/intro.html",
+   "repo": "https://github.com/recommenders-team/recommenders",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "matomo",
+   "name": "matomo",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://matomo.org/",
+   "repo": "https://github.com/matomo-org/matomo",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "serve",
+   "name": "serve",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://jina.ai/serve",
+   "repo": "https://github.com/jina-ai/serve",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mobile-security-framework-mobsf",
+   "name": "Mobile-Security-Framework-MobSF",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://opensecurity.in",
+   "repo": "https://github.com/MobSF/Mobile-Security-Framework-MobSF",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nes-css",
+   "name": "NES.css",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://nostalgic-css.github.io/NES.css/",
+   "repo": "https://github.com/nostalgic-css/NES.css",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "tabler-icons",
+   "name": "tabler-icons",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://tabler.io/icons",
+   "repo": "https://github.com/tabler/tabler-icons",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "docmost",
+   "name": "docmost",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://docmost.com",
+   "repo": "https://github.com/docmost/docmost",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "chezmoi",
+   "name": "chezmoi",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.chezmoi.io/",
+   "repo": "https://github.com/twpayne/chezmoi",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "screenpipe",
+   "name": "screenpipe",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://screenpipe.com",
+   "repo": "https://github.com/screenpipe/screenpipe",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ant-design-vue",
+   "name": "ant-design-vue",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://antdv.com/",
+   "repo": "https://github.com/vueComponent/ant-design-vue",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "atlas",
+   "name": "Atlas",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://atlasos.net",
+   "repo": "https://github.com/Atlas-OS/Atlas",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "adk-python",
+   "name": "adk-python",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://google.github.io/adk-docs/",
+   "repo": "https://github.com/google/adk-python",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ciphey",
+   "name": "Ciphey",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/bee-san/Ciphey",
+   "repo": "https://github.com/bee-san/Ciphey",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "macos",
+   "name": "macos",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/dockur/macos",
+   "repo": "https://github.com/dockur/macos",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hivisionidphotos",
+   "name": "HivisionIDPhotos",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://modelscope.cn/studios/SwanLab/HivisionIDPhotos",
+   "repo": "https://github.com/Zeyi-Lin/HivisionIDPhotos",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "l1b3rt4s",
+   "name": "L1B3RT4S",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://x.com/elder_plinius",
+   "repo": "https://github.com/elder-plinius/L1B3RT4S",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "agents-towards-production",
+   "name": "agents-towards-production",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://diamant-ai.com",
+   "repo": "https://github.com/NirDiamant/agents-towards-production",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "catch2",
+   "name": "Catch2",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://discord.gg/4CWS9zD",
+   "repo": "https://github.com/catchorg/Catch2",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vitess",
+   "name": "vitess",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/vitessio/vitess",
+   "repo": "https://github.com/vitessio/vitess",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "containerd",
+   "name": "containerd",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://containerd.io",
+   "repo": "https://github.com/containerd/containerd",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "open-seo",
+   "name": "open-seo",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://openseo.so",
+   "repo": "https://github.com/every-app/open-seo",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kibana",
+   "name": "kibana",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://www.elastic.co/products/kibana",
+   "repo": "https://github.com/elastic/kibana",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vulhub",
+   "name": "vulhub",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://vulhub.org",
+   "repo": "https://github.com/vulhub/vulhub",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "rough",
+   "name": "rough",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://github.com/rough-stuff/rough",
+   "repo": "https://github.com/rough-stuff/rough",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "wekan",
+   "name": "wekan",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://wekan.fi",
+   "repo": "https://github.com/wekan/wekan",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "security-guide-for-developers",
+   "name": "security-guide-for-developers",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://git.io/security",
+   "repo": "https://github.com/FallibleInc/security-guide-for-developers",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "visx",
+   "name": "visx",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://visx.airbnb.tech",
+   "repo": "https://github.com/airbnb/visx",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "microservices-demo",
+   "name": "microservices-demo",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://cymbal-shops.retail.cymbal.dev",
+   "repo": "https://github.com/GoogleCloudPlatform/microservices-demo",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "agency-agents-zh",
+   "name": "agency-agents-zh",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ao.aiolaola.com/experts",
+   "repo": "https://github.com/jnMetaCode/agency-agents-zh",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "goaccess",
+   "name": "goaccess",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://goaccess.io",
+   "repo": "https://github.com/allinurl/goaccess",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "khazix-skills",
+   "name": "khazix-skills",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://github.com/KKKKhazix/khazix-skills",
+   "repo": "https://github.com/KKKKhazix/khazix-skills",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "teleport",
+   "name": "teleport",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://goteleport.com",
+   "repo": "https://github.com/gravitational/teleport",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "excelize",
+   "name": "excelize",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://xuri.me/excelize",
+   "repo": "https://github.com/qax-os/excelize",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dbx",
+   "name": "dbx",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://dbxio.com",
+   "repo": "https://github.com/t8y2/dbx",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ava",
+   "name": "ava",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/avajs/ava",
+   "repo": "https://github.com/avajs/ava",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "vue-pure-admin",
+   "name": "vue-pure-admin",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://pure-admin.github.io/vue-pure-admin",
+   "repo": "https://github.com/pure-admin/vue-pure-admin",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "mypy",
+   "name": "mypy",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.mypy-lang.org/",
+   "repo": "https://github.com/python/mypy",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "devops-roadmap",
+   "name": "DevOps-Roadmap",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://newsletter.techworld-with-milan.com/",
+   "repo": "https://github.com/milanm/DevOps-Roadmap",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "blender",
+   "name": "blender",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://developer.blender.org/docs/handbook/contributing/using_git/#github-mirror",
+   "repo": "https://github.com/blender/blender",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dotenv",
+   "name": "dotenv",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.dotenv.org",
+   "repo": "https://github.com/motdotla/dotenv",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ai-guide",
+   "name": "ai-guide",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://ai.codefather.cn",
+   "repo": "https://github.com/liyupi/ai-guide",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "swe-agent",
+   "name": "SWE-agent",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://swe-agent.com",
+   "repo": "https://github.com/SWE-agent/SWE-agent",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "dokit",
+   "name": "DoKit",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/didi/DoKit",
+   "repo": "https://github.com/didi/DoKit",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "casbin",
+   "name": "casbin",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://casbin.apache.org/",
+   "repo": "https://github.com/apache/casbin",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "nativebase",
+   "name": "NativeBase",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://nativebase.io/",
+   "repo": "https://github.com/GeekyAnts/NativeBase",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "douyin-tiktok-download-api",
+   "name": "Douyin_TikTok_Download_API",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://douyin.wtf",
+   "repo": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "snapkit",
+   "name": "SnapKit",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://snapkit.github.io/SnapKit/",
+   "repo": "https://github.com/SnapKit/SnapKit",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "fluentui",
+   "name": "fluentui",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://react.fluentui.dev",
+   "repo": "https://github.com/microsoft/fluentui",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "suna",
+   "name": "suna",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://www.kortix.com",
+   "repo": "https://github.com/kortix-ai/suna",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "ebook2audiobook",
+   "name": "ebook2audiobook",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://github.com/DrewThomasson/ebook2audiobook",
+   "repo": "https://github.com/DrewThomasson/ebook2audiobook",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "hummingbot",
+   "name": "hummingbot",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://hummingbot.org",
+   "repo": "https://github.com/hummingbot/hummingbot",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "bitwarden-server",
+   "name": "server",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://bitwarden.com",
+   "repo": "https://github.com/bitwarden/server",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "jcode",
+   "name": "jcode",
+   "kind": "tool",
+   "agent": "dip-planner",
+   "catalogOnly": true,
+   "docs": "https://jcode.sh",
+   "repo": "https://github.com/1jehuang/jcode",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "popmotion",
+   "name": "popmotion",
+   "kind": "tool",
+   "agent": "dip-frontend",
+   "catalogOnly": true,
+   "docs": "https://popmotion.io",
+   "repo": "https://github.com/Popmotion/popmotion",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "db-gpt",
+   "name": "DB-GPT",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://github.com/eosphoros-ai/DB-GPT",
+   "repo": "https://github.com/eosphoros-ai/DB-GPT",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "bettercap",
+   "name": "bettercap",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://www.bettercap.org/",
+   "repo": "https://github.com/bettercap/bettercap",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "kubectx",
+   "name": "kubectx",
+   "kind": "tool",
+   "agent": "dip-infra",
+   "catalogOnly": true,
+   "docs": "https://kubectx.dev",
+   "repo": "https://github.com/ahmetb/kubectx",
+   "signals": {
+    "keywords": []
+   }
+  },
+  {
+   "id": "obtainium",
+   "name": "Obtainium",
+   "kind": "tool",
+   "agent": "dip-quality",
+   "catalogOnly": true,
+   "docs": "https://obtainium.imranr.dev",
+   "repo": "https://github.com/ImranR98/Obtainium",
+   "signals": {
+    "keywords": []
+   }
+  }
+ ]
+}

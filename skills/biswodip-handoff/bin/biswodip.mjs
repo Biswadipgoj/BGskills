@@ -44,7 +44,8 @@ ${c.bold('COMMON OPTIONS')}
 ${c.bold('INSTALL OPTIONS')}
   --agent <name>            claude-code (default) | codex | cursor | agents
   --global                  Install skills to the user-level skill dir instead of the project
-  --pinned                  Check out the exact commits recorded in integrations/manifest.json
+  --pinned                  Check out the exact commits recorded in integrations/manifest.json (default)
+  --latest                  Install upstream HEAD instead of the pinned, reviewed commits
   --update                  Fast-forward existing clones and replace differing skill copies
   --full                    Full history clones (default: shallow --depth 1)
   --offline                 Do not touch the network; use the bundled upstream/ snapshots
@@ -98,7 +99,7 @@ ${c.bold('EXIT CODES')}
 
 const options = {
   root: { type: 'string', default: '.' }, only: { type: 'string', multiple: true }, json: { type: 'boolean' }, quiet: { type: 'boolean' }, verbose: { type: 'boolean' },
-  agent: { type: 'string', default: 'claude-code' }, global: { type: 'boolean' }, pinned: { type: 'boolean' }, update: { type: 'boolean' }, full: { type: 'boolean' },
+  agent: { type: 'string', default: 'claude-code' }, global: { type: 'boolean' }, pinned: { type: 'boolean' }, latest: { type: 'boolean' }, update: { type: 'boolean' }, full: { type: 'boolean' },
   offline: { type: 'boolean' }, 'from-snapshot': { type: 'string' }, 'with-tools': { type: 'boolean' }, 'with-headroom-sdk': { type: 'boolean' },
   'use-skills-cli': { type: 'boolean' }, 'no-skills': { type: 'boolean' }, 'no-self-skill': { type: 'boolean' }, 'no-commands': { type: 'boolean' }, retries: { type: 'string', default: '3' },
   force: { type: 'boolean' }, strict: { type: 'boolean' }, 'dry-run': { type: 'boolean' }, title: { type: 'string' },
@@ -111,7 +112,10 @@ const options = {
 };
 
 let parsed;
-try { parsed = parseArgs({ args: process.argv.slice(2), options, allowPositionals: true, strict: true }); }
+// `npx github:<owner>/<repo> dip install` runs this bin with "dip" as the first argument — accept it.
+const argv = process.argv.slice(2);
+if (['dip', 'biswodip'].includes(argv[0])) argv.shift();
+try { parsed = parseArgs({ args: argv, options, allowPositionals: true, strict: true }); }
 catch (e) { console.error(`${e.message}\nRun: node bin/biswodip.mjs help`); process.exit(2); }
 const v = parsed.values;
 const cmd = parsed.positionals[0] || (v.version ? 'version' : 'help');
@@ -147,7 +151,7 @@ async function main() {
       const { table } = await import('../scripts/lib/common.mjs');
       log.title('Installable skills');
       table(['SKILL', 'PURPOSE', '~TOKENS ON TRIGGER', 'FILES'], rows.map((r) => [r.name, r.title, String(r.tokens), String(r.files)]));
-      log.info('Install all: npx skills add Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING');
+      log.info('Install all: npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills');
       return 0;
     }
     case 'plan': {
@@ -173,7 +177,8 @@ async function main() {
       if (r.error) console.error(r.error);
       return r.code;
     }
-    case 'install': return install(o).code;
+    // Pinned by default: upstream code runs inside the user's agent, so it installs the reviewed commits unless --latest (or --update) asks for HEAD.
+    case 'install': return install({ ...o, pinned: Boolean(v.pinned || (!v.latest && !v.update)) }).code;
     case 'verify': { const r = verify(o); if (v.json) console.log(JSON.stringify(r.report, null, 2)); return r.code; }
     case 'gates': { const { runGates } = await import('../scripts/lib/gates.mjs'); const r = runGates(o); if (v.json) console.log(JSON.stringify(r.report, null, 2)); return r.code; }
     case 'strix': { const { strixRun } = await import('../scripts/lib/strix.mjs'); return strixRun(o).code; }

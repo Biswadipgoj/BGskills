@@ -19,6 +19,9 @@ import { installCommands, TEMPLATES_ROOT } from '../scripts/lib/core.mjs';
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'biswodip-test-'));
 const manifest = loadManifest();
+// This distribution omits the vendored upstream snapshots (the installer clones them). Tests that read them are
+// skipped with that reason — never reported as passing — and CI covers the same path with a live pinned install.
+const NO_SNAPSHOTS = exists(path.join(PKG_ROOT, 'upstream', '.snapshots-omitted')) && 'upstream snapshots omitted in this distribution (see upstream/.snapshots-omitted)';
 
 // ---------------------------------------------------------------- manifest
 test('manifest lists all five integrations with a licence, repo and snapshot commit', () => {
@@ -32,7 +35,7 @@ test('manifest lists all five integrations with a licence, repo and snapshot com
   }
 });
 
-test('every upstream repository is bundled, licensed and matches its expected paths', () => {
+test('every upstream repository is bundled, licensed and matches its expected paths', { skip: NO_SNAPSHOTS }, () => {
   for (const it of manifest.integrations) {
     const dir = path.join(PKG_ROOT, 'upstream', it.dir);
     assert.ok(exists(dir), `upstream/${it.dir} is bundled`);
@@ -42,7 +45,7 @@ test('every upstream repository is bundled, licensed and matches its expected pa
   }
 });
 
-test('manifest skill names match the SKILL.md frontmatter in the snapshots', () => {
+test('manifest skill names match the SKILL.md frontmatter in the snapshots', { skip: NO_SNAPSHOTS }, () => {
   for (const it of manifest.integrations) {
     if (!it.skillsRoot) continue;
     const found = upstreamSkills(path.join(PKG_ROOT, 'upstream', it.dir), it.skillsRoot).map((s) => s.name).sort();
@@ -216,7 +219,7 @@ test('gates flag a committed .env file', () => {
 });
 
 // ---------------------------------------------------------------- install
-test('offline install clones every integration from the snapshot and writes a valid lock', { timeout: 300000 }, () => {
+test('offline install clones every integration from the snapshot and writes a valid lock', { timeout: 300000, skip: NO_SNAPSHOTS }, () => {
   const d = tmp();
   const res = install({ root: d, offline: true, agent: 'claude-code', skills: true, retries: 1 });
   assert.equal(res.code, 0);
@@ -314,7 +317,7 @@ test('installCommands puts /dip, the sub-commands and @dip into a project', () =
   fs.rmSync(d, { recursive: true, force: true });
 });
 
-test('a full install wires the entry layer and records it in the lock', { timeout: 300000 }, () => {
+test('a full install wires the entry layer and records it in the lock', { timeout: 300000, skip: NO_SNAPSHOTS }, () => {
   const d = tmp();
   const res = install({ root: d, offline: true, retries: 1 });
   assert.equal(res.code, 0);

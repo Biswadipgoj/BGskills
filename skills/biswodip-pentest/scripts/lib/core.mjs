@@ -420,13 +420,18 @@ function ensureClone(it, dest, o) {
         for (const s of steps) { const x = g(['-C', tmp, ...s]); if (x.code !== 0) return x; }
         return { code: 0 };
       });
-    } else {
+    }
+    // No pin asked for, or the pinned commit is gone upstream: take HEAD, and say so in the record.
+    const pinLost = pinnedCommit && r.code !== 0;
+    if (!pinnedCommit || pinLost) {
+      if (pinLost) log.warn(`${it.id}: pinned commit ${pinnedCommit.slice(0, 12)} is not fetchable — cloning upstream HEAD instead (review it before trusting its skills)`);
       const depth = o.full ? [] : ['--depth', '1'];
       r = retry(`${it.id} clone`, o.retries, () => { fs.rmSync(tmp, { recursive: true, force: true }); return g(['clone', '--quiet', ...depth, it.repo, tmp]); });
     }
     if (r.code === 0) {
       fs.renameSync(tmp, dest);
       const commit = gitInfo(dest)?.commit;
+      if (pinLost) return { status: 'CLONED', action: `cloned ${it.repo} @ HEAD — pinned ${pinnedCommit.slice(0, 12)} unavailable`, source: 'git clone', commit };
       return { status: pinnedCommit ? 'PINNED' : 'CLONED', action: `cloned ${it.repo}${pinnedCommit ? ` @ ${pinnedCommit.slice(0, 12)}` : ''}`, source: 'git clone', commit };
     }
     fs.rmSync(tmp, { recursive: true, force: true });

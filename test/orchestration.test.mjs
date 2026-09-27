@@ -83,6 +83,32 @@ test('plans stay small, unrelated in-use deps stay out, vague goals ask first', 
   assert.equal(buildPlan({ root, goal: '' }, {}).ideasFirst, null, 'empty goal on a real repo = forensics, not ideas');
 });
 
+test('website goals never get a mobile agent; a shared backend service moves to dip-backend', () => {
+  const agentsOf = (p) => p.waves.flatMap((w) => w.agents.map((a) => a.agent));
+  for (const goal of ['build a restaurant booking website with login', 'web app with login, database and search', 'fix the ui design of the dashboard']) {
+    const p = buildPlan({ root: tmp(), goal }, {});
+    assert.ok(!agentsOf(p).includes('dip-mobile'), `${goal}: ${agentsOf(p)}`);
+    assert.ok(!ids(p).some((id) => ['flutter', 'expo', 'react-native'].includes(id)), `${goal}: ${ids(p)}`);
+  }
+  const web = buildPlan({ root: tmp(), goal: 'build a restaurant booking website with login' }, {});
+  assert.equal(web.entries.find((e) => e.id === 'appwrite')?.owner, 'dip-backend');
+  const app = buildPlan({ root: tmp(), goal: 'android app for a gym with login' }, {});
+  assert.equal(app.entries.find((e) => e.id === 'appwrite')?.owner, 'dip-mobile');
+});
+
+test('one pick per alternative group, and the repo\'s own choice wins', () => {
+  const groupOf = Object.fromEntries(loadCatalog().entries.map((e) => [e.id, e.group]));
+  for (const goal of ['responsive portfolio website with css and smooth animation', 'landing page for a coffee shop with scroll animations and icons']) {
+    const p = buildPlan({ root: tmp(), goal }, {});
+    const groups = ids(p).map((id) => groupOf[id]).filter(Boolean);
+    assert.equal(new Set(groups).size, groups.length, `${goal}: ${ids(p)}`);
+    assert.ok(!ids(p).includes('app-ideas'), 'a concrete goal does not get the ideas list');
+  }
+  const bs = project({ 'package.json': JSON.stringify({ dependencies: { bootstrap: '5' } }) });
+  const p = buildPlan({ root: bs, goal: 'make the website css responsive' }, {});
+  assert.ok(ids(p).includes('bootstrap') && !ids(p).includes('tailwindcss'), ids(p).join());
+});
+
 test('plan reports the gateway state and the extra keys a tool still needs', () => {
   const env = cfgEnv();
   const p1 = buildPlan({ root: tmp(), goal: 'automate the browser' }, env);
@@ -182,4 +208,45 @@ test('install wires /dip-setapi, /dip:plan and every subagent', () => {
   const dip = fs.readFileSync(path.join(root, '.claude', 'commands', 'dip.md'), 'utf8');
   assert.match(dip, /biswodip-orchestrator\/bin\/biswodip\.mjs/);
   assert.match(dip, /node "\$DIP" plan --root \./);
+});
+
+// ---------------------------------------------------------------- distribution
+test('the website runs the same planner as /dip (no drift)', () => {
+  const src = fs.readFileSync(path.join(PKG_ROOT, 'scripts', 'lib', 'plan-core.mjs'), 'utf8');
+  const copy = path.join(PKG_ROOT, 'site', 'src', 'data', 'plan-core.mjs');
+  if (!exists(copy)) return; // the site is not shipped inside installed skill folders
+  assert.ok(fs.readFileSync(copy, 'utf8').endsWith(src), 'site/src/data/plan-core.mjs is stale — run: node scripts/generate-site-capabilities.mjs .');
+});
+
+test('CLI accepts a leading "dip" (npx github:… dip install) and install defaults to pinned', async () => {
+  const { spawnSync } = await import('node:child_process');
+  const cli = path.join(PKG_ROOT, 'bin', 'biswodip.mjs');
+  const v = spawnSync(process.execPath, [cli, 'dip', 'version'], { encoding: 'utf8' });
+  assert.equal(v.status, 0, v.stderr);
+  assert.match(v.stdout.trim(), /^\d+\.\d+\.\d+$/);
+  const src = fs.readFileSync(cli, 'utf8');
+  assert.match(src, /case 'install': return install\(\{ \.\.\.o, pinned: Boolean\(v\.pinned \|\| \(!v\.latest && !v\.update\)\) \}\)/);
+});
+
+test('installers point at the real repository and never close the caller\'s shell', () => {
+  const sh = fs.readFileSync(path.join(PKG_ROOT, 'install.sh'), 'utf8');
+  const ps = fs.readFileSync(path.join(PKG_ROOT, 'install.ps1'), 'utf8');
+  for (const s of [sh, ps]) assert.match(s, /Biswadipgoj\/BISWODIP-ENGINEERING-skills\.git/);
+  assert.match(sh, /BASH_SOURCE\[0\]:-/, 'safe under curl | bash with set -u');
+  assert.doesNotMatch(ps.replace(/^#.*$/gm, ''), /(?<![.\w])exit\b/, 'install.ps1 must not call exit (irm | iex would close the terminal)');
+  assert.ok(!/[^\x00-\x7F]/.test(ps), 'install.ps1 stays ASCII so Windows PowerShell 5.1 reads it correctly');
+});
+
+test('imported (catalogOnly) entries never join a plan unless the goal names them', () => {
+  const cat = loadCatalog();
+  const imported = cat.entries.filter((e) => e.catalogOnly);
+  for (const e of imported) assert.ok(e.stars >= 20000 && e.source === 'github-top' && cat.agents[e.agent], `${e.id}: stars/source/agent`);
+  const generic = buildPlan({ root: tmp(), goal: 'build a secure website with a design system, a pentest and a kanban roadmap' }, {});
+  assert.ok(!generic.entries.some((e) => imported.some((i) => i.id === e.id)), `generic goal pulled imported entries: ${ids(generic)}`);
+  assert.ok(generic.entries.length <= 6);
+  const named = imported.find((e) => e.name.length >= 5 && /^[a-z0-9-]+$/i.test(e.name));
+  if (named) {
+    const p = buildPlan({ root: tmp(), goal: `set up ${named.name} for this project` }, {});
+    assert.ok(p.entries.some((e) => e.id === named.id), `naming ${named.name} should pick it`);
+  }
 });

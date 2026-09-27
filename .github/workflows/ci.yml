@@ -39,11 +39,13 @@ jobs:
       - name: Installer dry run
         run: node bin/biswodip.mjs install --root . --dry-run
 
-      - name: Offline install into a scratch project
+      # Snapshots are bundled only in full distributions; otherwise do what users do: a live install at the pinned commits.
+      - name: Install into a scratch project
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/scratch"
-          node bin/biswodip.mjs install --root "$RUNNER_TEMP/scratch" --offline --agent claude-code
+          if [ -f upstream/.snapshots-omitted ]; then MODE=--pinned; else MODE=--offline; fi
+          node bin/biswodip.mjs install --root "$RUNNER_TEMP/scratch" $MODE --agent claude-code
           node bin/biswodip.mjs verify --root "$RUNNER_TEMP/scratch" --verbose
           test -f "$RUNNER_TEMP/scratch/.biswodip/integrations.lock.json"
 
@@ -88,7 +90,8 @@ jobs:
           if [ "$code" != "6" ]; then echo "expected REFUSED (6), got $code"; exit 1; fi
 
       - name: Security gates on this repository
-        run: node bin/biswodip.mjs gates --root . --exclude upstream --exclude skills --fail-on high
+        # test/tooling.test.mjs holds the scanner's own fake-credential fixtures; everything else is scanned.
+        run: node bin/biswodip.mjs gates --root . --exclude upstream --exclude skills --exclude test/tooling.test.mjs --fail-on high
 
   live-clone:
     name: live clone of every upstream repository

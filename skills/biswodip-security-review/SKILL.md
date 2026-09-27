@@ -4,7 +4,7 @@ description: Server-authoritative security review of a codebase: secrets, authen
 license: Apache-2.0
 metadata:
   author: Biswodip Goj
-  version: 2.3.0
+  version: 2.4.0
   homepage: https://github.com/Biswadipgoj
 ---
 # Security review — server-authoritative, with a status per control

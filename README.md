@@ -63,7 +63,7 @@ Then, in that project:
 | `/dip:handoff` | Writes `handoff.md` for the next session |
 | `@dip` | The same agent, in any conversation |
 
-Or install the skills alone, straight from this repository:
+Or install the skills alone, straight from this repository (skills only — no `/dip` command or `@dip` agents; use the installer above for those):
 
 ```bash
 npx skills add Biswadipgoj/BISWODIP-ENGINEERING-skills                                   # all eight

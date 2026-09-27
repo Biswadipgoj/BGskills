@@ -11,7 +11,7 @@ Three steps: unzip → push to GitHub → install in a project. Then `/dip` work
 
 ```bash
 unzip BISWODIP-GOJ-UNIFIED-ENGINEERING.zip
-cd BISWODIP-GOJ-UNIFIED-ENGINEERING
+cd BISWODIP-ENGINEERING-skills
 ```
 
 Check it arrived intact (optional, 10 seconds):
@@ -32,16 +32,16 @@ git add .
 git commit -m "Biswodip Goj Unified Engineering v2.2.0"
 
 # GitHub CLI
-gh repo create Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING --public --source=. --push
+gh repo create Biswadipgoj/BISWODIP-ENGINEERING-skills --public --source=. --push
 
 # or by hand: create the empty repo on github.com first, then
-git remote add origin https://github.com/Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING.git
+git remote add origin https://github.com/Biswadipgoj/BISWODIP-ENGINEERING-skills.git
 git push -u origin main
 ```
 
 That is the whole upload. No build step, no secrets to configure, no LFS. CI starts on its own and runs the full verification on Ubuntu, macOS and Windows across Node 18/20/22.
 
-> **Name it exactly `BISWODIP-GOJ-UNIFIED-ENGINEERING` under `Biswadipgoj`**, or the install commands below need their URL changed to match.
+> **Name it exactly `BISWODIP-ENGINEERING-skills` under `Biswadipgoj`**, or the install commands below need their URL changed to match.
 
 ---
 
@@ -51,19 +51,19 @@ Pick one. All three do the same thing.
 
 ```bash
 # A — one command, from anywhere (clones this repo to ~/.biswodip-goj-unified-engineering, then installs)
-curl -fsSL https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/main/install.sh | bash
 
 # B — npx, no clone kept
-npx --yes github:Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING dip install --root .
+npx --yes github:Biswadipgoj/BISWODIP-ENGINEERING-skills dip install --root .
 
 # C — from your unzipped copy
-bash /path/to/BISWODIP-GOJ-UNIFIED-ENGINEERING/install.sh /path/to/your/project
+bash /path/to/BISWODIP-ENGINEERING-skills/install.sh /path/to/your/project
 ```
 
 Windows PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/Biswadipgoj/BISWODIP-ENGINEERING-skills/main/install.ps1 | iex
 ```
 
 What lands in your project:
