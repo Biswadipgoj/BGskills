@@ -3,6 +3,43 @@
 
 All notable changes to this package. Format based on Keep a Changelog; this project uses semantic versioning.
 
+## [2.4.0] — 2026-09-27
+
+Installing works from a fresh machine, `/dip` plans only what a goal needs, and visuals must come from the project.
+
+### Fixed
+- **One-line installers cloned a repository that does not exist** (`BISWODIP-GOJ-UNIFIED-ENGINEERING`). `install.sh`,
+  `install.ps1`, `package.json`, the CLI hints and the docs now point at `Biswadipgoj/BISWODIP-ENGINEERING-skills`.
+- **`npx --yes github:… dip install --root .` failed** with `Unknown command "dip"`: npx passes `dip` as the first
+  argument. The CLI now accepts a leading `dip`/`biswodip`.
+- `curl … | bash` printed `BASH_SOURCE[0]: unbound variable`; value flags (`--only taste`) were mistaken for the target
+  directory; a failed clone or install was not reported clearly.
+- `install.ps1` under `irm | iex`: no longer calls `exit` (which closed the user's terminal), restores the caller's
+  `$ErrorActionPreference`, checks every git/node exit code, and is ASCII-only so Windows PowerShell 5.1 parses it.
+- **Planner over-picked.** A website goal got a mobile agent (Appwrite was filed under `dip-mobile`), "fix the UI of the
+  dashboard" got Flutter, and one goal could pull four CSS frameworks or three animation libraries. Now: mobile
+  frameworks only on a mobile goal, shared services move to `dip-backend` for web goals, one entry per alternative
+  `group` (CSS framework, component kit, animation library, icon set, design guidance skill, mobile framework) with the
+  repo's own choice winning, and `app-ideas` only for open-ended goals.
+
+### Changed
+- **Installs are pinned by default** to the reviewed commits in `integrations/manifest.json` — upstream skills run
+  inside your agent. `--latest` (or `-Latest`) takes upstream HEAD; if a pinned commit is ever unreachable the installer
+  clones HEAD and records that in the lock instead of failing.
+- The planner's pure logic moved to `scripts/lib/plan-core.mjs`, shared by the CLI and the website.
+- **Catalog: 89 → 599 entries.** `scripts/import-github-catalog.mjs` (`npm run catalog:import`) pulls every GitHub repository
+  with 20,000+ stars in design, design feedback, planning, security, penetration testing, testing, DevOps and agent
+  skills (510 imported, real star counts, re-runnable). Imported entries are `catalogOnly`: listed in `dip catalog` and on
+  the site, used by /dip only when a goal names them, so plans stay small.
+- `biswodip-design-review`, `@dip-frontend`, `@dip-mobile`: new rule — every image, illustration, icon and animation
+  must show a fact about the product being built (website vs mobile app vs tool guidance), no decorative filler.
+- Website rebuilt around repo content (install record, live `/dip` planner, 3D lifecycle coverflow, release-gate
+  calculator, a Frontend → Testing → Security → DevOps "pipeline film" with play/scrub/chapters, pinned upstreams,
+  catalog with real owner avatars). Two-colour teal/apricot palette, lucide icons, Lenis smooth scroll; scroll
+  benchmark 5 fps → 60 fps median (no per-frame repaints). three.js removed; Next.js 14.2.29 → 16.3.6 and React 19 (`npm audit`: 29
+  advisories incl. 2 critical → 0). `scripts/wire-site-capabilities.mjs` removed; `generate-site-capabilities.mjs`
+  now also emits the planner, lifecycle, upstream and command data.
+
 ## [2.3.0] — 2026-09-25
 
 `/dip` plans before it builds, and model keys are set once.

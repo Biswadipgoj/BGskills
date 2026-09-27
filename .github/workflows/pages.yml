@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: Apache-2.0
+# Builds the site (site/) as a static export and publishes it to GitHub Pages at
+# https://<owner>.github.io/<repo>/. One-time setup: Settings → Pages → Source: "GitHub Actions".
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'integrations/catalog.json', 'scripts/lib/plan-core.mjs', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Regenerate site data from the catalog (fails the build if it drifts)
+        run: |
+          node scripts/generate-site-capabilities.mjs .
+          git diff --exit-code -- site/src/data || { echo "site/src/data is stale: run node scripts/generate-site-capabilities.mjs . and commit"; exit 1; }
+      - name: Install
+        working-directory: site
+        run: npm ci
+      - name: Build static export
+        working-directory: site
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+        run: |
+          npm run build
+          touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

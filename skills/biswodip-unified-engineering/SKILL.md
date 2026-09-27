@@ -4,7 +4,7 @@ description: Biswodip Goj's evidence-driven engineering system: the laws, the 14
 license: Apache-2.0
 metadata:
   author: Biswodip Goj
-  version: 2.3.0
+  version: 2.4.0
   homepage: https://github.com/Biswadipgoj
 ---
 # Biswodip Goj — Unified Engineering (router)

@@ -8,16 +8,16 @@ The repository is the distribution. Once it is pushed, anyone (including your ag
 ## 1. Push it
 
 ```bash
-cd BISWODIP-GOJ-UNIFIED-ENGINEERING
+cd BGskills
 git init -b main
 git add .
 git commit -m "Biswodip Goj Unified Engineering v2.1.0"
 
 # with the GitHub CLI
-gh repo create Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING --public --source=. --push
+gh repo create Biswadipgoj/BGskills --public --source=. --push
 
 # or by hand
-git remote add origin https://github.com/Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING.git
+git remote add origin https://github.com/Biswadipgoj/BGskills.git
 git push -u origin main
 ```
 
@@ -43,20 +43,20 @@ The repository carries the five vendored upstream snapshots (~85 MB on disk, lar
 
 ```bash
 # every skill
-npx skills add Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING
+npx skills add Biswadipgoj/BGskills
 
 # one skill
-npx skills add Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING --skill biswodip-security-review
+npx skills add Biswadipgoj/BGskills --skill biswodip-security-review
 
 # a specific agent, non-interactive
-npx skills add Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING -a claude-code -y
+npx skills add Biswadipgoj/BGskills -a claude-code -y
 ```
 
 Or clone and use the installer, which also clones the five upstream projects and writes the lock file:
 
 ```bash
-git clone https://github.com/Biswadipgoj/BISWODIP-GOJ-UNIFIED-ENGINEERING.git
-bash BISWODIP-GOJ-UNIFIED-ENGINEERING/scripts/install-integrations.sh /path/to/your/project
+git clone https://github.com/Biswadipgoj/BGskills.git
+bash BGskills/scripts/install-integrations.sh /path/to/your/project
 ```
 
 ## 4. Releases

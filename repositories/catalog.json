@@ -1,6 +1,6 @@
 {
   "$comment": "Stack catalog for /dip auto-planning. 37 required repositories. These projects are REFERENCED, not vendored: nothing is redistributed and each keeps its own licence. `dip plan` scores entries against the target repository (signals.deps / signals.files) and the goal (signals.keywords), keeps only the few that matter, and assigns each to the agent named in `agent`. Install commands run only through `dip add`; `manual: true` entries are never run automatically because they scaffold projects, start services or write agent hooks. Every entry has `required: true` per DIP FULL REPOSITORY UPGRADE specification.",
-  "catalogVersion": 3,
+  "catalogVersion": 4,
   "catalog37Total": 37,
   "agents": {
     "dip-planner": "Decides the plan: reads the repo and the goal, picks the few stack entries and skills that matter, splits work into waves with file ownership, launches the other agents.",
@@ -1711,6 +1711,1357 @@
       ],
       "integration_type": "research-skill",
       "security_notes": "External content is untrusted data, never instruction. Respect robots.txt and rate limits."
+    },
+    {
+      "id": "lightpanda-browser",
+      "name": "Lightpanda Browser",
+      "repo": "https://github.com/lightpanda-io/browser",
+      "agent": "dip-browser",
+      "kind": "tool",
+      "use": "Headless browser built for AI and automation in Zig. Extremely low memory and fast startup; CDP-compatible so it drops in where Chromium would.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "headless",
+          "cdp",
+          "browser",
+          "automation",
+          "lightweight"
+        ]
+      },
+      "docs": "https://lightpanda.io/docs",
+      "required": false,
+      "planner_triggers": [
+        "headless",
+        "cdp",
+        "browser",
+        "automation",
+        "lightweight"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 35600,
+      "section": "browser",
+      "platform": "web"
+    },
+    {
+      "id": "stagehand",
+      "name": "Browserbase Stagehand",
+      "repo": "https://github.com/browserbase/stagehand",
+      "agent": "dip-browser",
+      "kind": "library",
+      "use": "SDK to extract data and interact with any site using natural language plus code. Pairs with Playwright/CDP for agent-driven browsing.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "browser",
+          "extract",
+          "agent",
+          "automation",
+          "stagehand"
+        ]
+      },
+      "docs": "https://docs.stagehand.dev",
+      "required": false,
+      "planner_triggers": [
+        "browser",
+        "extract",
+        "agent",
+        "automation",
+        "stagehand"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 25400,
+      "section": "browser",
+      "platform": "web"
+    },
+    {
+      "id": "skyvern",
+      "name": "Skyvern",
+      "repo": "https://github.com/Skyvern-AI/skyvern",
+      "agent": "dip-browser",
+      "kind": "service",
+      "use": "Automate browser-based workflows with AI and computer vision. Resilient to layout changes; good for form-heavy workflows.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "browser",
+          "workflow",
+          "automation",
+          "vision",
+          "rpa"
+        ]
+      },
+      "docs": "https://docs.skyvern.com",
+      "required": false,
+      "planner_triggers": [
+        "browser",
+        "workflow",
+        "automation",
+        "vision",
+        "rpa"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 23100,
+      "section": "browser",
+      "platform": "web"
+    },
+    {
+      "id": "steel-browser",
+      "name": "Steel Browser",
+      "repo": "https://github.com/steel-dev/steel-browser",
+      "agent": "dip-browser",
+      "kind": "service",
+      "use": "Open-source browser API and sandbox for AI agents and apps. Batteries-included session management without owning infrastructure.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "browser",
+          "sandbox",
+          "api",
+          "agent",
+          "session"
+        ]
+      },
+      "docs": "https://docs.steel.dev",
+      "required": false,
+      "planner_triggers": [
+        "browser",
+        "sandbox",
+        "api",
+        "agent",
+        "session"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 7700,
+      "section": "browser",
+      "platform": "web"
+    },
+    {
+      "id": "browsermcp",
+      "name": "Browser MCP",
+      "repo": "https://github.com/BrowserMCP/mcp",
+      "agent": "dip-browser",
+      "kind": "plugin",
+      "use": "MCP server that lets AI applications control the browser through an extension. Useful for interactive visual QA.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "mcp",
+          "browser",
+          "automation",
+          "extension"
+        ]
+      },
+      "docs": "https://browsermcp.io",
+      "required": false,
+      "planner_triggers": [
+        "mcp",
+        "browser",
+        "automation",
+        "extension"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 7100,
+      "section": "browser",
+      "platform": "web"
+    },
+    {
+      "id": "react-spring",
+      "name": "React Spring",
+      "repo": "https://github.com/pmndrs/react-spring",
+      "agent": "dip-frontend",
+      "kind": "library",
+      "use": "Spring-physics based React animation library. Use for physics-driven, interruptible motion where springs read better than keyframes.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "animation",
+          "spring",
+          "react",
+          "physics",
+          "motion"
+        ]
+      },
+      "docs": "https://react-spring.dev",
+      "required": false,
+      "planner_triggers": [
+        "animation",
+        "spring",
+        "react",
+        "physics",
+        "motion"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 29200,
+      "section": "animation",
+      "platform": "web"
+    },
+    {
+      "id": "react-flip-toolkit",
+      "name": "React Flip Toolkit",
+      "repo": "https://github.com/aholachek/react-flip-toolkit",
+      "agent": "dip-frontend",
+      "kind": "library",
+      "use": "Lightweight magic-move library for configurable layout transitions (FLIP technique). Ideal for list reordering and shared-element transitions.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "animation",
+          "flip",
+          "layout",
+          "transition",
+          "react"
+        ]
+      },
+      "docs": "https://github.com/aholachek/react-flip-toolkit",
+      "required": false,
+      "planner_triggers": [
+        "animation",
+        "flip",
+        "layout",
+        "transition",
+        "react"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 4200,
+      "section": "animation",
+      "platform": "web"
+    },
+    {
+      "id": "dotlottie-web",
+      "name": "dotLottie Web",
+      "repo": "https://github.com/LottieFiles/dotlottie-web",
+      "agent": "dip-frontend",
+      "kind": "library",
+      "use": "High-performance Lottie and dotLottie player powered by Rust + WASM. Use for designer-authored vector animation on the web.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "animation",
+          "lottie",
+          "wasm",
+          "vector",
+          "motion"
+        ]
+      },
+      "docs": "https://docs.lottiefiles.com",
+      "required": false,
+      "planner_triggers": [
+        "animation",
+        "lottie",
+        "wasm",
+        "vector",
+        "motion"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 884,
+      "section": "animation",
+      "platform": "web"
+    },
+    {
+      "id": "tailwindcss",
+      "name": "Tailwind CSS",
+      "repo": "https://github.com/tailwindlabs/tailwindcss",
+      "agent": "dip-frontend",
+      "kind": "framework",
+      "use": "Utility-first CSS framework for rapid, consistent UI. Composable, purge-friendly, and the base for shadcn/ui and daisyUI.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "css",
+          "tailwind",
+          "utility",
+          "design",
+          "responsive"
+        ]
+      },
+      "docs": "https://tailwindcss.com/docs",
+      "required": false,
+      "planner_triggers": [
+        "css",
+        "tailwind",
+        "utility",
+        "design",
+        "responsive"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 97700,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "daisyui",
+      "name": "daisyUI",
+      "repo": "https://github.com/saadeghi/daisyui",
+      "agent": "dip-frontend",
+      "kind": "library",
+      "use": "Component library on top of Tailwind CSS. Semantic class names for buttons, cards, modals and themes.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "css",
+          "tailwind",
+          "components",
+          "ui",
+          "theme"
+        ]
+      },
+      "docs": "https://daisyui.com",
+      "required": false,
+      "planner_triggers": [
+        "css",
+        "tailwind",
+        "components",
+        "ui",
+        "theme"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 42500,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "bulma",
+      "name": "Bulma",
+      "repo": "https://github.com/jgthms/bulma",
+      "agent": "dip-frontend",
+      "kind": "framework",
+      "use": "Modern Flexbox-based CSS framework with no JavaScript dependency. Good when a project wants CSS-only components.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "css",
+          "flexbox",
+          "framework",
+          "responsive"
+        ]
+      },
+      "docs": "https://bulma.io/documentation",
+      "required": false,
+      "planner_triggers": [
+        "css",
+        "flexbox",
+        "framework",
+        "responsive"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 50100,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "pico-css",
+      "name": "Pico CSS",
+      "repo": "https://github.com/picocss/pico",
+      "agent": "dip-frontend",
+      "kind": "framework",
+      "use": "Minimal CSS framework for semantic HTML. Near-zero classes, dark mode built in — excellent for content-first pages.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "css",
+          "minimal",
+          "semantic",
+          "dark-mode"
+        ]
+      },
+      "docs": "https://picocss.com/docs",
+      "required": false,
+      "planner_triggers": [
+        "css",
+        "minimal",
+        "semantic",
+        "dark-mode"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 16900,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "semantic-ui",
+      "name": "Semantic UI",
+      "repo": "https://github.com/Semantic-Org/Semantic-UI",
+      "agent": "dip-frontend",
+      "kind": "framework",
+      "use": "Component framework built around natural-language principles. Reference for semantic naming and component APIs.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "css",
+          "components",
+          "semantic",
+          "ui"
+        ]
+      },
+      "docs": "https://semantic-ui.com",
+      "required": false,
+      "planner_triggers": [
+        "css",
+        "components",
+        "semantic",
+        "ui"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 51000,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "trivy",
+      "name": "Trivy",
+      "repo": "https://github.com/aquasecurity/trivy",
+      "agent": "dip-quality",
+      "kind": "cli",
+      "use": "Find vulnerabilities, misconfigurations, secrets and SBOM issues across containers, Kubernetes, IaC and repositories. Primary dependency/container scanner.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "vulnerability",
+          "scanner",
+          "sbom",
+          "container",
+          "iac"
+        ]
+      },
+      "docs": "https://trivy.dev",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "vulnerability",
+        "scanner",
+        "sbom",
+        "container",
+        "iac"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 38100,
+      "section": "security"
+    },
+    {
+      "id": "gitleaks",
+      "name": "Gitleaks",
+      "repo": "https://github.com/gitleaks/gitleaks",
+      "agent": "dip-quality",
+      "kind": "cli",
+      "use": "Detect hardcoded secrets and credentials in git history and working trees. Gate on findings before release.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "secrets",
+          "leaks",
+          "git",
+          "scan"
+        ]
+      },
+      "docs": "https://gitleaks.io",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "secrets",
+        "leaks",
+        "git",
+        "scan"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 29500,
+      "section": "security"
+    },
+    {
+      "id": "trufflehog",
+      "name": "TruffleHog",
+      "repo": "https://github.com/trufflesecurity/trufflehog",
+      "agent": "dip-quality",
+      "kind": "cli",
+      "use": "Find, verify and analyze leaked credentials. Verification reduces false positives versus plain regex scanners.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "credentials",
+          "secrets",
+          "verify",
+          "scan"
+        ]
+      },
+      "docs": "https://trufflesecurity.com/trufflehog",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "credentials",
+        "secrets",
+        "verify",
+        "scan"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 28100,
+      "section": "security"
+    },
+    {
+      "id": "shannon",
+      "name": "Shannon",
+      "repo": "https://github.com/KeygraphHQ/shannon",
+      "agent": "dip-quality",
+      "kind": "service",
+      "use": "AI pentester for web apps and APIs: reads source, identifies attack vectors, executes real exploits to prove vulnerabilities before production. Authorized targets only.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "pentest",
+          "exploit",
+          "owasp",
+          "appsec"
+        ]
+      },
+      "docs": "https://github.com/KeygraphHQ/shannon",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "pentest",
+        "exploit",
+        "owasp",
+        "appsec"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "AUTHORIZED-ONLY. Runs real exploits. Requires written authorization and a disposable target.",
+      "stars": 48400,
+      "section": "security"
+    },
+    {
+      "id": "web-check",
+      "name": "Web-Check",
+      "repo": "https://github.com/lissy93/web-check",
+      "agent": "dip-quality",
+      "kind": "tool",
+      "use": "All-in-one OSINT tool for analysing any website: headers, DNS, TLS, cookies, security posture. Use for passive recon of authorized targets.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "osint",
+          "recon",
+          "headers",
+          "tls"
+        ]
+      },
+      "docs": "https://web-check.xyz",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "osint",
+        "recon",
+        "headers",
+        "tls"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "Passive recon only. Do not probe hosts you do not own or have permission to test.",
+      "stars": 34900,
+      "section": "security"
+    },
+    {
+      "id": "spiderfoot",
+      "name": "SpiderFoot",
+      "repo": "https://github.com/smicallef/spiderfoot",
+      "agent": "dip-quality",
+      "kind": "tool",
+      "use": "Automates OSINT for threat intelligence and attack-surface mapping. Reference for external footprint analysis.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "osint",
+          "recon",
+          "threat-intel",
+          "footprint"
+        ]
+      },
+      "docs": "https://www.spiderfoot.net",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "osint",
+        "recon",
+        "threat-intel",
+        "footprint"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "Passive recon only, authorized targets.",
+      "stars": 22500,
+      "section": "security"
+    },
+    {
+      "id": "skillspector",
+      "name": "NVIDIA SkillSpector",
+      "repo": "https://github.com/NVIDIA/SkillSpector",
+      "agent": "dip-quality",
+      "kind": "tool",
+      "use": "Security scanner for AI agent skills: detects prompt injection, data exfiltration and supply-chain risk in Claude/Codex/MCP skills before install.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "agent-skills",
+          "prompt-injection",
+          "supply-chain",
+          "scan"
+        ]
+      },
+      "docs": "https://github.com/NVIDIA/SkillSpector",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "agent-skills",
+        "prompt-injection",
+        "supply-chain",
+        "scan"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 18300,
+      "section": "security"
+    },
+    {
+      "id": "lynis",
+      "name": "Lynis",
+      "repo": "https://github.com/CISOfy/lynis",
+      "agent": "dip-infra",
+      "kind": "cli",
+      "use": "Security auditing and hardening tool for Linux, macOS and UNIX. Compliance-oriented (HIPAA, ISO 27001, PCI DSS).",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "audit",
+          "hardening",
+          "compliance",
+          "linux"
+        ]
+      },
+      "docs": "https://cisofy.com/lynis",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "audit",
+        "hardening",
+        "compliance",
+        "linux"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "Audits only systems you administer.",
+      "stars": 16400,
+      "section": "security"
+    },
+    {
+      "id": "prowler",
+      "name": "Prowler",
+      "repo": "https://github.com/prowler-cloud/prowler",
+      "agent": "dip-infra",
+      "kind": "cli",
+      "use": "Open-source cloud security platform: automates security and compliance assessment across AWS, Azure and GCP.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "cloud",
+          "compliance",
+          "cspm",
+          "aws",
+          "azure",
+          "gcp"
+        ]
+      },
+      "docs": "https://docs.prowler.com",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "cloud",
+        "compliance",
+        "cspm",
+        "aws",
+        "azure",
+        "gcp"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "Requires read-only credentials scoped to the account being audited.",
+      "stars": 14900,
+      "section": "security"
+    },
+    {
+      "id": "wazuh",
+      "name": "Wazuh",
+      "repo": "https://github.com/wazuh/wazuh",
+      "agent": "dip-infra",
+      "kind": "service",
+      "use": "Open-source XDR and SIEM platform for endpoints and cloud workloads. Unified detection, response and compliance monitoring.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "siem",
+          "xdr",
+          "monitoring",
+          "detection",
+          "compliance"
+        ]
+      },
+      "docs": "https://documentation.wazuh.com",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "siem",
+        "xdr",
+        "monitoring",
+        "detection",
+        "compliance"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 17000,
+      "section": "security"
+    },
+    {
+      "id": "rustscan",
+      "name": "RustScan",
+      "repo": "https://github.com/bee-san/RustScan",
+      "agent": "dip-quality",
+      "kind": "cli",
+      "use": "Modern port scanner that feeds results into Nmap. Fast discovery phase for authorized network testing.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "port-scan",
+          "nmap",
+          "recon",
+          "network"
+        ]
+      },
+      "docs": "https://github.com/bee-san/RustScan",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "port-scan",
+        "nmap",
+        "recon",
+        "network"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "AUTHORIZED-ONLY. Scanning networks you do not own may be illegal.",
+      "stars": 20500,
+      "section": "security"
+    },
+    {
+      "id": "fail2ban",
+      "name": "Fail2ban",
+      "repo": "https://github.com/fail2ban/fail2ban",
+      "agent": "dip-infra",
+      "kind": "service",
+      "use": "Intrusion-prevention daemon that bans hosts causing repeated authentication failures. Standard server hardening.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "intrusion",
+          "hardening",
+          "server",
+          "ban"
+        ]
+      },
+      "docs": "https://github.com/fail2ban/fail2ban",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "intrusion",
+        "hardening",
+        "server",
+        "ban"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 18700,
+      "section": "security"
+    },
+    {
+      "id": "x64dbg",
+      "name": "x64dbg",
+      "repo": "https://github.com/x64dbg/x64dbg",
+      "agent": "dip-quality",
+      "kind": "tool",
+      "use": "Open-source user-mode debugger for Windows, optimized for reverse engineering and malware analysis. Reference for binary analysis.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "debugger",
+          "reverse-engineering",
+          "malware",
+          "binary"
+        ]
+      },
+      "docs": "https://x64dbg.com",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "debugger",
+        "reverse-engineering",
+        "malware",
+        "binary"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "Analysis of binaries you own or are licensed to examine.",
+      "stars": 49600,
+      "section": "security"
+    },
+    {
+      "id": "scapy",
+      "name": "Scapy",
+      "repo": "https://github.com/secdev/scapy",
+      "agent": "dip-quality",
+      "kind": "library",
+      "use": "Python packet manipulation program and library. Craft, send, sniff and dissect network traffic for protocol testing.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "security",
+          "network",
+          "packet",
+          "pcap",
+          "protocol"
+        ]
+      },
+      "docs": "https://scapy.readthedocs.io",
+      "required": false,
+      "planner_triggers": [
+        "security",
+        "network",
+        "packet",
+        "pcap",
+        "protocol"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "Capture only on networks you own or are authorized to monitor.",
+      "stars": 12600,
+      "section": "security"
+    },
+    {
+      "id": "anthropics-skills",
+      "name": "Anthropic Agent Skills",
+      "repo": "https://github.com/anthropics/skills",
+      "agent": "dip-planner",
+      "kind": "reference",
+      "use": "Public reference repository for the Agent Skills format. The canonical model for how a skill declares scope and triggers.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "skills",
+          "agent",
+          "anthropic",
+          "reference",
+          "format"
+        ]
+      },
+      "docs": "https://github.com/anthropics/skills",
+      "required": false,
+      "planner_triggers": [
+        "skills",
+        "agent",
+        "anthropic",
+        "reference",
+        "format"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 178000,
+      "section": "quality"
+    },
+    {
+      "id": "addyosmani-agent-skills",
+      "name": "Addy Osmani Agent Skills",
+      "repo": "https://github.com/addyosmani/agent-skills",
+      "agent": "dip-quality",
+      "kind": "reference",
+      "use": "Production-grade engineering skills for AI coding agents. Strong reference for code-quality and review workflows.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "skills",
+          "engineering",
+          "quality",
+          "review",
+          "agents"
+        ]
+      },
+      "docs": "https://github.com/addyosmani/agent-skills",
+      "required": false,
+      "planner_triggers": [
+        "skills",
+        "engineering",
+        "quality",
+        "review",
+        "agents"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 99000,
+      "section": "quality"
+    },
+    {
+      "id": "awesome-claude-skills",
+      "name": "Awesome Claude Skills",
+      "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "agent": "dip-quality",
+      "kind": "reference",
+      "use": "Curated list of Claude skills, resources and tools for customizing agent workflows. Discovery source for new capabilities.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "skills",
+          "claude",
+          "awesome",
+          "workflow",
+          "discovery"
+        ]
+      },
+      "docs": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "required": false,
+      "planner_triggers": [
+        "skills",
+        "claude",
+        "awesome",
+        "workflow",
+        "discovery"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 75600,
+      "section": "quality"
+    },
+    {
+      "id": "awesome-agent-skills",
+      "name": "Awesome Agent Skills",
+      "repo": "https://github.com/VoltAgent/awesome-agent-skills",
+      "agent": "dip-quality",
+      "kind": "reference",
+      "use": "1000+ agent skills from official teams and the community, compatible with Claude Code, Codex, Gemini CLI and Cursor.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "skills",
+          "agents",
+          "awesome",
+          "registry",
+          "discovery"
+        ]
+      },
+      "docs": "https://github.com/VoltAgent/awesome-agent-skills",
+      "required": false,
+      "planner_triggers": [
+        "skills",
+        "agents",
+        "awesome",
+        "registry",
+        "discovery"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 34900,
+      "section": "quality"
+    },
+    {
+      "id": "wshobson-agents",
+      "name": "wshobson/agents",
+      "repo": "https://github.com/wshobson/agents",
+      "agent": "dip-planner",
+      "kind": "reference",
+      "use": "Multi-harness agentic plugin marketplace and subagent patterns for Claude Code, Codex and Cursor. Reference for agent decomposition.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "agents",
+          "subagents",
+          "marketplace",
+          "orchestration",
+          "plugins"
+        ]
+      },
+      "docs": "https://github.com/wshobson/agents",
+      "required": false,
+      "planner_triggers": [
+        "agents",
+        "subagents",
+        "marketplace",
+        "orchestration",
+        "plugins"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 40000,
+      "section": "quality"
+    },
+    {
+      "id": "awesome-copilot",
+      "name": "GitHub Awesome Copilot",
+      "repo": "https://github.com/github/awesome-copilot",
+      "agent": "dip-quality",
+      "kind": "reference",
+      "use": "Community-contributed instructions, agents and skills from GitHub. Reference for instruction-file conventions.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "copilot",
+          "instructions",
+          "agents",
+          "awesome",
+          "conventions"
+        ]
+      },
+      "docs": "https://github.com/github/awesome-copilot",
+      "required": false,
+      "planner_triggers": [
+        "copilot",
+        "instructions",
+        "agents",
+        "awesome",
+        "conventions"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 39400,
+      "section": "quality"
+    },
+    {
+      "id": "open-design",
+      "name": "Open Design",
+      "repo": "https://github.com/nexu-io/open-design",
+      "agent": "dip-frontend",
+      "kind": "tool",
+      "use": "Local-first design engine that turns a coding agent into a design engine: prototypes, landing pages, dashboards, slides, exports.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "design",
+          "prototyping",
+          "ui",
+          "local-first",
+          "export"
+        ]
+      },
+      "docs": "https://github.com/nexu-io/open-design",
+      "required": false,
+      "planner_triggers": [
+        "design",
+        "prototyping",
+        "ui",
+        "local-first",
+        "export"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 98100,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "ponytail",
+      "name": "Ponytail",
+      "repo": "https://github.com/DietrichGebert/ponytail",
+      "agent": "dip-quality",
+      "kind": "skill",
+      "use": "Agent skill that enforces YAGNI: the best code is the code you never wrote. Useful as a minimalism counterweight during planning.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "yagni",
+          "minimalism",
+          "simplicity",
+          "review",
+          "skill"
+        ]
+      },
+      "docs": "https://github.com/DietrichGebert/ponytail",
+      "required": false,
+      "planner_triggers": [
+        "yagni",
+        "minimalism",
+        "simplicity",
+        "review",
+        "skill"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 146000,
+      "section": "quality"
+    },
+    {
+      "id": "humanizer",
+      "name": "Humanizer",
+      "repo": "https://github.com/blader/humanizer",
+      "agent": "dip-quality",
+      "kind": "skill",
+      "use": "Agent skill that removes signs of AI-generated writing from text. Use when polishing user-facing copy and docs.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "writing",
+          "copy",
+          "editing",
+          "docs",
+          "skill"
+        ]
+      },
+      "docs": "https://github.com/blader/humanizer",
+      "required": false,
+      "planner_triggers": [
+        "writing",
+        "copy",
+        "editing",
+        "docs",
+        "skill"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 52000,
+      "section": "quality"
+    },
+    {
+      "id": "book-to-skill",
+      "name": "Book to Skill",
+      "repo": "https://github.com/virgiliojr94/book-to-skill",
+      "agent": "dip-planner",
+      "kind": "skill",
+      "use": "Turn a technical book PDF into a reusable agent skill. Reference for building durable knowledge skills from long-form sources.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "knowledge",
+          "skill",
+          "pdf",
+          "reference",
+          "learning"
+        ]
+      },
+      "docs": "https://github.com/virgiliojr94/book-to-skill",
+      "required": false,
+      "planner_triggers": [
+        "knowledge",
+        "skill",
+        "pdf",
+        "reference",
+        "learning"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 32400,
+      "section": "quality"
+    },
+    {
+      "id": "diagram-design",
+      "name": "Diagram Design",
+      "repo": "https://github.com/cathrynlavery/diagram-design",
+      "agent": "dip-quality",
+      "kind": "skill",
+      "use": "Editorial diagram design skill producing self-contained HTML + SVG. Complements Archify for crisp architecture visuals.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "diagram",
+          "svg",
+          "design",
+          "architecture",
+          "skill"
+        ]
+      },
+      "docs": "https://github.com/cathrynlavery/diagram-design",
+      "required": false,
+      "planner_triggers": [
+        "diagram",
+        "svg",
+        "design",
+        "architecture",
+        "skill"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 42400,
+      "section": "quality"
+    },
+    {
+      "id": "angular",
+      "name": "Angular",
+      "repo": "https://github.com/angular/angular",
+      "agent": "dip-frontend",
+      "kind": "framework",
+      "use": "Batteries-included TypeScript web framework with dependency injection, routing and forms. Use when a project already targets Angular.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "angular",
+          "framework",
+          "typescript",
+          "spa",
+          "frontend"
+        ]
+      },
+      "docs": "https://angular.dev",
+      "required": false,
+      "planner_triggers": [
+        "angular",
+        "framework",
+        "typescript",
+        "spa",
+        "frontend"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 101000,
+      "section": "design",
+      "platform": "web"
+    },
+    {
+      "id": "hono",
+      "name": "Hono",
+      "repo": "https://github.com/honojs/hono",
+      "agent": "dip-backend",
+      "kind": "framework",
+      "use": "Ultrafast web framework built on Web Standards. Runs on Cloudflare Workers, Deno, Bun and Node — ideal for edge APIs.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "hono",
+          "api",
+          "edge",
+          "workers",
+          "backend",
+          "typescript"
+        ]
+      },
+      "docs": "https://hono.dev",
+      "required": false,
+      "planner_triggers": [
+        "hono",
+        "api",
+        "edge",
+        "workers",
+        "backend",
+        "typescript"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 32300,
+      "section": "backend",
+      "platform": "web"
+    },
+    {
+      "id": "flask",
+      "name": "Flask",
+      "repo": "https://github.com/pallets/flask",
+      "agent": "dip-backend",
+      "kind": "framework",
+      "use": "Python micro-framework for web applications. Minimal core with a large extension ecosystem; good for Python services and APIs.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "flask",
+          "python",
+          "api",
+          "backend",
+          "wsgi"
+        ]
+      },
+      "docs": "https://flask.palletsprojects.com",
+      "required": false,
+      "planner_triggers": [
+        "flask",
+        "python",
+        "api",
+        "backend",
+        "wsgi"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 74800,
+      "section": "backend"
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "repo": "https://github.com/phoenixframework/phoenix",
+      "agent": "dip-backend",
+      "kind": "framework",
+      "use": "Elixir web framework with first-class realtime (LiveView, channels). Strong for concurrent, realtime applications.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "phoenix",
+          "elixir",
+          "realtime",
+          "backend",
+          "websocket"
+        ]
+      },
+      "docs": "https://hexdocs.pm/phoenix",
+      "required": false,
+      "planner_triggers": [
+        "phoenix",
+        "elixir",
+        "realtime",
+        "backend",
+        "websocket"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 23200,
+      "section": "backend"
+    },
+    {
+      "id": "flutter",
+      "name": "Flutter",
+      "repo": "https://github.com/flutter/flutter",
+      "agent": "dip-mobile",
+      "kind": "framework",
+      "use": "Cross-platform UI toolkit for mobile, web and desktop from one Dart codebase. Consider alongside React Native/Expo for mobile goals.",
+      "install": {},
+      "signals": {
+        "keywords": [
+          "flutter",
+          "dart",
+          "mobile",
+          "cross-platform",
+          "ui"
+        ]
+      },
+      "docs": "https://docs.flutter.dev",
+      "required": false,
+      "planner_triggers": [
+        "flutter",
+        "dart",
+        "mobile",
+        "cross-platform",
+        "ui"
+      ],
+      "integration_type": "knowledge-reference",
+      "security_notes": "",
+      "stars": 179000,
+      "section": "backend"
     }
   ],
   "catalogUiSkills": [
@@ -1721,5 +3072,7 @@
     "12-principles-animation",
     "shadcn-ui",
     "playwright-test"
-  ]
+  ],
+  "catalogTopStarred": 43,
+  "catalogStarSource": "GitHub topic pages, most-stars sort, captured 2026-09-25"
 }

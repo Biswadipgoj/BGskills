@@ -4,7 +4,7 @@ description: Plan a goal before building: pick the few skills and stack entries 
 license: Apache-2.0
 metadata:
   author: Biswodip Goj
-  version: 2.3.0
+  version: 2.4.0
   homepage: https://github.com/Biswadipgoj
 ---
 # Orchestrator — plan the goal, pick the few things it needs, run subagents
